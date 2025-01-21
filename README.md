@@ -1,1 +1,1 @@
-# fe-platform
+# fe_platform
