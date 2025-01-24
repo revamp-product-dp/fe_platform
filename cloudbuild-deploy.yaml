@@ -1,0 +1,55 @@
+steps:
+  # build Vue.js, remove source map
+  - name: "node:18-alpine"
+    entrypoint: "ash"
+    secretEnv: ["SENTRY_AUTH_TOKEN"]
+    args:
+      - -c
+      - |
+        export NODE_OPTIONS=--max_old_space_size=6144 DP_SENTRY_AUTH_TOKEN="$$SENTRY_AUTH_TOKEN"
+        yarn install
+        yarn vite build --mode ${_MODE}
+
+        if [ "${_MODE}" != "develop" ]; then
+          rm -f dist/assets/*.js.map
+        fi
+
+  # upload to GCS
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:alpine"
+    entrypoint: "sh"
+    args:
+      - -c
+      - |
+        ls dist/assets/*.js dist/assets/*.css dist/assets/*.js.map > /workspace/new_files.txt
+
+        # Save a list of old .js, .css, and .js.map files
+        gsutil ls gs://${_HOSTING_BUCKET}/assets/*.js gs://${_HOSTING_BUCKET}/assets/*.css gs://${_HOSTING_BUCKET}/assets/*.js.map > /workspace/old_files.txt
+
+        # Upload new files
+        gsutil cp -r dist/* gs://${_HOSTING_BUCKET}/ || exit 1
+
+        gsutil setmeta -h "Cache-Control:no-cache" gs://${_HOSTING_BUCKET}/index.html || exit 1
+
+        # Delete old files that are not in the new files list
+        cat /workspace/old_files.txt | while read -r old_file; do
+          basename_old=$(basename "$old_file")
+          if ! grep -q "$basename_old" /workspace/new_files.txt; then
+            gsutil rm "$old_file"
+          fi
+        done
+
+        # Timestamp generation for version control
+        timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+        echo "{\"timestamp\": \"${timestamp}\"}" > timestamp.json
+        gsutil cp timestamp.json gs://${_HOSTING_BUCKET}/timestamp.json || exit 1
+        gsutil setmeta -h "Cache-Control:no-cache" gs://${_HOSTING_BUCKET}/timestamp.json || exit 1
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/${_MNG_PROJECT}/secrets/SENTRY_AUTH_TOKEN/versions/latest
+      env: "SENTRY_AUTH_TOKEN"
+
+options:
+  machineType: "E2_HIGHCPU_8"
+
+logsBucket: $_LOG_BUCKET
