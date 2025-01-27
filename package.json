@@ -4,14 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode _local",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "api": "node scripts/generate-api.js"
   },
   "dependencies": {
+    "axios": "^1.7.9",
+    "js-cookie": "^3.0.5",
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.16.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "typescript": "~5.6.2",
