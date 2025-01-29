@@ -1,0 +1,5714 @@
+openapi: 3.0.0
+info:
+  title: Common API
+  description: 共通マスタ管理サービス用API
+  version: v1.0
+  contact:
+    email: takami.hideyuki@revamp.co.jp
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Revamp-DataPlatform/common/v1.0
+  - description: ローカル開発環境
+    url: http://localhost:8080
+
+tags:
+  - name: Account
+    description: アカウント
+  - name: User
+    description: ユーザ管理
+  - name: Personal
+    description: 個人設定
+  - name: AuthorityType
+    description: 権限タイプ
+  - name: Organization
+    description: 組織設定
+  - name: Page
+    description: ページ初期処理
+  - name: DataConnect
+    description: データコネクト
+  - name: DashBoard
+    description: ダッシュボード
+  - name: UserHelp
+    description: ユーザ定義ヘルプ
+  - name: PersonHour
+    description: 作業工数計測テスト用
+paths:
+  /account:
+    get:
+      tags:
+        - Account
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+              example:
+                id: "00000000000000000001"
+                name: foobar
+                mail_address: test@example.com
+                authority_type:
+                  id: "001"
+                  name: foo
+                  authorities:
+                    - menu_cd: "PCSPSC0004"
+                      value: "updatable"
+                    - menu_cd: "PCQASC0004"
+                      value: "updatable"
+                    - menu_cd: "PCBDSC0001"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0008"
+                      value: "updatable"
+                    - menu_cd: "PCINSC0002"
+                      value: "updatable"
+                    - menu_cd: "PCSPSC0001"
+                      value: "updatable"
+                    - menu_cd: "ETWFSC0002"
+                      value: "updatable"
+                    - menu_cd: "ETWFSC0003"
+                      value: "updatable"
+                    - menu_cd: "ETTRSC0001"
+                      value: "updatable"
+                    - menu_cd: "ETTRSC0002"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0003"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0005"
+                      value: "updatable"
+                    - menu_cd: "PCSISC0001"
+                      value: "updatable"
+                    - menu_cd: "PCSISC0002"
+                      value: "updatable"
+                    - menu_cd: "PCSISC0003"
+                      value: "updatable"
+                    - menu_cd: "PCSISC0004"
+                      value: "updatable"
+                    - menu_cd: "PCSISC0005"
+                      value: "updatable"
+                    - menu_cd: "PCQASC0002"
+                      value: "updatable"
+                    - menu_cd: "PCQASC0003"
+                      value: "updatable"
+                    - menu_cd: "GSGSSC0001"
+                      value: "updatable"
+                    - menu_cd: "SMSMSC0001"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0006"
+                      value: "updatable"
+                    - menu_cd: "PCSASC0001"
+                      value: "updatable"
+                    - menu_cd: "PCQASC0001"
+                      value: "updatable"
+                    - menu_cd: "GSGSSC0002"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0007"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0002"
+                      value: "updatable"
+                    - menu_cd: "PCINSC0001"
+                      value: "updatable"
+                    - menu_cd: "GSGSSC0003"
+                      value: "updatable"
+                    - menu_cd: "GSGSSC0004"
+                      value: "updatable"
+                    - menu_cd: "ETWFSC0001"
+                      value: "updatable"
+                    - menu_cd: "PCMMSC0001"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0001"
+                      value: "updatable"
+                    - menu_cd: "ESESSC0003"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0004"
+                      value: "updatable"
+                    - menu_cd: "ESESSC0001"
+                      value: "updatable"
+                    - menu_cd: "ESESSC0002"
+                      value: "updatable"
+                    - menu_cd: "PCMSSC0009"
+                      value: "updatable"
+                    - menu_cd: "PCSPSC0002"
+                      value: "none"
+                is_administrator: false
+                lang_cd: "ja"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /account/signin:
+    get:
+      tags:
+        - Account
+      operationId: api.auth.signin
+      security: []
+      parameters:
+        - name: x-rvp-dp-uid
+          in: header
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 100
+          example: test@example.com
+        - name: x-rvp-dp-password
+          in: header
+          required: true
+          schema:
+            $ref: "#/components/schemas/Password"
+      responses:
+        200:
+          description: 認証成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SigninUser"
+              example:
+                id: 1
+                name: foobar
+                mail_address: test@example.com
+                init_menu:
+                  menu_group_cd: "GSGS"
+                  menu_cd: "GSGSSC0001"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+            Set-cookie:
+              description: cookie Auth
+              schema:
+                type: string
+                example: access_token_cookie=xyz-456; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /account/signout:
+    get:
+      tags:
+        - Account
+      operationId: api.auth.signout
+      parameters:
+        - name: X-CSRF-TOKEN
+          in: header
+          required: true
+          schema:
+            type: string
+          example: csrf_access_token=xyz-123
+      responses:
+        200:
+          description: 成功
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /account/password:
+    post:
+      tags:
+        - Account
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - old_password
+                - new_password
+              properties:
+                old_password:
+                  $ref: "#/components/schemas/Password"
+                new_password:
+                  $ref: "#/components/schemas/Password"
+      responses:
+        200:
+          description: 成功
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /account/password/reset:
+    post:
+      tags:
+        - Account
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - callback_url
+              properties:
+                email:
+                  type: string
+                  format: email
+                callback_url:
+                  type: string
+                  format: uri
+                  example: https://dev.example.com/menu/password/reset
+                  description: パスワードリセット画面のURL
+      responses:
+        200:
+          description: 成功
+        500:
+          description: サーバエラー
+
+  /account/password/reset/{token}:
+    get:
+      description: パスワード再設定メールに付与されたトークンの照会を行う
+      tags:
+        - Account
+      security: []
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - email
+                properties:
+                  email:
+                    type: string
+                    format: email
+        400:
+          description: バリデーションエラー
+        422:
+          description: 有効期限切れ
+        500:
+          description: サーバエラー
+
+    patch:
+      description: トークンの照会＆パスワード再設定
+      tags:
+        - Account
+      security: []
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - uid
+                - password
+              properties:
+                uid:
+                  type: string
+                  minLength: 1
+                  maxLength: 100
+                password:
+                  $ref: "#/components/schemas/Password"
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        422:
+          description: 有効期限切れ
+        500:
+          description: サーバエラー
+
+  /account/redirect/{redirect_token}:
+    patch:
+      description: 画面遷移トークンの照会&ログイントークンの取得
+      tags:
+        - Account
+      security: []
+      parameters:
+        - name: redirect_token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - top_url
+                properties:
+                  top_url:
+                    type: string
+                    nullable: true
+              example:
+                top_url: "https://xxx"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - top_url
+                properties:
+                  top_url:
+                    type: string
+                    nullable: true
+              example:
+                top_url: "https://xxx"
+        422:
+          description: 有効期限切れ
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - top_url
+                properties:
+                  top_url:
+                    type: string
+                    nullable: true
+              example:
+                top_url: "https://xxx"
+        500:
+          description: サーバエラー
+
+  /users:
+    get:
+      tags:
+        - User
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 絞り込み条件
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - mail_address
+              - name
+              - authority_type
+              - gs_authority_type
+              - is_administrator
+              - register_date
+            default: mail_address
+          description: ソートキー
+        - name: sort_order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: asc=昇順, desc=降順
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            default: 0
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - users
+                  - length
+                  - is_last
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                  length:
+                    type: integer
+                    format: int32
+                    description: 検索結果の総件数
+                  is_last:
+                    type: boolean
+              example:
+                users:
+                  - id: "00000000000000000001"
+                    name: "山田 太郎"
+                    mail_address: "yamada.taro@example.com"
+                    authority_type:
+                      value: "0000000001"
+                      label: "権限01"
+                    gs_authority_type:
+                      value: "0000000001"
+                      label: "汎用検索権限01"
+                    is_administrator: true
+                    register_date: "20241010"
+                  - id: "00000000000000000002"
+                    name: "田中 花子"
+                    mail_address: "tanaka.hanako@example.com"
+                    authority_type:
+                      value: "0000000002"
+                      label: "権限02"
+                    gs_authority_type:
+                      value: "0000000002"
+                      label: "汎用検索権限02"
+                    is_administrator: false
+                    register_date: "20230919"
+                length: 48
+                is_last: false
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+    delete:
+      tags:
+        - User
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+          description: ユーザーID
+      responses:
+        200:
+          description: 成功
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - User
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - users
+              properties:
+                users:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/User"
+                  example:
+                    - id: "00000000000000000001"
+                      name: "山田 太郎"
+                      mail_address: "yamada.taro@example.com"
+                      authority_type:
+                        value: "0000000001"
+                        label: "権限01"
+                      gs_authority_type:
+                        value: "0000000001"
+                        label: "汎用検索権限01"
+                      is_administrator: true
+                    - id: "00000000000000000002"
+                      name: "田中 花子"
+                      mail_address: "tanaka.hanako@example.com"
+                      authority_type:
+                        value: "0000000002"
+                        label: "権限02"
+                      gs_authority_type:
+                        value: "0000000002"
+                        label: "汎用検索権限02"
+                      is_administrator: false
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /users/invitations:
+    post:
+      description: 対象のメールアドレスに対し、招待メールを送付する
+      tags:
+        - User
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - callback_url
+                - authority_type
+                - email_list
+                - message
+              properties:
+                callback_url:
+                  type: string
+                  format: uri
+                  example: https://dev.example.com/users/init
+                  description: ユーザ初期設定画面のURL
+                authority_type:
+                  type: string
+                email_list:
+                  type: array
+                  items:
+                    type: string
+                    format: email
+                message:
+                  type: string
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /users/join/{token}:
+    get:
+      description: 招待メールに付与されたトークンの照会を行う
+      tags:
+        - User
+      security: []
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mail_address
+                properties:
+                  mail_address:
+                    type: string
+              example:
+                mail_address: "test@example.com"
+
+        400:
+          description: バリデーションエラー
+        422:
+          description: 有効期限切れ
+        500:
+          description: サーバエラー
+
+    post:
+      description: 招待メールに付与されたトークンの照会＆ユーザ登録処理を行う
+      tags:
+        - User
+      security: []
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - password
+              properties:
+                password:
+                  $ref: "#/components/schemas/Password"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: 1
+                name: foobar
+                mail_address: test@example.com
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        422:
+          description: 有効期限切れ
+        500:
+          description: サーバエラー
+
+  /authority_type/authority_type_header:
+    get:
+      tags:
+        - AuthorityType
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 絞り込み条件
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - authority_type
+              - authority_type_name
+          description: 絞り込み条件
+        - name: sort_order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: asc=昇順, desc=降順
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - authority_types
+                properties:
+                  authority_types:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AuthorityType"
+                description: v_user_authority_type_header
+              example:
+                authority_types:
+                  - value: "INIT000003"
+                    label: 店舗権限
+                  - value: "INIT000002"
+                    label: 本部権限
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - AuthorityType
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - authority_types
+              properties:
+                authority_types:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/AuthorityType"
+              description: v_user_authority_type_header
+              example:
+                authority_types:
+                  - value: null
+                    label: 店舗権限
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - authority_types
+                properties:
+                  authority_types:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AuthorityType"
+                example:
+                  authority_types:
+                    - value: "UAT00003"
+                      label: "店舗権限"
+
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /authority_type/authority_type_detail:
+    get:
+      tags:
+        - AuthorityType
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: authority_type
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 権限タイプ
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 絞り込み条件
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - menu_group_name
+              - menu_name
+              - authority
+          description: 絞り込み条件
+        - name: sort_order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: asc=昇順, desc=降順
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            default: 0
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - authority_type_detail
+                  - length
+                  - is_last
+                properties:
+                  authority_type_detail:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AuthorityTypeDetail"
+                    description: v_user_authority_type_detail
+                  length:
+                    type: integer
+                    format: int32
+                    description: 検索結果の総件数
+                  is_last:
+                    type: boolean
+              examples:
+                example-1:
+                  value:
+                    authority_type_details:
+                      - menu_group:
+                          value: "00001"
+                          label: "汎用検索"
+                        menu:
+                          value: "00001"
+                          label: "汎用検索設定"
+                        authority:
+                          value: "00001"
+                          label: "更新可"
+                        init_menu_flag: false
+                      - menu_group:
+                          value: "00001"
+                          label: "汎用検索"
+                        menu:
+                          value: "00002"
+                          label: "権限タイプ設定"
+                        authority:
+                          value: "000002"
+                          label: "参照のみ"
+                        init_menu_flag: false
+
+                    length: 32
+                    is_last: false
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - AuthorityType
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - authority_type
+                - authority_type_details
+              properties:
+                authority_type:
+                  $ref: "#/components/schemas/AuthorityType"
+                authority_type_details:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/AuthorityTypeDetail"
+              example:
+                authority_type:
+                  value: "INIT000002"
+                  label: "本部権限"
+                authority_type_details:
+                  - menu_group:
+                      value: "00001"
+                      label: "汎用検索"
+                    menu:
+                      value: "00001"
+                      label: "汎用検索設定"
+                    authority:
+                      value: "00001"
+                      label: "更新可"
+                    init_menu_flag: true
+
+      responses:
+        200:
+          description: 成功
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/users:
+    get:
+      description: ユーザ管理画面の初期処理
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      # parameters:
+      #   - name: lang
+      #     in: query
+      #     required: false
+      #     schema:
+      #       type: string
+      #     description: 表示言語
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - authority_type_list
+                properties:
+                  authority_type_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AuthorityType"
+                  gs_authority_type_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserGsAuthority"
+              example:
+                authority_type_list:
+                  - value: "0000000001"
+                    label: 権限01
+                  - value: "0000000002"
+                    label: 権限02
+                  - value: "0000000003"
+                    label: 権限03
+                  - value: "0000000004"
+                    label: 権限04
+                gs_authority_type_list:
+                  - value: "0000000001"
+                    label: 汎用検索権限01
+                  - value: "0000000002"
+                    label: 汎用検索権限02
+                  - value: "0000000003"
+                    label: 汎用検索権限03
+                  - value: "0000000004"
+                    label: 汎用検索権限04
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/lang_cd:
+    get:
+      description: 個人設定/組織設定の言語プルダウン
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - lang_list
+                properties:
+                  lang_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/LangList"
+              example:
+                lang_list:
+                  - lang_cd: "ja_jp"
+                    lang_name: 日本語
+                  - lang_cd: "en_us"
+                    lang_name: English
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/timezones:
+    get:
+      description: 組織設定のタイムゾーンプルダウン
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - timezone_list
+                properties:
+                  timezone_list:
+                    type: array
+                    items:
+                      type: string
+              example:
+                timezone_list:
+                  - "Asia/Tokyo"
+                  - "America/New_York"
+                  - "America/Detroit"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/authority_type_list:
+    get:
+      description: 権限タイプマスタ画面の初期処理
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - authority_type_list
+                properties:
+                  authority_type_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Authority"
+                example:
+                  authority_type_list:
+                    - value: "none"
+                      label: "権限なし"
+                    - value: "only-ref"
+                      label: "参照のみ"
+                    - value: "updatable"
+                      label: "更新可能"
+                    - value: "approvable"
+                      label: "承認可能"
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/data_connect/connect_list:
+    get:
+      description: データコネクトマスタ画面の初期処理
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 絞り込み条件
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data_connect_list
+                properties:
+                  data_connect_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DataConnectList"
+                example:
+                  data_connect_list:
+                    - value: "INIT0000000000000001"
+                      label: "BigQuery"
+                      is_edit: true
+                    - value: "INIT0000000000000002"
+                      label: "BigQuery(D-STG)"
+                      is_edit: false
+                    - value: "INIT0000000000000003"
+                      label: "GCS"
+                      is_edit: false
+                    - value: "INIT0000000000000004"
+                      label: "Gdrive"
+                      is_edit: false
+  /pages/data_connect/connect_type_list:
+    get:
+      description: データコネクトマスタ画面の初期処理
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - connect_type_list
+                properties:
+                  connect_type_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ConnectTypeList"
+                example:
+                  connect_type_list:
+                    - value: "BigQuery"
+                    - value: "CloudSQL"
+                      db_type_list:
+                        - "postgresql"
+                        - "mysql"
+                    - value: "Aurora"
+                      db_type_list:
+                        - "postgresql"
+                        - "mysql"
+                    - value: "Google Cloud Strage"
+                    - value: "SFTP"
+                    - value: "FTP"
+                    - value: "Googld Drive"
+                    - value: "S3"
+
+  /pages/data_connect/authority_type_list:
+    get:
+      description: データコネクトマスタ画面の初期処理
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - authority_type_list
+                properties:
+                  authority_type_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ConnectAuthorityType"
+              example:
+                authority_type_list:
+                  - value: 0
+                    label: "編集および使用不可"
+                  - value: 1
+                    label: "編集不可、使用のみ可"
+                  - value: 2
+                    label: "編集および使用可"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /pages/menu_list:
+    get:
+      description: メニュー一覧
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - menu_group_list
+                properties:
+                  menu_group_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MenuGroupList"
+              example:
+                menu_group_list:
+                  - value: "PCBD"
+                    label: "ダッシュボード"
+                    service_unit: "PRODUCT-COM"
+                    order_value: "001"
+                    menu_list:
+                      - value: "PCBDSC0001"
+                        label: "ダッシュボード"
+                        order_value: "01"
+                        menu_view_flag: true
+                  - value: "GSGS"
+                    label: "汎用検索"
+                    service_unit: "GENERAL-SEARCH"
+                    order_value: "011"
+                    menu_list:
+                      - value: "GSGSSC0001"
+                        label: "汎用検索"
+                        order_value: "01"
+                        menu_view_flag: true
+                      - value: "GSGSSC0002"
+                        label: "検索設定"
+                        order_value: "02"
+                        menu_view_flag: true
+                      - value: "GSGSSC0003"
+                        label: "検索権限設定"
+                        order_value: "03"
+                        menu_view_flag: true
+                      - value: "GSGSSC0004"
+                        label: "お気に入り編集"
+                        order_value:
+                        menu_view_flag: false
+                  - value: "ETWF"
+                    label: "フローデザイナー"
+                    service_unit: "ETL"
+                    order_value: "022"
+                    menu_list:
+                      - value: "ETWFSC0001"
+                        label: "フローデザイナー"
+                        order_value: "01"
+                        menu_view_flag: true
+                      - value: "ETWFSC0002"
+                        label: "フロー実行状況"
+                        order_value: "02"
+                        menu_view_flag: true
+                      - value: "ETWFSC0003"
+                        label: "プロンプト開発"
+                        order_value: "03"
+                        menu_view_flag: true
+                  - value: "ETTR"
+                    label: "翻訳"
+                    service_unit: "ETL"
+                    order_value: "023"
+                    menu_list:
+                      - value: "ETTRSC0001"
+                        label: "翻訳ディレクトリ設定"
+                        order_value: "01"
+                        menu_view_flag: true
+                      - value: "ETTRSC0002"
+                        label: "翻訳ファイルアップロード"
+                        order_value: "02"
+                        menu_view_flag: true
+                  - value: "PCMS"
+                    label: "マスタ管理"
+                    service_unit: "PRODUCT-COM"
+                    order_value: "031"
+                    menu_list:
+                      - value: "PCMSSC0001"
+                        label: "ユーザマスタ"
+                        order_value: "01"
+                        menu_view_flag: true
+                      - value: "PCMSSC0003"
+                        label: "組織マスタ"
+                        order_value: "02"
+                        menu_view_flag: true
+                      - value: "PCMSSC0004"
+                        label: "権限マスタ"
+                        order_value: "03"
+                        menu_view_flag: false
+                      - value: "PCMSSC0005"
+                        label: "権限タイプマスタ"
+                        order_value: "04"
+                        menu_view_flag: true
+                      - value: "PCMSSC0006"
+                        label: "データコネクト"
+                        order_value: "05"
+                        menu_view_flag: true
+                      - value: "PCMSSC0007"
+                        label: "テーブル定義"
+                        order_value: "06"
+                        menu_view_flag: true
+                      - value: "PCMSSC0008"
+                        label: "通知先マスタ"
+                        order_value: "07"
+                        menu_view_flag: true
+                      - value: "PCMSSC0009"
+                        label: "ヘルプ定義マスタ"
+                        order_value: "08"
+                        menu_view_flag: true
+                      - value: "PCMSSC0002"
+                        label: "個人設定"
+                        order_value:
+                        menu_view_flag: false
+                  - value: "PCIN"
+                    label: "インフォメーション"
+                    service_unit: "PRODUCT-COM"
+                    order_value: "041"
+                    menu_list:
+                      - value: "PCINSC0001"
+                        label: "インフォメーション"
+                        order_value: "01"
+                        menu_view_flag: true
+                      - value: "PCINSC0002"
+                        label: "インフォメーション登録"
+                        order_value: "02"
+                        menu_view_flag: false
+                  - value: "PCSP"
+                    label: "サポート"
+                    service_unit: "PRODUCT-COM"
+                    order_value: "051"
+                    menu_list:
+                      - value: "PCSPSC0001"
+                        label: "FAQ・QA管理"
+                        order_value: "01"
+                        menu_view_flag: false
+                      - value: "PCSPSC0002"
+                        label: "QA"
+                        order_value: "02"
+                        menu_view_flag: true
+                  - value: "SMSM"
+                    label: "ITSM"
+                    service_unit: "ITSM"
+                    order_value: "061"
+                    menu_list:
+                      - value: "SMSMSC0001"
+                        label: "サービス管理"
+                        order_value:
+                        menu_view_flag: false
+                  - value: "PCSA"
+                    label: "システム分析"
+                    service_unit: "ITOA"
+                    order_value: "071"
+                    menu_list:
+                      - value: "PCSASC0001"
+                        label: "システム利用状況"
+                        order_value:
+                        menu_view_flag: false
+                  - value: "PCQA"
+                    label: "FAQ"
+                    service_unit: "PRODUCT-COM"
+                    order_value: "081"
+                    menu_list:
+                      - value: "PCQASC0001"
+                        label: "FAQ検索設定"
+                        order_value: "01"
+                        menu_view_flag: true
+                      - value: "PCQASC0002"
+                        label: "QA登録"
+                        order_value: "02"
+                        menu_view_flag: false
+                      - value: "PCQASC0003"
+                        label: "QAマージ"
+                        order_value: "03"
+                        menu_view_flag: true
+                  - value: "ESES"
+                    label: "エンタープライズサーチ"
+                    service_unit: "ENTERPRISE-SEARCH"
+                    order_value: "091"
+                    menu_list:
+                      - value: "ESESSC0001"
+                        label: "ベクトル対象設定"
+                        order_value: "01"
+                        menu_view_flag: true
+                      - value: "ESESSC0002"
+                        label: "エンタープライズサーチ設定"
+                        order_value: "02"
+                        menu_view_flag: true
+                      - value: "ESESSC0003"
+                        label: "エンタープライズサーチ"
+                        order_value: "03"
+                        menu_view_flag: true
+                  - value: "PCMM"
+                    label: "議事録"
+                    service_unit: "MEETING"
+                    order_value: "101"
+                    menu_list:
+                      - value: "PCMMSC0001"
+                        label: "議事録設定"
+                        order_value: "01"
+                        menu_view_flag: true
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/board_list:
+    get:
+      description: ダッシュボード一覧
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - last_selected
+                  - board_list
+                properties:
+                  last_selected:
+                    type: string
+                    nullable: true
+                  board_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/BoardList"
+              example:
+                last_selected: "INIT-DI0001"
+                board_list:
+                  - value: "INIT-DI0001"
+                    label: "初期ボード"
+                    is_public: true
+                    is_default: true
+                  - value: "INIT-DI0002"
+                    label: "テストボード"
+                    is_public: false
+                    is_default: false
+
+  /pages/pallete_list:
+    get:
+      description: ダッシュボード一覧
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - pallete_list
+                properties:
+                  pallete_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PalleteList"
+              example:
+                pallete_list:
+                  - value: "vivid"
+                    hue: 250
+                    saturation: 100
+                    lightness: 55
+                    hue_shift: 60
+                  - value: "pastel"
+                    hue: 250
+                    saturation: 100
+                    lightness: 70
+                    hue_shift: 60
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/card_setting_list:
+    get:
+      description: カード設定一覧
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card_setting_list
+                properties:
+                  card_setting_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CardType"
+              example:
+                card_setting_list:
+                  - value: "faq_popular_question"
+                    label: "アクセス数の多いFAQ"
+                    graph_type_list:
+                      - table
+                    min_width: 6
+                    min_height: 1
+                    input_param:
+                      - value: "limit"
+                        label: "表示数"
+                        required: true
+                        valid_type: "INTEGER"
+                        init_value: "5"
+                      - value: "count_days"
+                        label: "カウント日数"
+                        required: true
+                        valid_type: "INTEGER"
+                        init_value: "30"
+                      - value: "faq_search_type_id"
+                        label: "FAQ検索名"
+                        required: true
+                        valid_type: "LIST"
+                        value_scope:
+                          - value: "1"
+                            label: "問合せ一覧(simcse)"
+                          - value: "2"
+                            label: "BQ_dp_QA(simcse)"
+                  - value: "faq_popular_word"
+                    label: "FAQ頻出ワード"
+                    graph_type_list:
+                      - table
+                    min_width: 6
+                    min_height: 1
+                    input_param:
+                      - value: "limit"
+                        label: "表示数"
+                        required: true
+                        valid_type: "INTEGER"
+                        init_value: "10"
+                      - value: "count_days"
+                        label: "カウント日数"
+                        required: true
+                        valid_type: "INTEGER"
+                        init_value: "30"
+                      - value: "faq_search_type_id"
+                        label: "FAQ検索名"
+                        required: true
+                        valid_type: "LIST"
+                        value_scope:
+                          - value: "1"
+                            label: "問合せ一覧(simcse)"
+                          - value: "2"
+                            label: "BQ_dp_QA(simcse)"
+                  - value: "gs_history"
+                    label: "汎用検索履歴"
+                    input_param:
+                      - value: "limit"
+                        label: "表示件数"
+                        required: true
+                        valid_type: "INTEGER"
+                        init_value: "5"
+                      - value: "theme_id"
+                        label: "汎用検索テーマ"
+                        required: true
+                        valid_type: "LIST"
+                        value_scope:
+                          - value: "INIT-GT0001"
+                            label: "初期テーマ"
+                          - value: "2"
+                            label: "BQ_dp_QA(simcse)"
+                  - value: "faq_usage_result"
+                    label: "FAQ利用実績"
+                    graph_type_list:
+                      - bar
+                    min_width: 3
+                    min_height: 2
+                    input_param:
+                      - value: "count_days"
+                        label: "カウント日数"
+                        required: true
+                        valid_type: "INTEGER"
+                      - value: "faq_search_type_id"
+                        label: "FAQ検索名"
+                        required: true
+                        valid_type: "LIST"
+                        value_scope:
+                          - value: "1"
+                            label: "問合せ一覧(simcse)"
+                          - value: "2"
+                            label: "BQ_dp_QA(simcse)"
+                  - value: "faq_success_rate"
+                    label: "FAQ正答率"
+                    graph_type_list:
+                      - line
+                    min_width: 4
+                    min_height: 1
+                    input_param:
+                      - value: "count_days"
+                        label: "カウント日数"
+                        required: true
+                        valid_type: "INTEGER"
+                      - value: "faq_search_type_id"
+                        label: "FAQ検索名"
+                        required: true
+                        valid_type: "LIST"
+                        value_scope:
+                          - value: "1"
+                            label: "問合せ一覧(simcse)"
+                          - value: "2"
+                            label: "BQ_dp_QA(simcse)"
+                  - value: "faq_usage_result_success_rate"
+                    label: "FAQ利用実績×正答率"
+                    graph_type_list:
+                      - bar
+                      - line
+                    min_width: 4
+                    min_height: 1
+                    input_param:
+                      - value: "count_days"
+                        label: "カウント日数"
+                        required: true
+                        valid_type: "INTEGER"
+                      - value: "faq_search_type_id"
+                        label: "FAQ検索名"
+                        required: true
+                        valid_type: "LIST"
+                        value_scope:
+                          - value: "1"
+                            label: "問合せ一覧(simcse)"
+                          - value: "2"
+                            label: "BQ_dp_QA(simcse)"
+                  - value: "es_usage_result"
+                    label: "ES利用実績"
+                    graph_type_list:
+                      - line
+                    min_width: 4
+                    min_height: 1
+                    input_param:
+                      - value: "count_days"
+                        label: "カウント日数"
+                        required: true
+                        valid_type: "INTEGER"
+                      - value: "es_theme_id"
+                        label: "ES設定"
+                        required: true
+                        valid_type: "LIST"
+                        value_scope:
+                          - value: "ETI0000001"
+                            label: "データプラットフォーム 検索"
+                          - value: "ETI0000002"
+                            label: "GDriveテスト"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/user_help/files:
+    get:
+      description: 各種ページで表示するヘルプ画像
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: menu_cd
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageUserHelpFile"
+              examples:
+                example-1:
+                  value:
+                    menu_cd: "GSGSSC0001"
+                    name: "test_upload.pdf"
+                    path: "https://docs.google.com/spreadsheets/d/1uhxKbN6Lq6LSHMwJu9tj3RQyWSWyZFr-/export?format=xlsx"
+                example-2:
+                  value:
+                    menu_cd: "GSGSSC0001"
+                    name: null
+                    path: null
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /user_personal:
+    get:
+      tags:
+        - Personal
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserPersonal"
+              examples:
+                example-1:
+                  value:
+                    user_name: 高見　英幸
+                    mail_address: takami.hideyuki@revamp.co.jp
+                    lang_cd: ja_jp
+                    mail_notification_flag: true
+                    push_notification_flag: true
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - Personal
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPersonal"
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /organization/orgnization_master:
+    get:
+      tags:
+        - Organization
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationMaster"
+              examples:
+                example-1:
+                  value:
+                    org_name: Revamp
+                    time_zone: Asia/Tokyo
+                    lang_cd: ja_jp
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - Organization
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationMaster"
+      responses:
+        200:
+          description: 成功
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /organization/service_control:
+    get:
+      tags:
+        - Organization
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceControl"
+              examples:
+                example-1:
+                  value:
+                    gs_connect_num: 10
+                    etl_connect_num: 1
+                    data_capacity: 100
+                    gcp_project_name: rvp-dp-prd
+                    domain: rvp-dataplatform
+                    gcs_bucket_name: rvp-db-bucket
+                    gcp_service_account_name: xxx@gcp.service.account.com
+                    active_service_list:
+                      - value: "PRODUCT-COM"
+                        label: "プロダクト共通"
+                        active_flag: true
+                      - value: "ETL"
+                        label: "ETL"
+                        active_flag: true
+                      - value: "GENERAL-SEARCH"
+                        label: "汎用検索"
+                        active_flag: true
+                      - value: "FAQ"
+                        label: "FAQ"
+                        active_flag: false
+                    use_git_flag:
+                    ip_filter_list:
+                      - "127.0.0.1"
+                      - "39.110.217.206"
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - Organization
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ServiceControl"
+      responses:
+        200:
+          description: 成功
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /organization/exec_date:
+    get:
+      tags:
+        - Organization
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - exec_date
+                properties:
+                  exec_date:
+                    type: string
+                    description: v_date.exec_date
+              examples:
+                example-1:
+                  value:
+                    exec_date: "20230301"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - Organization
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - exec_date
+              properties:
+                exec_date:
+                  type: string
+      responses:
+        200:
+          description: 成功
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /data_connect:
+    get:
+      tags:
+        - DataConnect
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: connect_code
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 接続コード
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataConnect"
+              example:
+                connect_name: "BigQuery"
+                connect_info:
+                  connect_type: "BigQuery"
+                  project_id: "scml-core-biz"
+                  region: "asia-northeast1"
+                  service_account: "rvp-test-corp@scml-core-biz.iam.gserviceaccount.com"
+                  dataset_id: "rvp_test_corp_dev"
+                db_type: null
+                authority_type:
+                  value: 1
+                  label: "編集可能"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - DataConnect
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataConnect"
+            example:
+              coonect_code: "INIT0000000000000001"
+              connect_name: "BigQuery"
+              connect_info:
+                connect_type: "BigQuery"
+                project_id: "scml-core-biz"
+                region: "asia-northeast1"
+                service_account: "rvp-test-corp@scml-core-biz.iam.gserviceaccount.com"
+                dataset_id: "rvp_test_corp_dev"
+              db_type: null
+              authority_type:
+                value: 1
+                label: "編集可能"
+      responses:
+        200:
+          description: 成功
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /data_connect/{connectCode}:
+    delete:
+      tags:
+        - DataConnect
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: connectCode
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ConnectCode"
+      responses:
+        200:
+          description: 成功
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /data_connect/regist_connect:
+    post:
+      tags:
+        - DataConnect
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegistConnect"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - connect_code
+                properties:
+                  connect_code:
+                    type: string
+              example:
+                connect_code: "INIT0000000000000001"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: object
+                required:
+                  - connect_code
+                properties:
+                  connect_code:
+                    type: string
+                example:
+                  connect_code: "INIT0000000000000001"
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /data_connect/check_connect:
+    post:
+      tags:
+        - DataConnect
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        description: 画面入力されたJSONをそのままPOSTする
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectCheck"
+
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectCheckResult"
+              examples:
+                example-1:
+                  value:
+                    value: "success"
+                    label: "成功"
+                    message: "接続確認に成功しました"
+                example-2:
+                  value:
+                    value: "failure"
+                    label: "失敗"
+                    message: "データセットに接続できませんでした"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /dashboard:
+    get:
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: board_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: ボードID
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dashboard"
+              example:
+                value: "INIT-DI0001"
+                label: "初期ボード"
+                pallete_pattern: "vivid"
+                card_list:
+                  # - value: "INIT-DC0001"
+                  #   label: "汎用検索履歴"
+                  #   order_value: 1
+                  #   card_type: "gs_history"
+                  #   grid_width: 3
+                  #   grid_height: 2
+                  #   input_param:
+                  #     limit: 5
+                  #     offset: 0
+                  #     sort:
+                  - value: "INIT-DC0003"
+                    label: "アクセス数の多いFAQ"
+                    order_value: 2
+                    card_type: "faq_popular_question"
+                    grid_width: 6
+                    grid_height: 1
+                    graph_type: ["table"]
+                    color_pattern:
+                      - 2
+                    input_param:
+                      limit: 5
+                      count_days: 30
+                      faq_search_type_id: "ID-002"
+                  - value: "INIT-DC0004"
+                    label: "FAQ頻出ワード"
+                    order_value: 3
+                    card_type: "faq_popular_word"
+                    grid_width: 6
+                    grid_height: 1
+                    graph_type:
+                      - "table"
+                    color_pattern:
+                      - 2
+                    input_param:
+                      limit: 10
+                      count_days: 30
+                      faq_search_type_id: "ID-002"
+                  - value: "INIT-DC0005"
+                    label: "FAQ利用実績"
+                    order_value: 4
+                    card_type: "faq_usage_result"
+                    grid_width: 4
+                    grid_height: 1
+                    graph_type:
+                      - "bar"
+                    color_pattern:
+                      - 2
+                    input_param:
+                      count_days: 30
+                      faq_search_type_id: "ID-002"
+                  - value: "INIT-DC0006"
+                    label: "FAQ正答率"
+                    order_value: 5
+                    card_type: "faq_success_rate"
+                    grid_width: 4
+                    grid_height: 1
+                    graph_type:
+                      - "line"
+                    color_pattern:
+                      - 2
+                    input_param:
+                      count_days: 30
+                      faq_search_type_id: "ID-002"
+                  - value: "INIT-DC0007"
+                    label: "FAQ利用実績×正答率"
+                    order_value: 6
+                    card_type: "faq_usage_result_success_rate"
+                    grid_width: 4
+                    grid_height: 1
+                    graph_type:
+                      - "bar"
+                      - "line"
+                    color_pattern:
+                      - 2
+                    input_param:
+                      count_days: 30
+                      faq_search_type_id: "ID-002"
+                  - value: "INIT-DC0008"
+                    label: "ES利用実績"
+                    order_value: 7
+                    card_type: "es_usage_result"
+                    grid_width: 4
+                    grid_height: 1
+                    graph_type:
+                      - "line"
+                    color_pattern:
+                      - 2
+                    input_param:
+                      count_days: 5
+                      es_theme_id:
+                        - "ETI0000001"
+                        - "ETI0000002"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+    post:
+      tags:
+        - DashBoard
+      description: ダッシュボードの追加・更新を行う。valueがnullの場合は新規追加
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DashboardSetting"
+            examples:
+              example-1:
+                description: 更新
+                value:
+                  value: "INIT-DI0001"
+                  label: "初期ボード_test"
+                  pallete_pattern: null
+                  public_flag: true
+                  default_flag: true
+                  card_order:
+                    - value: "INIT-DC0001"
+                      order_value: 3
+                    - value: "INIT-DC0002"
+                      order_value: 2
+                    - value: "INIT-DC0003"
+                      order_value: 1
+              example-2:
+                description: 新規追加
+                value:
+                  value: null
+                  label: "個人用Dashboard01"
+                  pallete_pattern: null
+                  public_flag: false
+                  default_flag: false
+                  card_order: null
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - board_id
+                properties:
+                  board_id:
+                    type: string
+              example:
+                board_id: "INIT-BD0002"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/{board_id}:
+    delete:
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: v_dashboard.board_id
+      responses:
+        200:
+          description: 成功
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/card_setting:
+    post:
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - value
+                - card_setting
+              properties:
+                value:
+                  type: string
+                  description: v_dashboard.board_id
+                card_setting:
+                  $ref: "#/components/schemas/DashboardCardSetting"
+            example:
+              value: "INIT-BI0001"
+              card_setting:
+                value: "INIT-DC0002"
+                label: "FAQ NG テスト"
+                grid_width: 1
+                grid_height: 1
+                graph_type:
+                  - "bar"
+                color_pattern:
+                  - 1
+                input_param:
+                  limit: 5
+                  count_days: 30
+                  faq_search_type_id: "2"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card_id
+                  - order_value
+                properties:
+                  card_id:
+                    type: string
+                  order_value:
+                    type: integer
+              example:
+                card_id: "INIT-BC0001"
+                order_value: 4
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/card_setting/{card_id}:
+    delete:
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: card_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/board_copy:
+    post:
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BoardCopy"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - board_id
+                properties:
+                  board_id:
+                    type: string
+              example:
+                board_id: "INIT-DI0001"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/gs_history:
+    get:
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: theme_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 50
+            default: 10
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            default: 0
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - gs_seq_id
+              - file_name
+              - file_type
+              - start_date
+              - end_date
+              - status
+            default: gs_seq_id
+          description: ソートキー
+        - name: sort_order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
+          description: asc=昇順, desc=降順
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - histories
+                  - length
+                  - is_last
+                properties:
+                  histories:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/GsHistory"
+                  length:
+                    type: integer
+                    format: int32
+                    description: 検索結果の総件数
+                  is_last:
+                    type: boolean
+              example:
+                histories:
+                  - gs_seq_id: "GSH00000000000000001"
+                    file_name: "GSH00000000000000001-出力テスト01.csv"
+                    file_type:
+                      value: csv
+                      label: CSV
+                    start_date: "20220101133010"
+                    end_date: "20220101133010"
+                    status:
+                      value: compleated
+                      label: 完了
+                    is_link_enable: true
+                  - gs_seq_id: "GSH00000000000000002"
+                    file_name: "店舗ユーザー取込テスト"
+                    file_type:
+                      value: csv
+                      label: CSV
+                    start_date: "20230710155430"
+                    end_date: "20230710155600"
+                    status:
+                      value: compleated
+                      label: 完了
+                    is_link_enable: false
+                length: 1
+                is_last: true
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_popular_question:
+    get:
+      tags:
+        - DashBoard
+      description: アクセス数の多いFAQ
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 50
+            default: 5
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 30
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - faq_popular_question
+                properties:
+                  faq_popular_question:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FAQPopularQuestionResult"
+              example:
+                faq_popular_question:
+                  - faq_id: "49"
+                    question: "regist_kbnの分布について教えてください"
+                    count: 5
+                  - faq_id: "35"
+                    question: "納期管理リストにある登録区分について、「発注推奨数登録」と「入出庫表」の違いは何ですか。"
+                    count: 4
+                  - faq_id: "33"
+                    question: "仕入れ発注書を商品に同梱する入日記として利用して良いものなのでしょうか？"
+                    count: 3
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_usage_result:
+    get:
+      tags:
+        - DashBoard
+      description: FAQ利用実績
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 30
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - faq_usage_result
+                properties:
+                  faq_usage_result:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FAQUsageResult"
+              example:
+                faq_usage_result:
+                  - date: "20230901"
+                    count: "10"
+                  - date: "20230902"
+                    count: "2"
+                  - date: "20230903"
+                    count: "0"
+                  - date: "20230903"
+                    count: "1"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_success_rate:
+    get:
+      tags:
+        - DashBoard
+      description: FAQ利用実績
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 30
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - faq_success_rate
+                properties:
+                  faq_success_rate:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FAQSuccessRate"
+              example:
+                faq_success_rate:
+                  - date: "20230901"
+                    success_rate: 0.62
+                  - date: "20230902"
+                    success_rate: 0.5
+                  - date: "20230903"
+                    success_rate: 0
+                  - date: "20230903"
+                    success_rate: 1
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_popular_word:
+    get:
+      tags:
+        - DashBoard
+      description: FAQ頻出ワード
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 50
+            default: 10
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 30
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - faq_popular_words
+                properties:
+                  faq_popular_words:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FAQPopularWord"
+              example:
+                faq_popular_words:
+                  - word: "表"
+                    count: 6
+                  - word: "入出庫"
+                    count: 5
+                  - word: "kbn"
+                    count: 5
+                  - word: "regist"
+                    count: 4
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/es_usage_result:
+    get:
+      tags:
+        - DashBoard
+      description: EnterpriseSearch利用実績
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 30
+        - name: es_theme_id_list
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - es_usage_result_list
+                properties:
+                  es_usage_result_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ESUsageResultList"
+              example:
+                es_usage_result_list:
+                  - value: "ETI0000001"
+                    label: "データプラットフォーム 検索"
+                    usage_result:
+                      - date: "20240409"
+                        count: 5
+                      - date: "20240410"
+                        count: 2
+                      - date: "20240411"
+                        count: 4
+                      - date: "20240412"
+                        count: 10
+                      - date: "20240413"
+                        count: 0
+                  - value: "ETI0000002"
+                    label: "バッチ詳細 検索"
+                    usage_result:
+                      - date: "20240409"
+                        count: 1
+                      - date: "20240410"
+                        count: 1
+                      - date: "20240411"
+                        count: 0
+                      - date: "20240412"
+                        count: 3
+                      - date: "20240413"
+                        count: 5
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/flow_job_success_rate:
+    get:
+      tags:
+        - DashBoard
+      description: フロージョブの実行状況
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: target_date
+          in: query
+          required: true
+          schema:
+            type: string
+            description: "年月日"
+            pattern: '^\d{8}$'
+            example: "20240508"
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            format: int32
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - flow_job_success_rate
+                properties:
+                  flow_job_success_rate:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FlowJobSuccessRate"
+              example:
+                flow_job_success_rate:
+                  - date: "20240506"
+                    success: 20
+                    error: 10
+                    processing: 2
+                  - date: "20240507"
+                    success: 10
+                    error: 5
+                    processing: 1
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_matched_question:
+    get:
+      tags:
+        - DashBoard
+      description: Questionが表示された件数と押下された件数
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 50
+            default: 5
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 30
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - faq_matched_question
+                properties:
+                  faq_matched_question:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FaqMatchedQuestionResult"
+              example:
+                faq_matched_question:
+                  - faq_id: "49"
+                    question: "regist_kbnの分布について教えてください"
+                    display_count: 15
+                    ok_count: 5
+                  - faq_id: "35"
+                    question: "納期管理リストにある登録区分について、「発注推奨数登録」と「入出庫表」の違いは何ですか。"
+                    display_count: 15
+                    ok_count: 5
+                  - faq_id: "33"
+                    question: "仕入れ発注書を商品に同梱する入日記として利用して良いものなのでしょうか？"
+                    display_count: 15
+                    ok_count: 5
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_matched_qa_rate:
+    get:
+      tags:
+        - DashBoard
+      description: FAQで質問された回数とそれに対するQAマッチ率
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: time_unit
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "day"
+              - "week"
+              - "month"
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FaqMatchedQaRate"
+              example:
+                faq_matched_qa_rate:
+                  - time_period: "202404"
+                    faq_total_request_count: 25
+                    faq_matched_qa_count: 18
+                    faq_matched_qa_rate: 0.72
+                  - time_period: "202405"
+                    faq_total_request_count: 30
+                    faq_matched_qa_count: 21
+                    faq_matched_qa_rate: 0.70
+                  - time_period: "202406"
+                    faq_total_request_count: 40
+                    faq_matched_qa_count: 32
+                    faq_matched_qa_rate: 0.80
+                  - time_period: "202407"
+                    faq_total_request_count: 50
+                    faq_matched_qa_count: 35
+                    faq_matched_qa_rate: 0.70
+                  - time_period: "202408"
+                    faq_total_request_count: 60
+                    faq_matched_qa_count: 54
+                    faq_matched_qa_rate: 0.90
+                  - time_period: "202409"
+                    faq_total_request_count: 45
+                    faq_matched_qa_count: 30
+                    faq_matched_qa_rate: 0.67
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_selected_question_rate:
+    get:
+      tags:
+        - DashBoard
+      description: FAQでQAマッチ後のQ選択率
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: time_unit
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "day"
+              - "week"
+              - "month"
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FaqSelectedQuestionRate"
+              example:
+                faq_selected_question_rate:
+                  - time_period: "202404"
+                    faq_total_matched_qa_count: 25
+                    faq_selected_question_count: 20
+                    faq_selected_question_rate: 0.80
+                  - time_period: "202405"
+                    faq_total_matched_qa_count: 30
+                    faq_selected_question_count: 21
+                    faq_selected_question_rate: 0.70
+                  - time_period: "202406"
+                    faq_total_matched_qa_count: 40
+                    faq_selected_question_count: 35
+                    faq_selected_question_rate: 0.88
+                  - time_period: "202407"
+                    faq_total_matched_qa_count: 50
+                    faq_selected_question_count: 40
+                    faq_selected_question_rate: 0.80
+                  - time_period: "202408"
+                    faq_total_matched_qa_count: 60
+                    faq_selected_question_count: 48
+                    faq_selected_question_rate: 0.80
+                  - time_period: "202409"
+                    faq_total_matched_qa_count: 45
+                    faq_selected_question_count: 30
+                    faq_selected_question_rate: 0.67
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_good_answer_rate:
+    get:
+      tags:
+        - DashBoard
+      description: FAQでQ選択後、AnswerにGoodが押された割合
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: time_unit
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "day"
+              - "week"
+              - "month"
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FaqGoodAnswerRate"
+              example:
+                faq_good_answer_rate:
+                  - time_period: "202404"
+                    faq_total_selected_question_count: 25
+                    faq_good_answer_count: 20
+                    faq_good_answer_rate: 0.80
+                  - time_period: "202405"
+                    faq_total_selected_question_count: 30
+                    faq_good_answer_count: 21
+                    faq_good_answer_rate: 0.70
+                  - time_period: "202406"
+                    faq_total_selected_question_count: 40
+                    faq_good_answer_count: 35
+                    faq_good_answer_rate: 0.88
+                  - time_period: "202407"
+                    faq_total_selected_question_count: 50
+                    faq_good_answer_count: 40
+                    faq_good_answer_rate: 0.80
+                  - time_period: "202408"
+                    faq_total_selected_question_count: 60
+                    faq_good_answer_count: 54
+                    faq_good_answer_rate: 0.90
+                  - time_period: "202409"
+                    faq_total_selected_question_count: 45
+                    faq_good_answer_count: 30
+                    faq_good_answer_rate: 0.67
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/download_matched_qa:
+    get:
+      description: ダッシュボードでQA検索にヒットしたファイルのダウンロードAPI
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: faq_search_type_id
+          in: query
+          required: true
+          description: FAQ検索ID
+          schema:
+            type: string
+        - name: from_date
+          in: query
+          required: true
+          description: 日付から
+          schema:
+            type: string
+            format: date
+        - name: to_date
+          in: query
+          required: false
+          description: 日付まで
+          schema:
+            type: string
+            format: date
+        - name: count
+          in: query
+          required: false
+          description: 件数
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file_path
+                properties:
+                  file_path:
+                    type: string
+              example:
+                file_path: "https://docs.google.com/spreadsheets/d/1uhxKbN6Lq6LSHMwJu9tj3RQyWSWyZFr-/export?format=xlsx"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/faq_reaction_analysis:
+    get:
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 50
+            default: 5
+        - name: count_days
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 30
+        - name: faq_search_type_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: faq_reaction_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "Good"
+              - "Bad"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - faq_reaction_analysis
+                properties:
+                  faq_reaction_analysis:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FAQReactionAnalysis"
+              example:
+                faq_reaction_analysis:
+                  - question: "regist_kbnの分布について教えてください"
+                    count: 5
+                  - question: "納期管理リストとは何ですか。"
+                    count: 4
+                  - question: "仕入れ発注書を利用して良いもか"
+                    count: 3
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/download_reaction_analysis:
+    get:
+      description: ダッシュボードでQA検索にヒットしたファイルのダウンロードAPI
+      tags:
+        - DashBoard
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: faq_search_type_id
+          in: query
+          required: true
+          description: FAQ検索ID
+          schema:
+            type: string
+        - name: from_date
+          in: query
+          required: true
+          description: 日付から
+          schema:
+            type: string
+            format: date
+        - name: to_date
+          in: query
+          required: false
+          description: 日付まで
+          schema:
+            type: string
+            format: date
+        - name: count
+          in: query
+          required: false
+          description: 件数
+          schema:
+            type: integer
+        - name: "faq_reaction_type"
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - Good
+              - Bad
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file_path
+                properties:
+                  file_path:
+                    type: string
+              example:
+                file_path: "https://docs.google.com/spreadsheets/d/1uhxKbN6Lq6LSHMwJu9tj3RQyWSWyZFr-/export?format=xlsx"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /dashboard/translate_users_analysis:
+    get:
+      tags:
+        - DashBoard
+      description: 翻訳機能の利用者数
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: time_unit
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "day"
+              - "week"
+              - "month"
+        - name: translate_setting_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TranslateUsersAnalysis"
+              example:
+                translate_users_analysis:
+                  - time_period: "202404"
+                    users_count: 25
+                  - time_period: "202405"
+                    users_count: 30
+                  - time_period: "202406"
+                    users_count: 40
+                  - time_period: "202407"
+                    users_count: 50
+                  - time_period: "202408"
+                    users_count: 60
+                  - time_period: "202409"
+                    users_count: 45
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/translate_filetype_analysis:
+    get:
+      tags:
+        - DashBoard
+      description: ファイルの種類別利用回数
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: time_unit
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "day"
+              - "week"
+              - "month"
+        - name: translate_setting_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TranslateFiletypeAnalysis"
+              example:
+                translate_filetype_analysis:
+                  - time_period: "202404"
+                    xlsx_count: 1
+                    pptx_count: 2
+                    pdf_count: 3
+                    docx_count: 4
+                  - time_period: "202405"
+                    xlsx_count: 8
+                    pptx_count: 7
+                    pdf_count: 6
+                    docx_count: 5
+                  - time_period: "202406"
+                    xlsx_count: 10
+                    pptx_count: 20
+                    pdf_count: 30
+                    docx_count: 40
+                  - time_period: "202407"
+                    xlsx_count: 40
+                    pptx_count: 30
+                    pdf_count: 20
+                    docx_count: 10
+                  - time_period: "202408"
+                    xlsx_count: 15
+                    pptx_count: 25
+                    pdf_count: 21
+                    docx_count: 33
+                  - time_period: "202409"
+                    xlsx_count: 20
+                    pptx_count: 12
+                    pdf_count: 24
+                    docx_count: 9
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /dashboard/translate_directory_upload_analysis:
+    get:
+      tags:
+        - DashBoard
+      description: ディレクトリ設定とアップロードのそれぞれの翻訳回数
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: time_unit
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "day"
+              - "week"
+              - "month"
+        - name: translate_setting_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TranslateDirectoryUploadAnalysis"
+              example:
+                translate_directory_upload_analysis:
+                  - time_period: "202404"
+                    directory_setting_count: 1
+                    upload_count: 2
+                  - time_period: "202405"
+                    directory_setting_count: 8
+                    upload_count: 7
+                  - time_period: "202406"
+                    directory_setting_count: 10
+                    upload_count: 20
+                  - time_period: "202407"
+                    directory_setting_count: 40
+                    upload_count: 30
+                  - time_period: "202408"
+                    directory_setting_count: 15
+                    upload_count: 25
+                  - time_period: "202409"
+                    directory_setting_count: 20
+                    upload_count: 12
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        404:
+          description: 検索結果なし
+        500:
+          description: サーバエラー
+
+  /help_file:
+    get:
+      description: ユーザ定義ヘルプ一覧
+      tags:
+        - UserHelp
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 絞り込み条件
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - menu_group
+              - menu
+              - help_file
+              - create_date
+              - create_user
+              - help_view_flag
+            default: menu_group
+          description: ソートキー
+        - name: sort_order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: asc=昇順, desc=降順
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            default: 0
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - help_list
+                properties:
+                  help_file_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/HelpList"
+                  length:
+                    type: integer
+                    format: int32
+                    description: 検索結果の総件数
+                  is_last:
+                    type: boolean
+              example:
+                help_file_list:
+                  - menu_group:
+                      value: "00001"
+                      label: "汎用検索"
+                    menu:
+                      value: "00001"
+                      label: "汎用検索設定"
+                    help_file:
+                      file_name: "test_upload.pdf"
+                      download_path: "https://docs.google.com/spreadsheets/d/1uhxKbN6Lq6LSHMwJu9tj3RQyWSWyZFr-/export?format=xlsx"
+                      file_path: "https://docs.google.com/spreadsheets/d/1uhxKbN6Lq6LSHMwJu9tj3RQyWSWyZFr-/export?format=xlsx"
+                    create_date: "20240101"
+                    create_user: "ユーザー名"
+                    help_view_flag: false
+                length: 48
+                is_last: false
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+    post:
+      tags:
+        - UserHelp
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - help_file_list
+              properties:
+                help_file_list:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/HelpViewFlagList"
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /help_file/file_download:
+    get:
+      description: ユーザ定義ヘルプファイルダウンロード
+      tags:
+        - UserHelp
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: menu_cd
+          in: query
+          required: true
+          schema:
+            type: string
+          description: メニューコード
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file_path
+                properties:
+                  file_path:
+                    type: string
+              example:
+                file_path: "https://docs.google.com/spreadsheets/d/1uhxKbN6Lq6LSHMwJu9tj3RQyWSWyZFr-/export?format=xlsx"
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /help_file/display_file:
+    get:
+      description: ユーザ定義ヘルプファイル確認
+      tags:
+        - UserHelp
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: menu_cd
+          in: query
+          required: true
+          schema:
+            type: string
+          description: メニューコード
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - file_path
+                properties:
+                  file_path:
+                    type: string
+              example:
+                file_path: "https://docs.google.com/spreadsheets/d/1uhxKbN6Lq6LSHMwJu9tj3RQyWSWyZFr-/export?format=xlsx"
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /help_file/upload:
+    post:
+      tags:
+        - UserHelp
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file_name
+                - menu_cd
+                - help_view_flag
+                - file
+              properties:
+                file_name:
+                  type: string
+                menu_cd:
+                  type: string
+                help_view_flag:
+                  type: boolean
+                file:
+                  type: string
+                  format: byte
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /verify_oauth_redirect:
+    post:
+      tags:
+        - Account
+      description: oauthのstateに設定している値を検証する
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - state
+              properties:
+                state:
+                  type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OAuthState"
+              example:
+                menu_group_cd: "ETTR"
+                menu_cd: "ETTRSC0001"
+                translate_setting_id: "xxxx"
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /person_hour:
+    post:
+      tags:
+        - PersonHour
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      operationId: api.module.PersonHour.controller.post_person_hour_controller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - center_id
+                - work_id
+                - worker_id
+
+              properties:
+                center_id:
+                  type: string
+                work_id:
+                  type: string
+                worker_id:
+                  type: string
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+components:
+  schemas:
+    Password:
+      type: string
+      minLength: 128
+      maxLength: 128
+      description: SHA3-512 ハッシュ値
+      example: f5511955481485eabe8c1e0c7566f07d1a4e577f8b49682f2f20b6b331f5d0556210080f16af7b29868979b3ecda4d777c65699f4a8b0c0a938cbef0a41c015b
+
+    UserId:
+      type: string
+      minLength: 20
+      maxLength: 20
+
+    Account:
+      type: object
+      required:
+        - id
+        - name
+        - mail_address
+        - authority_type
+        - is_administrator
+        - lang_cd
+      properties:
+        id:
+          $ref: "#/components/schemas/UserId"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        mail_address:
+          type: string
+          format: email
+        authority_type:
+          $ref: "#/components/schemas/AuthorityType"
+        is_administrator:
+          type: boolean
+        lang_cd:
+          type: string
+          nullable: true
+          description: "v_user_personal.lang_cdをv_zokusei_code.attr3 (zokusei_no = '002')で変換"
+          enum:
+            - "jp"
+            - "en"
+          default: "jp"
+
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - mail_address
+        - authority_type
+        - gs_authority_type
+        - is_administrator
+        - register_date
+      properties:
+        id:
+          $ref: "#/components/schemas/UserId"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        mail_address:
+          type: string
+          format: email
+        authority_type:
+          $ref: "#/components/schemas/AuthorityType"
+        gs_authority_type:
+          $ref: "#/components/schemas/UserGsAuthority"
+        is_administrator:
+          type: boolean
+        register_date:
+          type: string
+
+    SigninUser:
+      type: object
+      required:
+        - id
+        - name
+        - init_menu
+      properties:
+        id:
+          $ref: "#/components/schemas/UserId"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        mail_address:
+          type: string
+          format: email
+        init_menu:
+          $ref: "#/components/schemas/InitMenu"
+
+    InitMenu:
+      type: object
+      required:
+        - menu_group_cd
+        - menu_cd
+      properties:
+        menu_group_cd:
+          type: string
+          nullable: true
+        menu_cd:
+          type: string
+          nullable: true
+
+    AuthorityType:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+          nullable: true
+          description: v_user_authority_type_header.authority_type
+        label:
+          type: string
+          description: v_user_authority_type_header.authority_type_name(翻訳)
+
+    Authority:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+        label:
+          type: string
+
+    GsAuthorityType:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        authorities:
+          type: array
+          items:
+            $ref: "#/components/schemas/GaAuthority"
+
+    UserGsAuthority:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          nullable: true
+          type: string
+        label:
+          nullable: true
+          type: string
+
+    GaAuthority:
+      type: object
+      required:
+        - menu_cd
+        - value
+      properties:
+        menu_cd:
+          type: string
+          minLength: 1
+          maxLength: 10
+        value:
+          type: string
+          minLength: 1
+          maxLength: 20
+
+    AuthorityTypeDetail:
+      type: object
+      required:
+        - menu_group
+        - menu
+      properties:
+        menu_group:
+          $ref: "#/components/schemas/MenuGroup"
+        menu:
+          $ref: "#/components/schemas/Menu"
+        authority:
+          $ref: "#/components/schemas/Authority"
+        init_menu_flag:
+          type: boolean
+          default: false
+
+    OrganizationMaster:
+      type: object
+      required:
+        - org_name
+        - time_zone
+        - lang_cd
+      properties:
+        org_name:
+          type: string
+          description: v_org.org_name
+        time_zone:
+          type: string
+          description: v_org.time_zone
+        lang_cd:
+          type: string
+          description: v_org.lang_cd
+
+    ServiceControl:
+      type: object
+      required:
+        - gs_connect_num
+        - etl_connect_num
+        - data_capacity
+        - use_git_flag
+        - ip_filter_list
+      properties:
+        gs_connect_num:
+          type: integer
+          description: v_org_service_ctrl.gs_connect_num
+        etl_connect_num:
+          type: integer
+          description: v_org_service_ctrl.etl_connect_num
+        data_capacity:
+          type: integer
+          description: v_org_service_ctrl.data_capacity
+        gcp_project_name:
+          type: string
+          description: v_org_service_ctrl.gcp_project_name
+        domain:
+          type: string
+          description: v_org_service_ctrl.domain
+        gcs_bucket_name:
+          type: string
+          description: v_org_service_ctrl.gcs_bucket_name
+        gcp_service_account_name:
+          type: string
+          description: v_org_service_ctrl.gcp_service_account_name
+        active_service_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/MenuList"
+        use_git_flag:
+          type: boolean
+          nullable: true
+        ip_filter_list:
+          type: array
+          items:
+            type: string
+          nullable: true
+
+    ActiveServiceList:
+      type: object
+      required:
+        - value
+        - label
+        - active_flag
+      properties:
+        value:
+          type: string
+          description: "sys_org_contract.service_unit"
+        label:
+          type: string
+          description: "sys_trans_dicでservice_unitを翻訳"
+        active_flag:
+          type: boolean
+          description: "v_org_service_ctrl.active_service"
+
+    DataConnect:
+      type: object
+      required:
+        - connect_code
+        - connect_name
+        - connect_info
+        - authority_type
+      properties:
+        connect_code:
+          type: string
+        connect_name:
+          type: string
+        connect_info:
+          type: object
+        db_type:
+          type: string
+          nullable: true
+        authority_type:
+          type: object
+          $ref: "#/components/schemas/ConnectAuthorityType"
+
+    ConnectTypeList:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          type: string
+        db_type_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/DBTypeList"
+          nullable: true
+
+    ConnectAuthorityType:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: integer
+          description: "v_zokusei_code.attr2: zokusei_no = 026 :integer型に変換"
+        label:
+          type: string
+          description: "v_zokusei_code.attr1: zokusei_no = 026 :要翻訳"
+
+    OAuthState:
+      type: object
+      required:
+        - menu_group_cd
+        - menu_cd
+      properties:
+        menu_group_cd:
+          type: string
+        menu_cd:
+          type: string
+      additionalProperties: true
+
+    DBTypeList:
+      type: string
+
+    ConnectCheck:
+      type: object
+      required:
+        - connect_info
+      properties:
+        connect_info:
+          type: object
+        db_type:
+          type: string
+          nullable: true
+
+    ConnectCheckResult:
+      type: object
+      required:
+        - value
+        - label
+        - message
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+        message:
+          type: string
+
+    ConnectCode:
+      type: string
+
+    RegistConnect:
+      type: object
+      required:
+        - connect_name
+        - connect_type
+      properties:
+        connect_name:
+          type: string
+        connect_type:
+          type: string
+        db_type:
+          type: string
+
+    MenuGroup:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+
+    Menu:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+
+    MenuGroupList:
+      type: object
+      required:
+        - value
+        - label
+        - service_unit
+        - order_value
+        - menu_list
+      properties:
+        value:
+          type: string
+          description: v_menu_group.menu_group_cd
+        label:
+          type: string
+          description: v_menu_group.menu_group_name
+        service_unit:
+          type: string
+          description: v_menu_group.service_unit
+        order_value:
+          type: string
+          description: v_menu_group.order_value
+        menu_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/MenuList"
+
+    MenuList:
+      type: object
+      required:
+        - value
+        - label
+        - order_value
+        - menu_view_flag
+      properties:
+        value:
+          type: string
+          description: v_menu.menu_cd
+        label:
+          type: string
+          description: v_menu.menu_name
+        order_value:
+          type: string
+          description: v_menu.order_value
+        menu_view_flag:
+          type: boolean
+          description: v_menu.menu_view_flag
+
+    LangList:
+      type: object
+      required:
+        - lang_cd
+        - lang_name
+      properties:
+        lang_cd:
+          type: string
+        lang_name:
+          type: string
+
+    DataConnectList:
+      type: object
+      required:
+        - value
+        - label
+        - is_edit
+      properties:
+        value:
+          type: string
+          description: v_data_connect.connect_code
+        label:
+          type: string
+          description: v_data_connect.connect_name
+        is_edit:
+          type: boolean
+          description: 編集可能かどうか
+
+    UserPersonal:
+      type: object
+      required:
+        - user_name
+        - mail_address
+        - lang_cd
+        - mail_notification_flag
+        - push_notification_flag
+      properties:
+        user_name:
+          type: string
+          description: v_user.user_name
+        mail_address:
+          type: string
+          description: v_user.mail_addressの長さ分の●●●
+        lang_cd:
+          type: string
+          description: v_user_personal.lang_cd
+        desktop_notification_flag:
+          type: boolean
+          description: v_user_personal.desktop_notification_flag
+        mail_notification_flag:
+          type: boolean
+          description: v_gs_notification.mail_notification_flag
+        push_notification_flag:
+          type: boolean
+          description: v_gs_notification.push_notification_flag
+
+    BoardList:
+      type: object
+      required:
+        - value
+        - label
+        - is_public
+      properties:
+        value:
+          type: string
+          description: v_dashboard.board_id
+        label:
+          type: string
+        is_public:
+          type: boolean
+        is_default:
+          type: boolean
+
+    PalleteList:
+      type: object
+      required:
+        - value
+        - hue
+        - saturation
+        - lightness
+        - hue_shift
+      properties:
+        value:
+          type: string
+        hue:
+          type: integer
+        saturation:
+          type: integer
+        lightness:
+          type: integer
+        hue_shift:
+          type: integer
+          default: 60
+
+    CardType:
+      type: object
+      required:
+        - value
+        - label
+        - input_param
+      properties:
+        value:
+          type: string
+          description: sys_card_type.card_type
+        label:
+          type: string
+          description: sys_card_type.card_type_name
+        graph_type_list:
+          type: array
+          items:
+            type: string
+        query:
+          type: string
+        series_num:
+          type: integer
+        min_width:
+          type: integer
+        min_height:
+          type: integer
+        input_param:
+          $ref: "#/components/schemas/CardSetting"
+
+    CardSetting:
+      type: object
+      required:
+        - value
+        - label
+        - required
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+        required:
+          type: boolean
+        valid_type:
+          type: string
+        query:
+          type: string
+        value_scope:
+          type: array
+          description: valid_typeがLISTの際に使う
+          items:
+            $ref: "#/components/schemas/ValueScope"
+
+    ValueScope:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+
+    Dashboard:
+      type: object
+      required:
+        - value
+        - label
+        - pallete_pattern
+        - card_list
+      properties:
+        value:
+          type: string
+          description: v_dashboard.board_id
+        label:
+          type: string
+          description: v_dashboard.board_name
+        pallete_pattern:
+          type: string
+          description: v_dashboard.pallete_pattern
+        card_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/DashboardCard"
+
+    DashboardCard:
+      type: object
+      required:
+        - value
+        - order_value
+        - grid_width
+        - grid_height
+        - card_type
+        - input_param
+      properties:
+        value:
+          type: string
+          description: v_dashbord_design.card_id
+        label:
+          type: string
+          description: v_dashboard_design.card_name
+          nullable: true
+        order_value:
+          type: integer
+        grid_width:
+          type: integer
+        grid_height:
+          type: integer
+        color_pattern:
+          type: array
+          items:
+            type: integer
+        card_type:
+          type: string
+        graph_type:
+          type: array
+          items:
+            type: string
+        input_param:
+          $ref: "#/components/schemas/CardInputParam"
+
+    DashboardSetting:
+      type: object
+      required:
+        - value
+        - label
+        - card_order
+      properties:
+        value:
+          type: string
+          description: v_dashboard.board_id
+          nullable: true
+        label:
+          type: string
+          description: v_dashboard.board_name
+        pallete_pattern:
+          type: string
+          description: v_dashboard.pallete_pattern
+          nullable: true
+        public_flag:
+          type: boolean
+          default: false
+        default_flag:
+          type: boolean
+          default: false
+        card_order:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CardOrder"
+
+    CardOrder:
+      type: object
+      required:
+        - value
+        - order_value
+      properties:
+        value:
+          type: string
+        order_value:
+          type: integer
+
+    DashboardCardSetting:
+      type: object
+      required:
+        - value
+        - label
+        - grid_width
+        - grid_height
+        - order_value
+        - card_type
+        - input_param
+      properties:
+        value:
+          type: string
+          description: v_dashboard_card.card_id
+          nullable: true
+        label:
+          type: string
+          description: v_dashboard_card.card_name
+        grid_width:
+          type: integer
+          description: v_dashboard_card.grid_width
+        grid_height:
+          type: integer
+          description: v_dashboard_card.grid_height
+        order_value:
+          type: integer
+          description: 画面における表示順序
+          nullable: true
+        card_type:
+          type: string
+          description: sys_card_type.card_type
+          nullable: true
+        graph_type:
+          type: array
+          items:
+            type: string
+        color_pattern:
+          type: array
+          items:
+            type: integer
+        intput_param:
+          $ref: "#/components/schemas/CardInputParam"
+
+    CardInputParam:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        count_days:
+          type: integer
+          format: int32
+          minimum: 1
+          default: 30
+        faq_search_type_id:
+          type: string
+        es_theme_id:
+          type: string
+        time_unit:
+          enum:
+            - "day"
+            - "week"
+            - "month"
+        translate_setting_id:
+          type: string
+
+    BoardCopy:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+          description: v_dashboard.board_id
+          nullable: false
+        label:
+          type: string
+          description: v_dashboard.board_name
+        public_flag:
+          type: boolean
+          default: false
+        default_flag:
+          type: boolean
+          default: false
+
+    GsHistory:
+      type: object
+      required:
+        - gs_seq_id
+        - file_name
+        - file_type
+        - start_date
+        - end_date
+        - status
+        - is_link_enable
+      properties:
+        gs_seq_id:
+          type: string
+        file_name:
+          type: string
+        file_type:
+          $ref: "#/components/schemas/GsFileType"
+        start_date:
+          $ref: "#/components/schemas/DateTime"
+        end_date:
+          $ref: "#/components/schemas/DateTime"
+        status:
+          $ref: "#/components/schemas/GsHistoryStatus"
+        is_link_enable:
+          type: boolean
+
+    GsFileType:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+
+    DateTime:
+      description: 年月日時分秒
+      type: string
+      pattern: '^\d{14}$'
+      example: "20220101133010"
+
+    GsHistoryStatus:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+
+    FAQPopularQuestionResult:
+      type: object
+      required:
+        - faq_id
+        - question
+        - count
+      properties:
+        faq_id:
+          type: string
+        question:
+          type: string
+        count:
+          type: integer
+
+    FAQUsageResult:
+      type: object
+      required:
+        - date
+        - count
+      properties:
+        date:
+          type: string
+          pattern: '^\d{8}$'
+          example: "20230922"
+        count:
+          type: integer
+
+    FaqMatchedQuestionResult:
+      type: object
+      required:
+        - faq_id
+        - question
+        - display_count
+        - ok_count
+      properties:
+        faq_id:
+          type: string
+        question:
+          type: string
+        display_count:
+          type: integer
+        ok_count:
+          type: integer
+
+    FAQSuccessRate:
+      type: object
+      required:
+        - date
+        - success_rate
+      properties:
+        date:
+          type: string
+          pattern: '^\d{8}$'
+          example: "20230922"
+        success_rate:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+
+    FAQPopularWord:
+      type: object
+      required:
+        - word
+        - count
+      properties:
+        word:
+          type: string
+        count:
+          type: integer
+
+    FAQReactionAnalysis:
+      type: object
+      required:
+        - question
+        - count
+      properties:
+        question:
+          type: string
+        count:
+          type: integer
+
+    ESUsageResultList:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+          nullable: false
+        label:
+          type: string
+          nullable: true
+        usage_result:
+          type: array
+          items:
+            $ref: "#/components/schemas/ESUsageResult"
+
+    ESUsageResult:
+      type: object
+      required:
+        - date
+        - count
+      properties:
+        date:
+          type: string
+          pattern: '^\d{8}$'
+          example: "20230922"
+        count:
+          type: integer
+
+    FlowJobSuccessRate:
+      type: object
+      required:
+        - date
+        - success
+        - error
+        - processing
+      properties:
+        date:
+          type: string
+          description: "年月"
+          nullable: false
+          pattern: '^\d{8}$'
+          example: "20240507"
+        success:
+          type: integer
+          nullable: true
+          format: int32
+        error:
+          type: integer
+          nullable: true
+          format: int32
+        processing:
+          type: integer
+          nullable: true
+          format: int32
+
+    FaqMatchedQaRate:
+      type: object
+      properties:
+        faq_matched_qa_rate:
+          type: array
+          items:
+            type: object
+            required:
+              - time_period
+              - faq_total_request_count
+              - faq_matched_qa_count
+              - faq_matched_qa_rate
+            properties:
+              time_period:
+                type: string
+                description: "集計期間。形式は`time_unit`に依存（例: 日次`YYYYMMDD`、週次`YYYYWW`、月次`YYYYMM`）"
+              faq_total_request_count:
+                type: integer
+              faq_matched_qa_count:
+                type: integer
+              faq_matched_qa_rate:
+                type: number
+                format: float
+
+    FaqSelectedQuestionRate:
+      type: object
+      properties:
+        faq_selected_question_rate:
+          type: array
+          items:
+            type: object
+            required:
+              - time_period
+              - faq_total_matched_qa_count
+              - faq_selected_question_count
+              - faq_selected_question_rate
+            properties:
+              time_period:
+                type: string
+                description: "集計期間。形式は`time_unit`に依存（例: 日次`YYYYMMDD`、週次`YYYYWW`、月次`YYYYMM`）"
+              faq_total_matched_qa_count:
+                type: integer
+              faq_selected_question_count:
+                type: integer
+              faq_selected_question_rate:
+                type: number
+                format: float
+
+    FaqGoodAnswerRate:
+      type: object
+      properties:
+        faq_good_answer_rate:
+          type: array
+          items:
+            type: object
+            required:
+              - time_period
+              - faq_total_selected_question_count
+              - faq_good_answer_count
+              - faq_good_answer_rate
+            properties:
+              time_period:
+                type: string
+                description: "集計期間。形式は`time_unit`に依存（例: 日次`YYYYMMDD`、週次`YYYYWW`、月次`YYYYMM`）"
+              faq_total_selected_question_count:
+                type: integer
+              faq_good_answer_count:
+                type: integer
+              faq_good_answer_rate:
+                type: number
+                format: float
+
+    TranslateUsersAnalysis:
+      type: object
+      properties:
+        translate_users_analysis:
+          type: array
+          items:
+            type: object
+            required:
+              - time_period
+              - users_count
+            properties:
+              time_period:
+                type: string
+                description: "集計期間。形式は`time_unit`に依存（例: 日次`YYYYMMDD`、週次`YYYYWW`、月次`YYYYMM`）"
+              users_count:
+                type: integer
+                description: "利用者数"
+
+    TranslateFiletypeAnalysis:
+      type: object
+      properties:
+        translate_filetype_analysis:
+          type: array
+          items:
+            type: object
+            required:
+              - time_period
+              - xlsx_count
+              - pptx_count
+              - pdf_count
+              - docx_count
+            properties:
+              time_period:
+                type: string
+                description: "集計期間。形式は`time_unit`に依存（例: 日次`YYYYMMDD`、週次`YYYYWW`、月次`YYYYMM`）"
+              xlsx_count:
+                type: integer
+              pptx_count:
+                type: integer
+              pdf_count:
+                type: integer
+              docx_count:
+                type: integer
+
+    TranslateDirectoryUploadAnalysis:
+      type: object
+      properties:
+        translate_filetype_analysis:
+          type: array
+          items:
+            type: object
+            required:
+              - time_period
+              - directory_setting_count
+              - pptx_count
+            properties:
+              time_period:
+                type: string
+                description: "集計期間。形式は`time_unit`に依存（例: 日次`YYYYMMDD`、週次`YYYYWW`、月次`YYYYMM`）"
+              directory_setting_count:
+                type: integer
+              upload_count:
+                type: integer
+
+    HelpList:
+      type: object
+      required:
+        - menu_group
+        - menu
+        - help_file
+        - update_time
+        - update_user
+        - help_view_flag
+      properties:
+        menu_group:
+          $ref: "#/components/schemas/MenuGroup"
+        menu:
+          $ref: "#/components/schemas/Menu"
+        help_file:
+          $ref: "#/components/schemas/HelpFile"
+        create_date:
+          type: string
+          nullable: true
+        create_user:
+          type: string
+          nullable: true
+        help_view_flag:
+          type: boolean
+          nullable: true
+
+    HelpViewFlagList:
+      type: object
+      required:
+        - menu_cd
+        - help_view_flag
+      properties:
+        menu_cd:
+          type: string
+        help_view_flag:
+          type: boolean
+
+    HelpFile:
+      type: object
+      required:
+        - file_name
+        - path
+      properties:
+        file_name:
+          type: string
+          nullable: true
+        download_path:
+          type: string
+          nullable: true
+        file_path:
+          type: string
+          nullable: true
+
+    PageUserHelpFile:
+      description: 各種ページで表示するヘルプファイル
+      type: object
+      required:
+        - menu_cd
+        - name
+        - path
+      properties:
+        menu_cd:
+          type: string
+          nullable: true
+        name:
+          type: string
+          description: ファイル名
+          nullable: true
+        path:
+          type: string
+          format: uri
+          nullable: true
+          description: ファイルパス(URL)
+
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: access_token_cookie
+      x-apikeyInfoFunc: api.auth.access_token_auth
+    CSRFToken:
+      type: apiKey
+      in: cookie
+      name: csrf_access_token
+      x-apikeyInfoFunc: api.auth.csrf_token_auth
+
+security:
+  - cookieAuth: []
+    CSRFToken: []
