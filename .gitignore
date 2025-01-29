@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+*._local
+docker/mock_server/mock_yaml/*
 
 # Editor directories and files
 .vscode/*

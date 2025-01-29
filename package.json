@@ -7,15 +7,25 @@
     "dev": "vite --mode _local",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
-    "api": "node scripts/generate-api.js"
+    "api": "node scripts/generate-api.js",
+    "mock": "prism mock"
+  },
+  "engines": {
+    "npm": "⚠️  npm ではなくyarnを使用してください"
   },
   "dependencies": {
     "axios": "^1.7.9",
+    "crypto-js": "^4.2.0",
     "js-cookie": "^3.0.5",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.16.3",
+    "@stoplight/prism-cli": "4.10.0",
+    "@types/crypto-js": "^4.2.2",
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^22.10.10",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "typescript": "~5.6.2",
