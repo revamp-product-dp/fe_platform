@@ -1,0 +1,9 @@
+{
+  "signin": "Sign In",
+  "id": "ID",
+  "password": "Password",
+  "validation": {
+    "required": "Please enter a value",
+    "email": "Please enter a valid email address"
+  }
+}

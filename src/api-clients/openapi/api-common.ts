@@ -158,6 +158,25 @@ export interface AccountRedirectRedirectTokenPatch200Response {
     'top_url': string | null;
 }
 /**
+ * 選択可能なサービス
+ * @export
+ * @interface ActiveService
+ */
+export interface ActiveService {
+    /**
+     * サービス物理名
+     * @type {string}
+     * @memberof ActiveService
+     */
+    'value': string;
+    /**
+     * サービス論理名
+     * @type {string}
+     * @memberof ActiveService
+     */
+    'label': string;
+}
+/**
  * 
  * @export
  * @interface ActiveServiceList
@@ -181,6 +200,25 @@ export interface ActiveServiceList {
      * @memberof ActiveServiceList
      */
     'active_flag': boolean;
+}
+/**
+ * 選択したサービスで使用するメニュー情報など
+ * @export
+ * @interface ActiveServiceSetting
+ */
+export interface ActiveServiceSetting {
+    /**
+     * 
+     * @type {InitMenu}
+     * @memberof ActiveServiceSetting
+     */
+    'init_menu'?: InitMenu;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ActiveServiceSetting
+     */
+    'service_unit_list'?: Array<string>;
 }
 /**
  * 
@@ -2006,6 +2044,19 @@ export interface PageUserHelpFile {
 /**
  * 
  * @export
+ * @interface PagesActiveServiceListGet200Response
+ */
+export interface PagesActiveServiceListGet200Response {
+    /**
+     * 
+     * @type {Array<ActiveService>}
+     * @memberof PagesActiveServiceListGet200Response
+     */
+    'active_service_list': Array<ActiveService>;
+}
+/**
+ * 
+ * @export
  * @interface PagesAuthorityTypeListGet200Response
  */
 export interface PagesAuthorityTypeListGet200Response {
@@ -2311,12 +2362,6 @@ export interface SigninUser {
      * @memberof SigninUser
      */
     'mail_address'?: string;
-    /**
-     * 
-     * @type {InitMenu}
-     * @memberof SigninUser
-     */
-    'init_menu': InitMenu;
 }
 /**
  * 
@@ -6218,6 +6263,46 @@ export class DataConnectApi extends BaseAPI {
 export const OrganizationApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * サービス選択
+         * @param {string} serviceName サービス名
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        organizationActiveServiceGet: async (serviceName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'serviceName' is not null or undefined
+            assertParamExists('organizationActiveServiceGet', 'serviceName', serviceName)
+            const localVarPath = `/organization/active_service`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+            if (serviceName !== undefined) {
+                localVarQueryParameter['service_name'] = serviceName;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6444,6 +6529,18 @@ export const OrganizationApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = OrganizationApiAxiosParamCreator(configuration)
     return {
         /**
+         * サービス選択
+         * @param {string} serviceName サービス名
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async organizationActiveServiceGet(serviceName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ActiveServiceSetting>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.organizationActiveServiceGet(serviceName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationApi.organizationActiveServiceGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6523,6 +6620,15 @@ export const OrganizationApiFactory = function (configuration?: Configuration, b
     const localVarFp = OrganizationApiFp(configuration)
     return {
         /**
+         * サービス選択
+         * @param {string} serviceName サービス名
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        organizationActiveServiceGet(serviceName: string, options?: RawAxiosRequestConfig): AxiosPromise<ActiveServiceSetting> {
+            return localVarFp.organizationActiveServiceGet(serviceName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6583,6 +6689,17 @@ export const OrganizationApiFactory = function (configuration?: Configuration, b
  * @extends {BaseAPI}
  */
 export class OrganizationApi extends BaseAPI {
+    /**
+     * サービス選択
+     * @param {string} serviceName サービス名
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationApi
+     */
+    public organizationActiveServiceGet(serviceName: string, options?: RawAxiosRequestConfig) {
+        return OrganizationApiFp(this.configuration).organizationActiveServiceGet(serviceName, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {*} [options] Override http request option.
@@ -6655,6 +6772,39 @@ export class OrganizationApi extends BaseAPI {
  */
 export const PageApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * トップ画面の初期処理
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pagesActiveServiceListGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/pages/active_service_list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 権限タイプマスタ画面の初期処理
          * @param {*} [options] Override http request option.
@@ -7074,6 +7224,17 @@ export const PageApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = PageApiAxiosParamCreator(configuration)
     return {
         /**
+         * トップ画面の初期処理
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async pagesActiveServiceListGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagesActiveServiceListGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.pagesActiveServiceListGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PageApi.pagesActiveServiceListGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 権限タイプマスタ画面の初期処理
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7218,6 +7379,14 @@ export const PageApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = PageApiFp(configuration)
     return {
         /**
+         * トップ画面の初期処理
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pagesActiveServiceListGet(options?: RawAxiosRequestConfig): AxiosPromise<PagesActiveServiceListGet200Response> {
+            return localVarFp.pagesActiveServiceListGet(options).then((request) => request(axios, basePath));
+        },
+        /**
          * 権限タイプマスタ画面の初期処理
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7325,6 +7494,16 @@ export const PageApiFactory = function (configuration?: Configuration, basePath?
  * @extends {BaseAPI}
  */
 export class PageApi extends BaseAPI {
+    /**
+     * トップ画面の初期処理
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PageApi
+     */
+    public pagesActiveServiceListGet(options?: RawAxiosRequestConfig) {
+        return PageApiFp(this.configuration).pagesActiveServiceListGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 権限タイプマスタ画面の初期処理
      * @param {*} [options] Override http request option.
