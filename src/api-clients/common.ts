@@ -1,9 +1,10 @@
 import { generateConfig } from "./config";
 import { AccountApi as BaseAccountApi } from "./openapi/api-common";
-import type { SigninUser } from "./openapi/api-common";
+import { PageApi as BasePageApi } from "./openapi/api-common";
+import type { SigninUser, ActiveService } from "./openapi/api-common";
 import Password from "@/helpers/password";
 
-export class SigninApi {
+export class AccountApi {
   private getApi() {
     const config = generateConfig("common");
     return new BaseAccountApi(config);
@@ -15,5 +16,19 @@ export class SigninApi {
     const res = await api.apiAuthSignin(uid, password.hash(uid));
 
     return res.data;
+  }
+}
+
+export class PageApi {
+  private getApi() {
+    const config = generateConfig("common");
+    return new BasePageApi(config);
+  }
+
+  async getActiveServiceList(): Promise<ActiveService[]> {
+    const api = this.getApi();
+    const res = await api.pagesActiveServiceListGet();
+
+    return res.data.active_service_list;
   }
 }

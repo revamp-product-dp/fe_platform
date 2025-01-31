@@ -186,9 +186,6 @@ paths:
                 id: 1
                 name: foobar
                 mail_address: test@example.com
-                init_menu:
-                  menu_group_cd: "GSGS"
-                  menu_cd: "GSGSSC0001"
           headers:
             Set-Cookie:
               description: Session cookie
@@ -1966,6 +1963,51 @@ paths:
         500:
           description: サーバエラー
 
+  /pages/active_service_list:
+    get:
+      description: トップ画面の初期処理
+      tags:
+        - Page
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - active_service_list
+                properties:
+                  active_service_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ActiveService"
+                example:
+                  active_service_list:
+                    - value: "etl-tools"
+                      label: "ETL"
+                    - value: "logi-work"
+                      label: "工数管理"
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
   /user_personal:
     get:
       tags:
@@ -2275,6 +2317,50 @@ paths:
                 example: csrf_access_token=xyz-123; Path=/
         400:
           description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /organization/active_service:
+    get:
+      description: サービス選択
+      tags:
+        - Organization
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: service_name
+          in: query
+          required: true
+          schema:
+            type: string
+          description: サービス名
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActiveServiceSetting"
+              example:
+                init_menu:
+                  menu_group_cd: "GSGS"
+                  menu_cd: "GSGSSC0001"
+                service_unit_list: ["FAQ", "ETL", "MEETING"]
+
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
         401:
           description: 認証エラー
         500:
@@ -4606,8 +4692,6 @@ components:
         mail_address:
           type: string
           format: email
-        init_menu:
-          $ref: "#/components/schemas/InitMenu"
 
     InitMenu:
       type: object
@@ -5696,6 +5780,31 @@ components:
           format: uri
           nullable: true
           description: ファイルパス(URL)
+
+    ActiveService:
+      description: 選択可能なサービス
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+          description: サービス物理名
+        label:
+          type: string
+          description: サービス論理名
+
+    ActiveServiceSetting:
+      description: 選択したサービスで使用するメニュー情報など
+      type: object
+      properties:
+        init_menu:
+          $ref: "#/components/schemas/InitMenu"
+        service_unit_list:
+          type: array
+          items:
+            type: string
 
   securitySchemes:
     cookieAuth:
