@@ -13,4 +13,4 @@ WORKDIR /mock_server
 COPY ./nginx.conf       /etc/nginx
 COPY ./default.conf     /etc/nginx/conf.d
 
-RUN yarn add prism
+RUN yarn global add @stoplight/prism-cli

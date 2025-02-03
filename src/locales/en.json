@@ -1,9 +1,10 @@
 {
   "signin": "Sign In",
-  "id": "ID",
-  "password": "Password",
+  "service_list": "Service List",
   "validation": {
     "required": "Please enter a value",
     "email": "Please enter a valid email address"
-  }
+  },
+  "id": "ID",
+  "password": "Password"
 }

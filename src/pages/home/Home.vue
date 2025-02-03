@@ -1,35 +1,41 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { PageApi } from "@/api-clients/common";
+import { onBeforeMount, ref } from "vue";
+import type { ActiveService } from "@/api-clients/common";
 
-const activeServiceList = ref([
-  { value: "etl-tools", label: "ETL" },
-  { value: "logi-wook", label: "工数管理" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-  { value: "etl-tools", label: "サンプル" },
-]);
+const pageApi = new PageApi();
+
+const activeServiceList = ref<ActiveService[]>([]);
+
+onBeforeMount(async () => {
+  await getActiveServiceList();
+});
+
+async function getActiveServiceList() {
+  activeServiceList.value = await pageApi.getActiveServiceList();
+}
+
+function getIconName(serviceName: string) {
+  const iconList = [
+    { value: "etl-tools", name: "query_stats" },
+    { value: "logi-work", name: "local_shipping" },
+  ];
+
+  return iconList.find((icon) => icon.value === serviceName)?.name ?? "";
+}
 </script>
 
 <template>
   <q-page class="q-ml-lg">
-    <H2 class="text-left q-mt-lg q-mb-md">サービス一覧</H2>
+    <H2 class="text-left q-mt-lg q-mb-md">{{ $t("service_list") }}</H2>
     <div :class="$style.button_grid">
       <q-btn
         v-for="service in activeServiceList"
         :key="service.value"
         :label="service.label"
         :class="$style.service_button"
-        href="/"
-        icon="home"
+        :href="'/home/' + service.value + '/'"
+        :icon="getIconName(service.value)"
         outline
         stack
         unelevated
