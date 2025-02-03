@@ -1,10 +1,14 @@
 {
-  "signin": "登录",
-  "service_list": "服务列表",
+  "signin": {
+    "signin": "登录",
+    "id": "ID",
+    "password": "密码"
+  },
+  "home": {
+    "service_list": "服务列表"
+  },
   "validation": {
     "required": "请输入值",
     "email": "请输入有效的电子邮件地址"
-  },
-  "id": "ID",
-  "password": "密码"
+  }
 }

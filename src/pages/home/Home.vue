@@ -27,7 +27,7 @@ function getIconName(serviceName: string) {
 
 <template>
   <q-page class="q-ml-lg">
-    <H2 class="text-left q-mt-lg q-mb-md">{{ $t("service_list") }}</H2>
+    <H2 class="text-left q-mt-lg q-mb-md">{{ $t("home.service_list") }}</H2>
     <div :class="$style.button_grid">
       <q-btn
         v-for="service in activeServiceList"
