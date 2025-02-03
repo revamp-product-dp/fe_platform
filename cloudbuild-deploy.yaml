@@ -10,6 +10,10 @@ steps:
         yarn install
         yarn vite build --mode ${_MODE}
 
+        # ビルド後のファイルを確認
+        echo "Checking file structure after build:"
+        ls -R dist/ || true
+
         if [ "${_MODE}" != "develop" ]; then
           rm -f dist/assets/*.js.map
         fi
