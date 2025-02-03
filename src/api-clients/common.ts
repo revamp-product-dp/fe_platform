@@ -4,6 +4,8 @@ import { PageApi as BasePageApi } from "./openapi/api-common";
 import type { SigninUser, ActiveService } from "./openapi/api-common";
 import Password from "@/helpers/password";
 
+export type { SigninUser, ActiveService };
+
 export class AccountApi {
   private getApi() {
     const config = generateConfig("common");

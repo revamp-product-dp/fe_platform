@@ -2,17 +2,20 @@
 import { AccountApi } from "@/api-clients/common";
 import { ref } from "vue";
 import { required, email } from "@/validations/index";
+import { useRouter } from "vue-router";
 
-const accountApi = ref(new AccountApi());
-const mailAddress = ref("test@test.com");
-const password = ref("testste");
-
+const accountApi = new AccountApi();
+const router = useRouter();
 const validRequired = [required()];
 const validMailAddress = [required(), email()];
 const beforeLabelWidth = "80";
 
+const mailAddress = ref("");
+const password = ref("");
+
 async function signIn() {
-  await accountApi.value.signIn(mailAddress.value, password.value);
+  await accountApi.signIn(mailAddress.value, password.value);
+  router.push("/");
 }
 </script>
 
