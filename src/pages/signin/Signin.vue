@@ -22,19 +22,19 @@ async function signIn() {
 <template>
   <q-page class="q-pl-md" :class="$style.page">
     <q-card class="q-pa-lg" :class="$style.card">
-      <H2 class="q-mb-lg">{{ $t("signin") }}</H2>
+      <H2 class="q-mb-lg">{{ $t("signin.signin") }}</H2>
       <q-form @submit="signIn">
         <Input
           v-model="mailAddress"
           required
-          :before-label="$t('id')"
+          :before-label="$t('signin.id')"
           :beforeLabelWidth="beforeLabelWidth"
           :rules="validMailAddress"
         />
         <Input
           v-model="password"
           required
-          :before-label="$t('password')"
+          :before-label="$t('signin.password')"
           :beforeLabelWidth="beforeLabelWidth"
           :rules="validRequired"
         />
@@ -44,7 +44,7 @@ async function signIn() {
           color="primary"
           type="submit"
           size="md"
-          :label="$t('signin')"
+          :label="$t('signin.signin')"
         />
       </q-form>
     </q-card>
