@@ -12,7 +12,6 @@ steps:
 
         # ビルド後のファイルを確認
         echo "Checking file structure after build:"
-        ls -R home/ || true
         ls -R dist/ || true
 
         if [ "${_MODE}" != "develop" ]; then
