@@ -2,13 +2,18 @@
   "signin": {
     "signin": "Sign In",
     "id": "ID",
-    "password": "Password"
+    "password": "Password",
+    "forgot_password": "Click here if you forgot your password"
   },
   "home": {
-    "service_list": "Service List"
+    "service_list": "Service List",
+    "signout": "Sign Out"
   },
   "validation": {
     "required": "Please enter a value",
     "email": "Please enter a valid email address"
+  },
+  "notify": {
+    "signout": "Signed out"
   }
 }

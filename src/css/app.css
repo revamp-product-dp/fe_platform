@@ -1,6 +1,9 @@
+// グローバルCSS
+
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 html,
@@ -15,4 +18,9 @@ body {
 p,
 span {
   font-size: 14px;
+  margin: 0;
+}
+
+a {
+  text-decoration: underline;
 }

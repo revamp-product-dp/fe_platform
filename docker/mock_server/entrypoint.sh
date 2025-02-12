@@ -14,7 +14,7 @@
 set -e
 
 # mock_server起動
-yarn mock -h 0.0.0.0 -p 4011 /mock_server/docker/mock_server/mock_yaml/common.yaml &
+# yarn mock -h 0.0.0.0 -p 4011 /mock_server/docker/mock_server/mock_yaml/common.yaml &
 # yarn mock -h 0.0.0.0 -p 4012 /mock_server/docker/mock_server/mock_yaml/etl.yaml &
 # yarn mock -h 0.0.0.0 -p 4013 /mock_server/docker/mock_server/mock_yaml/general-search.yaml &
 # yarn mock -h 0.0.0.0 -p 4014 /mock_server/docker/mock_server/mock_yaml/support.yaml &
