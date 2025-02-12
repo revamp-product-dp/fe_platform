@@ -2,13 +2,18 @@
   "signin": {
     "signin": "サインイン",
     "id": "ID",
-    "password": "パスワード"
+    "password": "パスワード",
+    "forgot_password": "パスワードを忘れた場合はこちら"
   },
   "home": {
-    "service_list": "サービス一覧"
+    "service_list": "サービス一覧",
+    "signout": "サインアウト"
   },
   "validation": {
     "required": "値を入力してください",
     "email": "メールアドレスの形式で入力してください"
+  },
+  "notify": {
+    "signout": "サインアウトしました"
   }
 }

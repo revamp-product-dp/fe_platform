@@ -4,11 +4,12 @@ import { ref } from "vue";
 const menuWidth = ref(200);
 const isOpenMenu = ref(true);
 
-const sideMenuList = ref([
-  { value: "test", label: "ユーザマスタ" },
-  { value: "test", label: "組織マスタ" },
+const sideMenuList = ref<{ value: string; label: string }[]>([
+  // { value: "test", label: "ユーザマスタ" },
+  // { value: "test", label: "組織マスタ" },
 ]);
 
+// TODO: API実装されてから繋ぎこむ
 // async function getSideMenuList() {
 //   await
 // }
@@ -16,6 +17,7 @@ const sideMenuList = ref([
 
 <template>
   <q-drawer
+    v-if="sideMenuList.length > 0"
     show-if-above
     v-model="isOpenMenu"
     side="left"
@@ -25,7 +27,7 @@ const sideMenuList = ref([
     :width="menuWidth"
   >
     <q-scroll-area style="height: 100%">
-      <q-list v-if="sideMenuList.length > 0">
+      <q-list>
         <q-item clickable v-for="menu in sideMenuList" :key="menu.value">
           <q-item-section class="q-px-sm">{{ menu.label }}</q-item-section>
         </q-item>

@@ -29,7 +29,7 @@ const hasMenu = computed(() => route.meta.hasMenu ?? false);
   width: 100vw;
   min-width: 100vw;
   max-width: 100vw;
-  padding: 0;
-  margin: 0;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 </style>

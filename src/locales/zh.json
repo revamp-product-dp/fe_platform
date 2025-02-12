@@ -2,13 +2,18 @@
   "signin": {
     "signin": "登录",
     "id": "ID",
-    "password": "密码"
+    "password": "密码",
+    "forgot_password": "如果您忘记了密码，请点击这里"
   },
   "home": {
-    "service_list": "服务列表"
+    "service_list": "服务列表",
+    "signout": "请示"
   },
   "validation": {
     "required": "请输入值",
     "email": "请输入有效的电子邮件地址"
+  },
+  "notify": {
+    "signout": "已退出"
   }
 }

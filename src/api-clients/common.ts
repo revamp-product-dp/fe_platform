@@ -19,6 +19,11 @@ export class AccountApi {
 
     return res.data;
   }
+
+  async signOut(xCsrfToken: string): Promise<void> {
+    const api = this.getApi();
+    await api.apiAuthSignout(xCsrfToken);
+  }
 }
 
 export class PageApi {

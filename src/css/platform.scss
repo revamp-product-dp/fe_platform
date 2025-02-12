@@ -1,0 +1,6 @@
+@use "quasar-variables" as q;
+
+.notify_success {
+  background: #f7fff9;
+  border: 1px solid $positive;
+}

@@ -4,6 +4,7 @@ import { onBeforeMount, ref } from "vue";
 import type { ActiveService } from "@/api-clients/common";
 
 const pageApi = new PageApi();
+const defaultEtlToolPath = "/signin-callback/";
 
 const activeServiceList = ref<ActiveService[]>([]);
 
@@ -34,7 +35,7 @@ function getIconName(serviceName: string) {
         :key="service.value"
         :label="service.label"
         :class="$style.service_button"
-        :href="'/home/' + service.value + '/'"
+        :href="'/' + service.value + defaultEtlToolPath"
         :icon="getIconName(service.value)"
         outline
         stack

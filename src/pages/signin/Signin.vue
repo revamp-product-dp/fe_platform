@@ -3,18 +3,22 @@ import { AccountApi } from "@/api-clients/common";
 import { ref } from "vue";
 import { required, email } from "@/validations/index";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/userStore";
 
 const accountApi = new AccountApi();
 const router = useRouter();
+const userStore = useUserStore();
 const validRequired = [required()];
 const validMailAddress = [required(), email()];
 const beforeLabelWidth = "80";
+const resetPassPagePath = "/etl-tools/reset-password";
 
 const mailAddress = ref("");
 const password = ref("");
 
 async function signIn() {
-  await accountApi.signIn(mailAddress.value, password.value);
+  const res = await accountApi.signIn(mailAddress.value, password.value);
+  userStore.setUserInfo(res);
   router.push("/");
 }
 </script>
@@ -33,6 +37,7 @@ async function signIn() {
         />
         <Input
           v-model="password"
+          type="password"
           required
           :before-label="$t('signin.password')"
           :beforeLabelWidth="beforeLabelWidth"
@@ -48,6 +53,12 @@ async function signIn() {
         />
       </q-form>
     </q-card>
+    <a
+      :href="resetPassPagePath"
+      class="text-primary"
+      :class="$style.reset_pass"
+      >{{ $t("signin.forgot_password") }}</a
+    >
   </q-page>
 </template>
 
@@ -59,5 +70,12 @@ async function signIn() {
 .card {
   max-width: 440px;
   margin: 0 auto;
+}
+.reset_pass {
+  max-width: 440px;
+  margin: 10px auto 0;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: underline;
 }
 </style>
