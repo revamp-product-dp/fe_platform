@@ -11,13 +11,12 @@ const success = (message: string) => {
   });
 };
 
-const error = (message: string) => {
+const negative = (message: string) => {
   return Notify.create({
     message: message.replace(/\\n/g, "<br>"),
-    color: "errorbg",
-    textColor: "error",
+    textColor: "negative",
     position: "top",
-    classes: "dp-notify error",
+    classes: "notify_negative",
     timeout: 5000,
     html: true,
   });
@@ -25,5 +24,5 @@ const error = (message: string) => {
 
 export default {
   success,
-  error,
+  negative,
 };

@@ -1,28 +1,38 @@
 <script setup lang="ts">
 import { PageApi } from "@/api-clients/common";
 import { onBeforeMount, ref } from "vue";
+import { useDisableStore } from "@/stores/disableStore";
 import type { ActiveService } from "@/api-clients/common";
 
 const pageApi = new PageApi();
-const defaultEtlToolPath = "/signin-callback/";
-
+const disableStore = useDisableStore();
 const activeServiceList = ref<ActiveService[]>([]);
 
+// サービスごとのアイコン名と遷移先のパスを定義する
+const infoList = [
+  {
+    value: "etl-tools",
+    iconName: "query_stats",
+    path: "/etl-tools/signin-callback/",
+  },
+];
+
 onBeforeMount(async () => {
+  disableStore.setIsDisabled(true);
   await getActiveServiceList();
+  disableStore.setIsDisabled(false);
 });
 
 async function getActiveServiceList() {
   activeServiceList.value = await pageApi.getActiveServiceList();
 }
 
-function getIconName(serviceName: string) {
-  const iconList = [
-    { value: "etl-tools", name: "query_stats" },
-    { value: "logi-work", name: "local_shipping" },
-  ];
+function getServicePath(serviceName: string) {
+  return infoList.find((info) => info.value === serviceName)?.path;
+}
 
-  return iconList.find((icon) => icon.value === serviceName)?.name ?? "";
+function getIconName(serviceName: string) {
+  return infoList.find((info) => info.value === serviceName)?.iconName;
 }
 </script>
 
@@ -35,7 +45,7 @@ function getIconName(serviceName: string) {
         :key="service.value"
         :label="service.label"
         :class="$style.service_button"
-        :href="'/' + service.value + defaultEtlToolPath"
+        :href="getServicePath(service.value)"
         :icon="getIconName(service.value)"
         outline
         stack

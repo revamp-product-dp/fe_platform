@@ -9,6 +9,20 @@
     "service_list": "服务列表",
     "signout": "请示"
   },
+  "error": {
+    "title": {
+      "session": "会话已过期",
+      "token": "令牌无效或已过期",
+      "system": "错误",
+      "authority": "没有权限"
+    },
+    "message": {
+      "session": "返回登录页面。",
+      "token": "请重新发送邀请邮件并点击链接。",
+      "system": "发生了系统错误。",
+      "authority": "需要在权限类型主控台中授予权限。"
+    }
+  },
   "validation": {
     "required": "请输入值",
     "email": "请输入有效的电子邮件地址"

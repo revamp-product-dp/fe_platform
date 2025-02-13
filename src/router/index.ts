@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Signin from "@/pages/signin/Signin.vue";
 import Home from "@/pages/home/Home.vue";
+import Error from "@/pages/error/Error.vue";
 
 /**
  * ルートの meta 情報
@@ -22,6 +23,12 @@ const routes = [
     component: Home,
     meta: { hasMenu: true, skipAuth: true },
   },
+  {
+    path: "/error/",
+    name: "Error",
+    component: Error,
+    meta: { skipAuth: true },
+  },
 ];
 
 const router = createRouter({
@@ -35,8 +42,8 @@ router.beforeEach((to, from, next) => {
     // skipAuth が true の場合はそのまま遷移
     next();
   } else {
-    // /signinに飛ばす
-    router.push("/signin");
+    // /signin/に飛ばす
+    router.push("/signin/");
     next();
   }
 });

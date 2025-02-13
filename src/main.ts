@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { Quasar, Notify } from "quasar";
 import { createPinia } from "pinia";
+import { handleError } from "@/helpers/handleError";
 import App from "./App.vue";
 import router from "./router";
 import i18n from "@/plugins/i18n";
@@ -25,5 +26,9 @@ app.use(router);
 app.use(i18n);
 app.use(pinia);
 registerGlobalComponents(app);
+
+app.config.errorHandler = async (err) => {
+  handleError(err);
+};
 
 app.mount("#app");
