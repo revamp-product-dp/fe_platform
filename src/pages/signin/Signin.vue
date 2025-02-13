@@ -4,10 +4,12 @@ import { ref } from "vue";
 import { required, email } from "@/validations/index";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/userStore";
+import { useDisableStore } from "@/stores/disableStore";
 
 const accountApi = new AccountApi();
 const router = useRouter();
 const userStore = useUserStore();
+const disableStore = useDisableStore();
 const validRequired = [required()];
 const validMailAddress = [required(), email()];
 const beforeLabelWidth = "80";
@@ -17,7 +19,9 @@ const mailAddress = ref("");
 const password = ref("");
 
 async function signIn() {
+  disableStore.setIsDisabled(true);
   const res = await accountApi.signIn(mailAddress.value, password.value);
+  disableStore.setIsDisabled(false);
   userStore.setUserInfo(res);
   router.push("/");
 }
@@ -34,6 +38,7 @@ async function signIn() {
           :before-label="$t('signin.id')"
           :beforeLabelWidth="beforeLabelWidth"
           :rules="validMailAddress"
+          :disabled="disableStore.isDisabled"
         />
         <Input
           v-model="password"
@@ -42,6 +47,7 @@ async function signIn() {
           :before-label="$t('signin.password')"
           :beforeLabelWidth="beforeLabelWidth"
           :rules="validRequired"
+          :disabled="disableStore.isDisabled"
         />
         <q-btn
           fill
@@ -50,6 +56,7 @@ async function signIn() {
           type="submit"
           size="md"
           :label="$t('signin.signin')"
+          :disabled="disableStore.isDisabled"
         />
       </q-form>
     </q-card>

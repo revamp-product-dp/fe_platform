@@ -4,6 +4,7 @@ import { computed } from "vue";
 interface Props {
   model: string | number | null;
   required?: boolean;
+  disabled?: boolean;
   beforeLabel?: string;
   beforeLabelWidth?: string;
   beforeLabelAlign?: "left" | "center" | "right";
@@ -28,6 +29,7 @@ const beforeLabelStyle = computed(() => ({
     v-bind="props"
     dense
     outlined
+    :disable="props.disabled"
   >
     <template v-if="beforeLabel" v-slot:before>
       <span :style="beforeLabelStyle">
