@@ -9,7 +9,7 @@ const disableStore = useDisableStore();
 const activeServiceList = ref<ActiveService[]>([]);
 
 // サービスごとのアイコン名と遷移先のパスを定義する
-const infoList = [
+const serviceInfoList = [
   {
     value: "etl-tools",
     iconName: "query_stats",
@@ -28,11 +28,11 @@ async function getActiveServiceList() {
 }
 
 function getServicePath(serviceName: string) {
-  return infoList.find((info) => info.value === serviceName)?.path;
+  return serviceInfoList.find((info) => info.value === serviceName)?.path;
 }
 
 function getIconName(serviceName: string) {
-  return infoList.find((info) => info.value === serviceName)?.iconName;
+  return serviceInfoList.find((info) => info.value === serviceName)?.iconName;
 }
 </script>
 
@@ -47,6 +47,7 @@ function getIconName(serviceName: string) {
         :class="$style.service_button"
         :href="getServicePath(service.value)"
         :icon="getIconName(service.value)"
+        class="text-primary"
         outline
         stack
         unelevated
@@ -65,5 +66,6 @@ function getIconName(serviceName: string) {
 .service_button {
   width: 140px;
   height: 140px;
+  border-radius: 8px;
 }
 </style>

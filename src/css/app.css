@@ -24,3 +24,7 @@ span {
 a {
   text-decoration: underline;
 }
+
+a:hover {
+  opacity: 0.8;
+}
