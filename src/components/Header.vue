@@ -14,7 +14,7 @@ async function signout() {
   const csrfToken = getCookieValueByName("csrf_access_token");
   if (csrfToken) {
     await accountApi.signOut(csrfToken);
-    router.push("/signin");
+    router.push("/signin/");
     Notify.success(t("notify.signout"));
   }
 }

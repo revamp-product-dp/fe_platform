@@ -30,7 +30,7 @@ async function signIn() {
 <template>
   <q-page class="q-pl-md" :class="$style.page">
     <q-card class="q-pa-lg" :class="$style.card">
-      <H2 class="q-mb-lg">{{ $t("signin.signin") }}</H2>
+      <H2 class="q-mb-lg text-center">{{ $t("signin.signin") }}</H2>
       <q-form @submit="signIn">
         <Input
           v-model="mailAddress"
@@ -51,7 +51,7 @@ async function signIn() {
         />
         <q-btn
           fill
-          class="text-weight-bold q-mt-md"
+          class="text-weight-bold q-mt-md q-mx-auto block"
           color="primary"
           type="submit"
           size="md"
