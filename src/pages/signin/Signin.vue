@@ -84,8 +84,12 @@ async function signIn() {
   :deep(.q-field__control) {
     padding: 0;
   }
+  :deep(.q-field__control-container) {
+    padding: 0 1px;
+  }
   :deep(.q-field__native) {
     padding: 0px 5px 0px 11px;
+    border-radius: 3px;
   }
   :deep(.q-field__append) {
     padding: 6px !important;
