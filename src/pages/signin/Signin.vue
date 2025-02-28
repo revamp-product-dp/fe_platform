@@ -12,7 +12,7 @@ const userStore = useUserStore();
 const disableStore = useDisableStore();
 const validRequired = [required()];
 const validMailAddress = [required(), email()];
-const beforeLabelWidth = "80";
+const beforeLabelWidth = "82";
 const resetPassPagePath = "/etl-tools/reset-password";
 
 const mailAddress = ref("");
@@ -28,8 +28,8 @@ async function signIn() {
 </script>
 
 <template>
-  <q-page class="q-pl-md" :class="$style.page">
-    <q-card class="q-pa-lg" :class="$style.card">
+  <q-page class="q-pl-md page">
+    <q-card class="q-pa-lg card">
       <H2 class="q-mb-lg text-center">{{ $t("signin.signin") }}</H2>
       <q-form @submit="signIn">
         <Input
@@ -60,24 +60,24 @@ async function signIn() {
         />
       </q-form>
     </q-card>
-    <a
-      :href="resetPassPagePath"
-      class="text-primary"
-      :class="$style.reset_pass"
-      >{{ $t("signin.forgot_password") }}</a
-    >
+    <a :href="resetPassPagePath" class="text-primary reset_pass">{{
+      $t("signin.forgot_password")
+    }}</a>
   </q-page>
 </template>
 
-<style module lang="scss" scoped>
+<style lang="scss" scoped>
 .page {
   width: 100%;
   padding: 50px 0 0;
 }
+
 .card {
   max-width: 440px;
+  padding: 30px;
   margin: 0 auto;
 }
+
 .reset_pass {
   max-width: 440px;
   margin: 10px auto 0;

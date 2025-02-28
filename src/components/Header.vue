@@ -21,22 +21,23 @@ async function signout() {
 </script>
 
 <template>
-  <q-header class="row justify-end" style="background: transparent">
+  <q-header
+    class="row justify-end text-primary"
+    style="background: transparent"
+  >
     <q-toolbar class="q-px-lg">
-      <q-toolbar-title class="text-primary text-left text-weight-bold">
+      <q-toolbar-title class="text-left text-weight-bold">
         Platform
       </q-toolbar-title>
 
       <q-btn color="primary" flat round dense icon="person" size="lg" />
-      <span class="text-primary">{{ userStore.userInfo.name }}</span>
-      <a class="text-primary" :class="$style.signout" @click="signout">{{
-        $t("home.signout")
-      }}</a>
+      <span>{{ userStore.userInfo.name }}</span>
+      <a class="signout" @click="signout">{{ $t("home.signout") }}</a>
     </q-toolbar>
   </q-header>
 </template>
 
-<style module lang="scss" scoped>
+<style lang="scss" scoped>
 .signout {
   cursor: pointer;
   margin-left: 20px;

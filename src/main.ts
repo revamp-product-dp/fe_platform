@@ -8,7 +8,6 @@ import i18n from "@/plugins/i18n";
 import quasarIconSet from "quasar/icon-set/material-icons";
 import registerGlobalComponents from "@/helpers/global-components";
 import "quasar/src/css/index.sass";
-import "@/css/app.css";
 import "@/css/platform.scss";
 import "@quasar/extras/material-icons/material-icons.css";
 import "@quasar/extras/material-icons-outlined/material-icons-outlined.css";
