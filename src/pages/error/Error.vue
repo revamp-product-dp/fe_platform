@@ -41,8 +41,8 @@ const sleep = (ms: number) => {
 </script>
 
 <template>
-  <q-page :class="$style.page">
-    <q-card :class="$style.card">
+  <q-page class="page">
+    <q-card class="card">
       <H2>
         {{ title }}
       </H2>
@@ -53,7 +53,7 @@ const sleep = (ms: number) => {
   </q-page>
 </template>
 
-<style scoped lang="scss" module>
+<style scoped lang="scss">
 .page {
   padding: 50px 0 0;
 }

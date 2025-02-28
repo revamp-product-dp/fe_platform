@@ -39,15 +39,14 @@ function getIconName(serviceName: string) {
 <template>
   <q-page class="q-ml-lg">
     <H2 class="text-left q-mt-lg q-mb-md">{{ $t("home.service_list") }}</H2>
-    <div :class="$style.button_grid">
+    <div class="button_grid">
       <q-btn
         v-for="service in activeServiceList"
         :key="service.value"
         :label="service.label"
-        :class="$style.service_button"
         :href="getServicePath(service.value)"
         :icon="getIconName(service.value)"
-        class="text-primary"
+        class="service_button"
         outline
         stack
         unelevated
@@ -56,7 +55,7 @@ function getIconName(serviceName: string) {
   </q-page>
 </template>
 
-<style module lang="scss" scoped>
+<style lang="scss" scoped>
 .button_grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 140px);

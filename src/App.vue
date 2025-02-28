@@ -24,7 +24,7 @@ const hasMenu = computed(() => route.meta.hasMenu ?? false);
   </q-layout>
 </template>
 
-<style>
+<style module>
 #app {
   width: 100vw;
   min-width: 100vw;
