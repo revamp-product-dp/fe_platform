@@ -35,6 +35,7 @@ async function signIn() {
         <Input
           v-model="mailAddress"
           required
+          class="input"
           :before-label="$t('signin.id')"
           :beforeLabelWidth="beforeLabelWidth"
           :rules="validMailAddress"
@@ -44,6 +45,7 @@ async function signIn() {
           v-model="password"
           type="password"
           required
+          class="input"
           :before-label="$t('signin.password')"
           :beforeLabelWidth="beforeLabelWidth"
           :rules="validRequired"
@@ -76,6 +78,18 @@ async function signIn() {
   max-width: 440px;
   padding: 30px;
   margin: 0 auto;
+}
+
+.input {
+  :deep(.q-field__control) {
+    padding: 0;
+  }
+  :deep(.q-field__native) {
+    padding: 0px 5px 0px 11px;
+  }
+  :deep(.q-field__append) {
+    padding: 6px !important;
+  }
 }
 
 .reset_pass {
