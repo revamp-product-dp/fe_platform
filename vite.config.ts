@@ -21,5 +21,5 @@ export default defineConfig({
   },
   envDir: "env",
   envPrefix: "DP_",
-  server: { host: "0.0.0.0", port: 3001 },
+  server: { host: "0.0.0.0", port: 3002 },
 });
