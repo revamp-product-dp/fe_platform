@@ -15,6 +15,11 @@ const serviceInfoList = [
     iconName: "query_stats",
     path: "/etl-tools/signin-callback/",
   },
+  {
+    value: "logiwork",
+    iconName: "pending_actions",
+    path: "/logiwork/",
+  },
 ];
 
 onBeforeMount(async () => {
