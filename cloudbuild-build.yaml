@@ -1,0 +1,53 @@
+steps:
+  - id: build and unit test
+    name: "node:18-alpine"
+    entrypoint: "ash"
+    secretEnv: ["SENTRY_AUTH_TOKEN"]
+    args:
+      - -c
+      - |
+        export NODE_OPTIONS=--max_old_space_size=6144 DP_SENTRY_AUTH_TOKEN="$$SENTRY_AUTH_TOKEN"
+        yarn install
+        yarn vite build --mode ${_MODE}
+
+        if [ "${_MODE}" != "develop" ]; then
+          rm -f dist/assets/*.js.map
+        fi
+
+  - id: "Slack notification"
+    name: gcr.io/cloud-builders/curl
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        curl  -X POST \
+              --data-urlencode \
+              'payload={
+                "username": "ビルド通知",
+                "text": "\nREPOSITORY: $REPO_NAME"}' \
+              $$WEB_HOOK
+
+    secretEnv: ["WEB_HOOK"]
+
+  - id: "Pub/Sub push"
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - -c
+      - |
+
+        if [ ${_MODE} == 'develop' ]; then
+          gcloud pubsub topics publish ${_TOPIC_NAME} --message 'Build Complete'
+        fi
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/${_MNG_PROJECT}/secrets/SENTRY_AUTH_TOKEN/versions/latest
+      env: "SENTRY_AUTH_TOKEN"
+    - versionName: projects/${PROJECT_ID}/secrets/slack-webhook-url/versions/latest
+      env: "WEB_HOOK"
+
+options:
+  machineType: "E2_HIGHCPU_8"
+
+logsBucket: $_LOG_BUCKET

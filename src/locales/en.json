@@ -1,0 +1,33 @@
+{
+  "signin": {
+    "signin": "Sign In",
+    "id": "ID",
+    "password": "Password",
+    "forgot_password": "Click here if you forgot your password"
+  },
+  "home": {
+    "service_list": "Service List",
+    "signout": "Sign Out"
+  },
+  "error": {
+    "title": {
+      "session": "Session has expired.",
+      "token": "Token is invalid or has expired.",
+      "system": "Error",
+      "authority": "You do not have permission."
+    },
+    "message": {
+      "session": "Returning to the login screen.",
+      "token": "Please resend the invitation email and click the URL.",
+      "system": "A system error has occurred.",
+      "authority": "You need to assign permissions from the Permission Type Master screen."
+    }
+  },
+  "validation": {
+    "required": "Please enter a value",
+    "email": "Please enter a valid email address"
+  },
+  "notify": {
+    "signout": "Signed out"
+  }
+}
