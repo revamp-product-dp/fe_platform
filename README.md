@@ -46,13 +46,7 @@ docker network create data-platform-net
 
 #### 開発サーバーを立ち上げ
 
-プロジェクトのあるディレクトリ(docker-compose.yml のあるディレクトリ)で実行（デフォルトで localhost:3000 にホスト）
-
-```bash
-docker compose run --rm -p 3000:3000 app yarn vite --mode _local
-```
-
-または
+プロジェクトのあるディレクトリ(docker-compose.yml のあるディレクトリ)で実行（デフォルトで localhost:3002 にホスト）
 
 ```bash
 docker compose up

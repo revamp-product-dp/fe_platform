@@ -12,29 +12,13 @@ services:
       - .:/app
       - /app/node_modules
     working_dir: /app
-    command: sh -c "yarn dev"
+    command: sh -c "chmod +x /app/node_modules/.bin/* && yarn dev"
     networks:
       - default
       - data-platform-net
     ports:
-      - 3001:3001
+      - 3002:3002
     tty: true
-    depends_on:
-      - mock_server
-
-  mock_server:
-    build:
-      context: ./docker/mock_server
-      dockerfile: Dockerfile
-    networks:
-      - default
-      - data-platform-net
-    volumes:
-      - .:/mock_server
-      - ./docker/mock_server/nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "4010:4010"
-    command: sh -c 'sh /mock_server/docker/mock_server/entrypoint.sh'
 
 networks:
   data-platform-net:
