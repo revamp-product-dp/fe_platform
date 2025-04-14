@@ -13,7 +13,7 @@ const disableStore = useDisableStore();
 const validRequired = [required()];
 const validMailAddress = [required(), email()];
 const beforeLabelWidth = "82";
-const resetPassPagePath = "/etl-tools/reset-password";
+const resetPassPagePath = "/etl-tools/password-reset";
 
 const mailAddress = ref("");
 const password = ref("");
