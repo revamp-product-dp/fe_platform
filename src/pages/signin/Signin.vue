@@ -3,12 +3,12 @@ import { AccountApi } from "@/api-clients/common";
 import { ref } from "vue";
 import { required, email } from "@/validations/index";
 import { useRouter } from "vue-router";
-import { useUserStore } from "@/stores/userStore";
+import { useAccountStore } from "@/stores/useAccountStore";
 import { useDisableStore } from "@/stores/disableStore";
 
 const accountApi = new AccountApi();
 const router = useRouter();
-const userStore = useUserStore();
+const accountStore = useAccountStore();
 const disableStore = useDisableStore();
 const validRequired = [required()];
 const validMailAddress = [required(), email()];
@@ -22,7 +22,8 @@ async function signIn() {
   disableStore.setIsDisabled(true);
   const res = await accountApi.signIn(mailAddress.value, password.value);
   disableStore.setIsDisabled(false);
-  userStore.setUserInfo(res);
+  // @ts-ignore TODO: 型不整合の修正（そもそもいらないかも？）
+  accountStore.set(res);
   router.push("/");
 }
 </script>
@@ -30,7 +31,7 @@ async function signIn() {
 <template>
   <q-page class="q-pl-md page">
     <q-card class="q-pa-lg card">
-      <H2 class="q-mb-lg text-center">{{ $t("signin.signin") }}</H2>
+      <Title class="q-mb-lg text-center">{{ $t("signin.signin") }}</Title>
       <q-form @submit="signIn">
         <Input
           v-model="mailAddress"
