@@ -43,9 +43,9 @@ const sleep = (ms: number) => {
 <template>
   <q-page class="page">
     <q-card class="card">
-      <H2>
+      <Title>
         {{ title }}
-      </H2>
+      </Title>
       <p>
         {{ message }}
       </p>

@@ -60,6 +60,12 @@ export interface Account {
      */
     'is_administrator': boolean;
     /**
+     * 
+     * @type {boolean}
+     * @memberof Account
+     */
+    'is_super_administrator': boolean;
+    /**
      * v_user_personal.lang_cdをv_zokusei_code.attr3 (zokusei_no = \'002\')で変換
      * @type {string}
      * @memberof Account
@@ -223,31 +229,6 @@ export interface ActiveServiceSetting {
 /**
  * 
  * @export
- * @interface ApiModulePersonHourControllerPostPersonHourControllerRequest
- */
-export interface ApiModulePersonHourControllerPostPersonHourControllerRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiModulePersonHourControllerPostPersonHourControllerRequest
-     */
-    'center_id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiModulePersonHourControllerPostPersonHourControllerRequest
-     */
-    'work_id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiModulePersonHourControllerPostPersonHourControllerRequest
-     */
-    'worker_id': string;
-}
-/**
- * 
- * @export
  * @interface Authority
  */
 export interface Authority {
@@ -286,89 +267,6 @@ export interface AuthorityType {
 /**
  * 
  * @export
- * @interface AuthorityTypeAuthorityTypeDetailGet200Response
- */
-export interface AuthorityTypeAuthorityTypeDetailGet200Response {
-    /**
-     * v_user_authority_type_detail
-     * @type {Array<AuthorityTypeDetail>}
-     * @memberof AuthorityTypeAuthorityTypeDetailGet200Response
-     */
-    'authority_type_detail': Array<AuthorityTypeDetail>;
-    /**
-     * 検索結果の総件数
-     * @type {number}
-     * @memberof AuthorityTypeAuthorityTypeDetailGet200Response
-     */
-    'length': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AuthorityTypeAuthorityTypeDetailGet200Response
-     */
-    'is_last': boolean;
-}
-/**
- * 
- * @export
- * @interface AuthorityTypeAuthorityTypeDetailPostRequest
- */
-export interface AuthorityTypeAuthorityTypeDetailPostRequest {
-    /**
-     * 
-     * @type {AuthorityType}
-     * @memberof AuthorityTypeAuthorityTypeDetailPostRequest
-     */
-    'authority_type': AuthorityType;
-    /**
-     * 
-     * @type {Array<AuthorityTypeDetail>}
-     * @memberof AuthorityTypeAuthorityTypeDetailPostRequest
-     */
-    'authority_type_details': Array<AuthorityTypeDetail>;
-}
-/**
- * v_user_authority_type_header
- * @export
- * @interface AuthorityTypeAuthorityTypeHeaderGet200Response
- */
-export interface AuthorityTypeAuthorityTypeHeaderGet200Response {
-    /**
-     * 
-     * @type {Array<AuthorityType>}
-     * @memberof AuthorityTypeAuthorityTypeHeaderGet200Response
-     */
-    'authority_types': Array<AuthorityType>;
-}
-/**
- * 
- * @export
- * @interface AuthorityTypeAuthorityTypeHeaderPost200Response
- */
-export interface AuthorityTypeAuthorityTypeHeaderPost200Response {
-    /**
-     * 
-     * @type {Array<AuthorityType>}
-     * @memberof AuthorityTypeAuthorityTypeHeaderPost200Response
-     */
-    'authority_types': Array<AuthorityType>;
-}
-/**
- * v_user_authority_type_header
- * @export
- * @interface AuthorityTypeAuthorityTypeHeaderPostRequest
- */
-export interface AuthorityTypeAuthorityTypeHeaderPostRequest {
-    /**
-     * 
-     * @type {Array<AuthorityType>}
-     * @memberof AuthorityTypeAuthorityTypeHeaderPostRequest
-     */
-    'authority_types': Array<AuthorityType>;
-}
-/**
- * 
- * @export
  * @interface AuthorityTypeDetail
  */
 export interface AuthorityTypeDetail {
@@ -396,6 +294,89 @@ export interface AuthorityTypeDetail {
      * @memberof AuthorityTypeDetail
      */
     'init_menu_flag'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface AuthorityTypeEtlToolsAuthorityTypeDetailGet200Response
+ */
+export interface AuthorityTypeEtlToolsAuthorityTypeDetailGet200Response {
+    /**
+     * v_user_authority_type_detail
+     * @type {Array<AuthorityTypeDetail>}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeDetailGet200Response
+     */
+    'authority_type_detail': Array<AuthorityTypeDetail>;
+    /**
+     * 検索結果の総件数
+     * @type {number}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeDetailGet200Response
+     */
+    'length': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeDetailGet200Response
+     */
+    'is_last': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest
+ */
+export interface AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest {
+    /**
+     * 
+     * @type {AuthorityType}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest
+     */
+    'authority_type': AuthorityType;
+    /**
+     * 
+     * @type {Array<AuthorityTypeDetail>}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest
+     */
+    'authority_type_details': Array<AuthorityTypeDetail>;
+}
+/**
+ * v_user_authority_type_header
+ * @export
+ * @interface AuthorityTypeEtlToolsAuthorityTypeHeaderGet200Response
+ */
+export interface AuthorityTypeEtlToolsAuthorityTypeHeaderGet200Response {
+    /**
+     * 
+     * @type {Array<AuthorityType>}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeHeaderGet200Response
+     */
+    'authority_types': Array<AuthorityType>;
+}
+/**
+ * 
+ * @export
+ * @interface AuthorityTypeEtlToolsAuthorityTypeHeaderPost200Response
+ */
+export interface AuthorityTypeEtlToolsAuthorityTypeHeaderPost200Response {
+    /**
+     * 
+     * @type {Array<AuthorityType>}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeHeaderPost200Response
+     */
+    'authority_types': Array<AuthorityType>;
+}
+/**
+ * v_user_authority_type_header
+ * @export
+ * @interface AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest
+ */
+export interface AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest {
+    /**
+     * 
+     * @type {Array<AuthorityType>}
+     * @memberof AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest
+     */
+    'authority_types': Array<AuthorityType>;
 }
 /**
  * 
@@ -627,6 +608,25 @@ export interface CardType {
      * @memberof CardType
      */
     'input_param': CardSetting;
+}
+/**
+ * 
+ * @export
+ * @interface Center
+ */
+export interface Center {
+    /**
+     * v_center.center_id
+     * @type {string}
+     * @memberof Center
+     */
+    'value': string;
+    /**
+     * v_center.center_name
+     * @type {string}
+     * @memberof Center
+     */
+    'label': string;
 }
 /**
  * 
@@ -2057,15 +2057,34 @@ export interface PagesActiveServiceListGet200Response {
 /**
  * 
  * @export
+ * @interface PagesAuthorityLevelListGet200Response
+ */
+export interface PagesAuthorityLevelListGet200Response {
+    /**
+     * 
+     * @type {Array<Authority>}
+     * @memberof PagesAuthorityLevelListGet200Response
+     */
+    'authority_level_list': Array<Authority>;
+}
+/**
+ * 
+ * @export
  * @interface PagesAuthorityTypeListGet200Response
  */
 export interface PagesAuthorityTypeListGet200Response {
     /**
      * 
-     * @type {Array<Authority>}
+     * @type {Array<AuthorityType>}
      * @memberof PagesAuthorityTypeListGet200Response
      */
-    'authority_type_list': Array<Authority>;
+    'authority_type_list': Array<AuthorityType>;
+    /**
+     * 
+     * @type {Array<UserGsAuthority>}
+     * @memberof PagesAuthorityTypeListGet200Response
+     */
+    'gs_authority_type_list'?: Array<UserGsAuthority>;
 }
 /**
  * 
@@ -2180,6 +2199,19 @@ export interface PagesPalleteListGet200Response {
 /**
  * 
  * @export
+ * @interface PagesTaskListGet200Response
+ */
+export interface PagesTaskListGet200Response {
+    /**
+     * 
+     * @type {Array<TaskCategory>}
+     * @memberof PagesTaskListGet200Response
+     */
+    'task_list'?: Array<TaskCategory>;
+}
+/**
+ * 
+ * @export
  * @interface PagesTimezonesGet200Response
  */
 export interface PagesTimezonesGet200Response {
@@ -2189,25 +2221,6 @@ export interface PagesTimezonesGet200Response {
      * @memberof PagesTimezonesGet200Response
      */
     'timezone_list': Array<string>;
-}
-/**
- * 
- * @export
- * @interface PagesUsersGet200Response
- */
-export interface PagesUsersGet200Response {
-    /**
-     * 
-     * @type {Array<AuthorityType>}
-     * @memberof PagesUsersGet200Response
-     */
-    'authority_type_list': Array<AuthorityType>;
-    /**
-     * 
-     * @type {Array<UserGsAuthority>}
-     * @memberof PagesUsersGet200Response
-     */
-    'gs_authority_type_list'?: Array<UserGsAuthority>;
 }
 /**
  * 
@@ -2245,6 +2258,151 @@ export interface PalleteList {
      * @memberof PalleteList
      */
     'hue_shift': number;
+}
+/**
+ * 
+ * @export
+ * @interface PersonHour
+ */
+export interface PersonHour {
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHour
+     */
+    'continuous_days': string;
+}
+/**
+ * 
+ * @export
+ * @interface PersonHourCentersGet200Response
+ */
+export interface PersonHourCentersGet200Response {
+    /**
+     * 
+     * @type {Array<Center>}
+     * @memberof PersonHourCentersGet200Response
+     */
+    'center_list': Array<Center>;
+}
+/**
+ * 
+ * @export
+ * @interface PersonHourDetail
+ */
+export interface PersonHourDetail {
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetail
+     */
+    'task_process_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetail
+     */
+    'task_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetail
+     */
+    'stamped_at': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetail
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface PersonHourDetailGet200Response
+ */
+export interface PersonHourDetailGet200Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetailGet200Response
+     */
+    'worker_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetailGet200Response
+     */
+    'work_date': string;
+    /**
+     * 
+     * @type {Array<PersonHourDetail>}
+     * @memberof PersonHourDetailGet200Response
+     */
+    'task_detail_list': Array<PersonHourDetail>;
+}
+/**
+ * 
+ * @export
+ * @interface PersonHourDetailPostRequest
+ */
+export interface PersonHourDetailPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetailPostRequest
+     */
+    'worker_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourDetailPostRequest
+     */
+    'work_date': string;
+    /**
+     * 
+     * @type {Array<UpdatePersonHourDetail>}
+     * @memberof PersonHourDetailPostRequest
+     */
+    'task_detail_list'?: Array<UpdatePersonHourDetail>;
+}
+/**
+ * 
+ * @export
+ * @interface PersonHourPostRequest
+ */
+export interface PersonHourPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourPostRequest
+     */
+    'task_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourPostRequest
+     */
+    'worker_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonHourPostRequest
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface PersonHourWorkersGet200Response
+ */
+export interface PersonHourWorkersGet200Response {
+    /**
+     * 
+     * @type {Array<Worker>}
+     * @memberof PersonHourWorkersGet200Response
+     */
+    'worker_list': Array<Worker>;
 }
 /**
  * 
@@ -2362,6 +2520,50 @@ export interface SigninUser {
      * @memberof SigninUser
      */
     'mail_address'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Task
+ */
+export interface Task {
+    /**
+     * v_task.task_id
+     * @type {string}
+     * @memberof Task
+     */
+    'value': string;
+    /**
+     * v_task.task_name
+     * @type {string}
+     * @memberof Task
+     */
+    'label': string;
+}
+/**
+ * 
+ * @export
+ * @interface TaskCategory
+ */
+export interface TaskCategory {
+    /**
+     * v_task_category.task_category_id
+     * @type {string}
+     * @memberof TaskCategory
+     */
+    'value': string;
+    /**
+     * v_task_category.task_category_name
+     * @type {string}
+     * @memberof TaskCategory
+     */
+    'label': string;
+    /**
+     * 
+     * @type {Array<Task>}
+     * @memberof TaskCategory
+     */
+    'task_list': Array<Task>;
 }
 /**
  * 
@@ -2486,6 +2688,31 @@ export interface TranslateUsersAnalysisTranslateUsersAnalysisInner {
 /**
  * 
  * @export
+ * @interface UpdatePersonHourDetail
+ */
+export interface UpdatePersonHourDetail {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdatePersonHourDetail
+     */
+    'task_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdatePersonHourDetail
+     */
+    'stamped_at': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdatePersonHourDetail
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface User
  */
 export interface User {
@@ -2509,28 +2736,103 @@ export interface User {
     'mail_address': string;
     /**
      * 
-     * @type {AuthorityType}
-     * @memberof User
-     */
-    'authority_type': AuthorityType;
-    /**
-     * 
-     * @type {UserGsAuthority}
-     * @memberof User
-     */
-    'gs_authority_type': UserGsAuthority;
-    /**
-     * 
      * @type {boolean}
      * @memberof User
      */
-    'is_administrator': boolean;
+    'is_super_administrator': boolean;
     /**
      * 
      * @type {string}
      * @memberof User
      */
     'register_date': string;
+}
+/**
+ * 
+ * @export
+ * @interface UserAuthority
+ */
+export interface UserAuthority {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserAuthority
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserAuthority
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserAuthority
+     */
+    'mail_address': string;
+    /**
+     * 
+     * @type {AuthorityType}
+     * @memberof UserAuthority
+     */
+    'authority_type': AuthorityType;
+    /**
+     * 
+     * @type {UserGsAuthority}
+     * @memberof UserAuthority
+     */
+    'gs_authority_type': UserGsAuthority | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UserAuthority
+     */
+    'is_administrator': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserAuthority
+     */
+    'register_date': string;
+}
+/**
+ * 
+ * @export
+ * @interface UserAuthorityEtlToolsUsersGet200Response
+ */
+export interface UserAuthorityEtlToolsUsersGet200Response {
+    /**
+     * 
+     * @type {Array<UserAuthority>}
+     * @memberof UserAuthorityEtlToolsUsersGet200Response
+     */
+    'users': Array<UserAuthority>;
+    /**
+     * 検索結果の総件数
+     * @type {number}
+     * @memberof UserAuthorityEtlToolsUsersGet200Response
+     */
+    'length': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UserAuthorityEtlToolsUsersGet200Response
+     */
+    'is_last': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface UserAuthorityEtlToolsUsersPostRequest
+ */
+export interface UserAuthorityEtlToolsUsersPostRequest {
+    /**
+     * 
+     * @type {Array<UserAuthority>}
+     * @memberof UserAuthorityEtlToolsUsersPostRequest
+     */
+    'users': Array<UserAuthority>;
 }
 /**
  * 
@@ -2633,12 +2935,6 @@ export interface UsersInvitationsPostRequest {
     'callback_url': string;
     /**
      * 
-     * @type {string}
-     * @memberof UsersInvitationsPostRequest
-     */
-    'authority_type': string;
-    /**
-     * 
      * @type {Array<string>}
      * @memberof UsersInvitationsPostRequest
      */
@@ -2720,6 +3016,31 @@ export interface VerifyOauthRedirectPostRequest {
      * @memberof VerifyOauthRedirectPostRequest
      */
     'state': string;
+}
+/**
+ * 
+ * @export
+ * @interface Worker
+ */
+export interface Worker {
+    /**
+     * v_worker.worker_id
+     * @type {string}
+     * @memberof Worker
+     */
+    'value': string;
+    /**
+     * v_worker.worker_name
+     * @type {string}
+     * @memberof Worker
+     */
+    'label': string;
+    /**
+     * v_worker.default_language
+     * @type {string}
+     * @memberof Worker
+     */
+    'default_language'?: string;
 }
 
 /**
@@ -2947,11 +3268,11 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthSignin: async (xRvpDpUid: string, xRvpDpPassword: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        accountSigninGet: async (xRvpDpUid: string, xRvpDpPassword: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'xRvpDpUid' is not null or undefined
-            assertParamExists('apiAuthSignin', 'xRvpDpUid', xRvpDpUid)
+            assertParamExists('accountSigninGet', 'xRvpDpUid', xRvpDpUid)
             // verify required parameter 'xRvpDpPassword' is not null or undefined
-            assertParamExists('apiAuthSignin', 'xRvpDpPassword', xRvpDpPassword)
+            assertParamExists('accountSigninGet', 'xRvpDpPassword', xRvpDpPassword)
             const localVarPath = `/account/signin`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2987,9 +3308,9 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthSignout: async (xCSRFTOKEN: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        accountSignoutGet: async (xCSRFTOKEN: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'xCSRFTOKEN' is not null or undefined
-            assertParamExists('apiAuthSignout', 'xCSRFTOKEN', xCSRFTOKEN)
+            assertParamExists('accountSignoutGet', 'xCSRFTOKEN', xCSRFTOKEN)
             const localVarPath = `/account/signout`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3148,10 +3469,10 @@ export const AccountApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiAuthSignin(xRvpDpUid: string, xRvpDpPassword: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SigninUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthSignin(xRvpDpUid, xRvpDpPassword, options);
+        async accountSigninGet(xRvpDpUid: string, xRvpDpPassword: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SigninUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.accountSigninGet(xRvpDpUid, xRvpDpPassword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AccountApi.apiAuthSignin']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['AccountApi.accountSigninGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3160,10 +3481,10 @@ export const AccountApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiAuthSignout(xCSRFTOKEN: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthSignout(xCSRFTOKEN, options);
+        async accountSignoutGet(xCSRFTOKEN: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.accountSignoutGet(xCSRFTOKEN, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AccountApi.apiAuthSignout']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['AccountApi.accountSignoutGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3249,8 +3570,8 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthSignin(xRvpDpUid: string, xRvpDpPassword: string, options?: RawAxiosRequestConfig): AxiosPromise<SigninUser> {
-            return localVarFp.apiAuthSignin(xRvpDpUid, xRvpDpPassword, options).then((request) => request(axios, basePath));
+        accountSigninGet(xRvpDpUid: string, xRvpDpPassword: string, options?: RawAxiosRequestConfig): AxiosPromise<SigninUser> {
+            return localVarFp.accountSigninGet(xRvpDpUid, xRvpDpPassword, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3258,8 +3579,8 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthSignout(xCSRFTOKEN: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.apiAuthSignout(xCSRFTOKEN, options).then((request) => request(axios, basePath));
+        accountSignoutGet(xCSRFTOKEN: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.accountSignoutGet(xCSRFTOKEN, options).then((request) => request(axios, basePath));
         },
         /**
          * oauthのstateに設定している値を検証する
@@ -3354,8 +3675,8 @@ export class AccountApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public apiAuthSignin(xRvpDpUid: string, xRvpDpPassword: string, options?: RawAxiosRequestConfig) {
-        return AccountApiFp(this.configuration).apiAuthSignin(xRvpDpUid, xRvpDpPassword, options).then((request) => request(this.axios, this.basePath));
+    public accountSigninGet(xRvpDpUid: string, xRvpDpPassword: string, options?: RawAxiosRequestConfig) {
+        return AccountApiFp(this.configuration).accountSigninGet(xRvpDpUid, xRvpDpPassword, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3365,8 +3686,8 @@ export class AccountApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public apiAuthSignout(xCSRFTOKEN: string, options?: RawAxiosRequestConfig) {
-        return AccountApiFp(this.configuration).apiAuthSignout(xCSRFTOKEN, options).then((request) => request(this.axios, this.basePath));
+    public accountSignoutGet(xCSRFTOKEN: string, options?: RawAxiosRequestConfig) {
+        return AccountApiFp(this.configuration).accountSignoutGet(xCSRFTOKEN, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3393,17 +3714,17 @@ export const AuthorityTypeApiAxiosParamCreator = function (configuration?: Confi
          * 
          * @param {string} authorityType 権限タイプ
          * @param {string} [q] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeDetailGet: async (authorityType: string, q?: string, sort?: AuthorityTypeAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authorityTypeEtlToolsAuthorityTypeDetailGet: async (authorityType: string, q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorityType' is not null or undefined
-            assertParamExists('authorityTypeAuthorityTypeDetailGet', 'authorityType', authorityType)
-            const localVarPath = `/authority_type/authority_type_detail`;
+            assertParamExists('authorityTypeEtlToolsAuthorityTypeDetailGet', 'authorityType', authorityType)
+            const localVarPath = `/authority_type/etl-tools/authority_type_detail`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3456,14 +3777,14 @@ export const AuthorityTypeApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @param {AuthorityTypeAuthorityTypeDetailPostRequest} authorityTypeAuthorityTypeDetailPostRequest 
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest} authorityTypeEtlToolsAuthorityTypeDetailPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeDetailPost: async (authorityTypeAuthorityTypeDetailPostRequest: AuthorityTypeAuthorityTypeDetailPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authorityTypeAuthorityTypeDetailPostRequest' is not null or undefined
-            assertParamExists('authorityTypeAuthorityTypeDetailPost', 'authorityTypeAuthorityTypeDetailPostRequest', authorityTypeAuthorityTypeDetailPostRequest)
-            const localVarPath = `/authority_type/authority_type_detail`;
+        authorityTypeEtlToolsAuthorityTypeDetailPost: async (authorityTypeEtlToolsAuthorityTypeDetailPostRequest: AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'authorityTypeEtlToolsAuthorityTypeDetailPostRequest' is not null or undefined
+            assertParamExists('authorityTypeEtlToolsAuthorityTypeDetailPost', 'authorityTypeEtlToolsAuthorityTypeDetailPostRequest', authorityTypeEtlToolsAuthorityTypeDetailPostRequest)
+            const localVarPath = `/authority_type/etl-tools/authority_type_detail`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3486,7 +3807,7 @@ export const AuthorityTypeApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(authorityTypeAuthorityTypeDetailPostRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(authorityTypeEtlToolsAuthorityTypeDetailPostRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3496,13 +3817,13 @@ export const AuthorityTypeApiAxiosParamCreator = function (configuration?: Confi
         /**
          * 
          * @param {string} [q] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeHeaderGet: async (q?: string, sort?: AuthorityTypeAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/authority_type/authority_type_header`;
+        authorityTypeEtlToolsAuthorityTypeHeaderGet: async (q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/authority_type/etl-tools/authority_type_header`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3543,14 +3864,14 @@ export const AuthorityTypeApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @param {AuthorityTypeAuthorityTypeHeaderPostRequest} authorityTypeAuthorityTypeHeaderPostRequest 
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest} authorityTypeEtlToolsAuthorityTypeHeaderPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeHeaderPost: async (authorityTypeAuthorityTypeHeaderPostRequest: AuthorityTypeAuthorityTypeHeaderPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authorityTypeAuthorityTypeHeaderPostRequest' is not null or undefined
-            assertParamExists('authorityTypeAuthorityTypeHeaderPost', 'authorityTypeAuthorityTypeHeaderPostRequest', authorityTypeAuthorityTypeHeaderPostRequest)
-            const localVarPath = `/authority_type/authority_type_header`;
+        authorityTypeEtlToolsAuthorityTypeHeaderPost: async (authorityTypeEtlToolsAuthorityTypeHeaderPostRequest: AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'authorityTypeEtlToolsAuthorityTypeHeaderPostRequest' is not null or undefined
+            assertParamExists('authorityTypeEtlToolsAuthorityTypeHeaderPost', 'authorityTypeEtlToolsAuthorityTypeHeaderPostRequest', authorityTypeEtlToolsAuthorityTypeHeaderPostRequest)
+            const localVarPath = `/authority_type/etl-tools/authority_type_header`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3573,7 +3894,7 @@ export const AuthorityTypeApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(authorityTypeAuthorityTypeHeaderPostRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(authorityTypeEtlToolsAuthorityTypeHeaderPostRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3594,55 +3915,55 @@ export const AuthorityTypeApiFp = function(configuration?: Configuration) {
          * 
          * @param {string} authorityType 権限タイプ
          * @param {string} [q] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authorityTypeAuthorityTypeDetailGet(authorityType: string, q?: string, sort?: AuthorityTypeAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthorityTypeAuthorityTypeDetailGet200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeAuthorityTypeDetailGet(authorityType, q, sort, sortOrder, limit, offset, options);
+        async authorityTypeEtlToolsAuthorityTypeDetailGet(authorityType: string, q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthorityTypeEtlToolsAuthorityTypeDetailGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeEtlToolsAuthorityTypeDetailGet(authorityType, q, sort, sortOrder, limit, offset, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeAuthorityTypeDetailGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeEtlToolsAuthorityTypeDetailGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {AuthorityTypeAuthorityTypeDetailPostRequest} authorityTypeAuthorityTypeDetailPostRequest 
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest} authorityTypeEtlToolsAuthorityTypeDetailPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authorityTypeAuthorityTypeDetailPost(authorityTypeAuthorityTypeDetailPostRequest: AuthorityTypeAuthorityTypeDetailPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeAuthorityTypeDetailPost(authorityTypeAuthorityTypeDetailPostRequest, options);
+        async authorityTypeEtlToolsAuthorityTypeDetailPost(authorityTypeEtlToolsAuthorityTypeDetailPostRequest: AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeEtlToolsAuthorityTypeDetailPost(authorityTypeEtlToolsAuthorityTypeDetailPostRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeAuthorityTypeDetailPost']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeEtlToolsAuthorityTypeDetailPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
          * @param {string} [q] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authorityTypeAuthorityTypeHeaderGet(q?: string, sort?: AuthorityTypeAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthorityTypeAuthorityTypeHeaderGet200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeAuthorityTypeHeaderGet(q, sort, sortOrder, options);
+        async authorityTypeEtlToolsAuthorityTypeHeaderGet(q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthorityTypeEtlToolsAuthorityTypeHeaderGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeEtlToolsAuthorityTypeHeaderGet(q, sort, sortOrder, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeAuthorityTypeHeaderGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeEtlToolsAuthorityTypeHeaderGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {AuthorityTypeAuthorityTypeHeaderPostRequest} authorityTypeAuthorityTypeHeaderPostRequest 
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest} authorityTypeEtlToolsAuthorityTypeHeaderPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authorityTypeAuthorityTypeHeaderPost(authorityTypeAuthorityTypeHeaderPostRequest: AuthorityTypeAuthorityTypeHeaderPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthorityTypeAuthorityTypeHeaderPost200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeAuthorityTypeHeaderPost(authorityTypeAuthorityTypeHeaderPostRequest, options);
+        async authorityTypeEtlToolsAuthorityTypeHeaderPost(authorityTypeEtlToolsAuthorityTypeHeaderPostRequest: AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthorityTypeEtlToolsAuthorityTypeHeaderPost200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authorityTypeEtlToolsAuthorityTypeHeaderPost(authorityTypeEtlToolsAuthorityTypeHeaderPostRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeAuthorityTypeHeaderPost']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['AuthorityTypeApi.authorityTypeEtlToolsAuthorityTypeHeaderPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -3659,44 +3980,44 @@ export const AuthorityTypeApiFactory = function (configuration?: Configuration, 
          * 
          * @param {string} authorityType 権限タイプ
          * @param {string} [q] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
          * @param {number} [limit] 
          * @param {number} [offset] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeDetailGet(authorityType: string, q?: string, sort?: AuthorityTypeAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig): AxiosPromise<AuthorityTypeAuthorityTypeDetailGet200Response> {
-            return localVarFp.authorityTypeAuthorityTypeDetailGet(authorityType, q, sort, sortOrder, limit, offset, options).then((request) => request(axios, basePath));
+        authorityTypeEtlToolsAuthorityTypeDetailGet(authorityType: string, q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig): AxiosPromise<AuthorityTypeEtlToolsAuthorityTypeDetailGet200Response> {
+            return localVarFp.authorityTypeEtlToolsAuthorityTypeDetailGet(authorityType, q, sort, sortOrder, limit, offset, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {AuthorityTypeAuthorityTypeDetailPostRequest} authorityTypeAuthorityTypeDetailPostRequest 
+         * @param {AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest} authorityTypeEtlToolsAuthorityTypeDetailPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeDetailPost(authorityTypeAuthorityTypeDetailPostRequest: AuthorityTypeAuthorityTypeDetailPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.authorityTypeAuthorityTypeDetailPost(authorityTypeAuthorityTypeDetailPostRequest, options).then((request) => request(axios, basePath));
+        authorityTypeEtlToolsAuthorityTypeDetailPost(authorityTypeEtlToolsAuthorityTypeDetailPostRequest: AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authorityTypeEtlToolsAuthorityTypeDetailPost(authorityTypeEtlToolsAuthorityTypeDetailPostRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} [q] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
-         * @param {AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeHeaderGet(q?: string, sort?: AuthorityTypeAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<AuthorityTypeAuthorityTypeHeaderGet200Response> {
-            return localVarFp.authorityTypeAuthorityTypeHeaderGet(q, sort, sortOrder, options).then((request) => request(axios, basePath));
+        authorityTypeEtlToolsAuthorityTypeHeaderGet(q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<AuthorityTypeEtlToolsAuthorityTypeHeaderGet200Response> {
+            return localVarFp.authorityTypeEtlToolsAuthorityTypeHeaderGet(q, sort, sortOrder, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {AuthorityTypeAuthorityTypeHeaderPostRequest} authorityTypeAuthorityTypeHeaderPostRequest 
+         * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest} authorityTypeEtlToolsAuthorityTypeHeaderPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authorityTypeAuthorityTypeHeaderPost(authorityTypeAuthorityTypeHeaderPostRequest: AuthorityTypeAuthorityTypeHeaderPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<AuthorityTypeAuthorityTypeHeaderPost200Response> {
-            return localVarFp.authorityTypeAuthorityTypeHeaderPost(authorityTypeAuthorityTypeHeaderPostRequest, options).then((request) => request(axios, basePath));
+        authorityTypeEtlToolsAuthorityTypeHeaderPost(authorityTypeEtlToolsAuthorityTypeHeaderPostRequest: AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<AuthorityTypeEtlToolsAuthorityTypeHeaderPost200Response> {
+            return localVarFp.authorityTypeEtlToolsAuthorityTypeHeaderPost(authorityTypeEtlToolsAuthorityTypeHeaderPostRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3712,87 +4033,87 @@ export class AuthorityTypeApi extends BaseAPI {
      * 
      * @param {string} authorityType 権限タイプ
      * @param {string} [q] 絞り込み条件
-     * @param {AuthorityTypeAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
-     * @param {AuthorityTypeAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+     * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum} [sort] 絞り込み条件
+     * @param {AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
      * @param {number} [limit] 
      * @param {number} [offset] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorityTypeApi
      */
-    public authorityTypeAuthorityTypeDetailGet(authorityType: string, q?: string, sort?: AuthorityTypeAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig) {
-        return AuthorityTypeApiFp(this.configuration).authorityTypeAuthorityTypeDetailGet(authorityType, q, sort, sortOrder, limit, offset, options).then((request) => request(this.axios, this.basePath));
+    public authorityTypeEtlToolsAuthorityTypeDetailGet(authorityType: string, q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig) {
+        return AuthorityTypeApiFp(this.configuration).authorityTypeEtlToolsAuthorityTypeDetailGet(authorityType, q, sort, sortOrder, limit, offset, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {AuthorityTypeAuthorityTypeDetailPostRequest} authorityTypeAuthorityTypeDetailPostRequest 
+     * @param {AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest} authorityTypeEtlToolsAuthorityTypeDetailPostRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorityTypeApi
      */
-    public authorityTypeAuthorityTypeDetailPost(authorityTypeAuthorityTypeDetailPostRequest: AuthorityTypeAuthorityTypeDetailPostRequest, options?: RawAxiosRequestConfig) {
-        return AuthorityTypeApiFp(this.configuration).authorityTypeAuthorityTypeDetailPost(authorityTypeAuthorityTypeDetailPostRequest, options).then((request) => request(this.axios, this.basePath));
+    public authorityTypeEtlToolsAuthorityTypeDetailPost(authorityTypeEtlToolsAuthorityTypeDetailPostRequest: AuthorityTypeEtlToolsAuthorityTypeDetailPostRequest, options?: RawAxiosRequestConfig) {
+        return AuthorityTypeApiFp(this.configuration).authorityTypeEtlToolsAuthorityTypeDetailPost(authorityTypeEtlToolsAuthorityTypeDetailPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} [q] 絞り込み条件
-     * @param {AuthorityTypeAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
-     * @param {AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+     * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum} [sort] 絞り込み条件
+     * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorityTypeApi
      */
-    public authorityTypeAuthorityTypeHeaderGet(q?: string, sort?: AuthorityTypeAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum, options?: RawAxiosRequestConfig) {
-        return AuthorityTypeApiFp(this.configuration).authorityTypeAuthorityTypeHeaderGet(q, sort, sortOrder, options).then((request) => request(this.axios, this.basePath));
+    public authorityTypeEtlToolsAuthorityTypeHeaderGet(q?: string, sort?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum, sortOrder?: AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum, options?: RawAxiosRequestConfig) {
+        return AuthorityTypeApiFp(this.configuration).authorityTypeEtlToolsAuthorityTypeHeaderGet(q, sort, sortOrder, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {AuthorityTypeAuthorityTypeHeaderPostRequest} authorityTypeAuthorityTypeHeaderPostRequest 
+     * @param {AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest} authorityTypeEtlToolsAuthorityTypeHeaderPostRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorityTypeApi
      */
-    public authorityTypeAuthorityTypeHeaderPost(authorityTypeAuthorityTypeHeaderPostRequest: AuthorityTypeAuthorityTypeHeaderPostRequest, options?: RawAxiosRequestConfig) {
-        return AuthorityTypeApiFp(this.configuration).authorityTypeAuthorityTypeHeaderPost(authorityTypeAuthorityTypeHeaderPostRequest, options).then((request) => request(this.axios, this.basePath));
+    public authorityTypeEtlToolsAuthorityTypeHeaderPost(authorityTypeEtlToolsAuthorityTypeHeaderPostRequest: AuthorityTypeEtlToolsAuthorityTypeHeaderPostRequest, options?: RawAxiosRequestConfig) {
+        return AuthorityTypeApiFp(this.configuration).authorityTypeEtlToolsAuthorityTypeHeaderPost(authorityTypeEtlToolsAuthorityTypeHeaderPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 /**
  * @export
  */
-export const AuthorityTypeAuthorityTypeDetailGetSortEnum = {
+export const AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum = {
     MenuGroupName: 'menu_group_name',
     MenuName: 'menu_name',
     Authority: 'authority'
 } as const;
-export type AuthorityTypeAuthorityTypeDetailGetSortEnum = typeof AuthorityTypeAuthorityTypeDetailGetSortEnum[keyof typeof AuthorityTypeAuthorityTypeDetailGetSortEnum];
+export type AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum = typeof AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum[keyof typeof AuthorityTypeEtlToolsAuthorityTypeDetailGetSortEnum];
 /**
  * @export
  */
-export const AuthorityTypeAuthorityTypeDetailGetSortOrderEnum = {
+export const AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum = {
     Asc: 'asc',
     Desc: 'desc'
 } as const;
-export type AuthorityTypeAuthorityTypeDetailGetSortOrderEnum = typeof AuthorityTypeAuthorityTypeDetailGetSortOrderEnum[keyof typeof AuthorityTypeAuthorityTypeDetailGetSortOrderEnum];
+export type AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum = typeof AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum[keyof typeof AuthorityTypeEtlToolsAuthorityTypeDetailGetSortOrderEnum];
 /**
  * @export
  */
-export const AuthorityTypeAuthorityTypeHeaderGetSortEnum = {
+export const AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum = {
     AuthorityType: 'authority_type',
     AuthorityTypeName: 'authority_type_name'
 } as const;
-export type AuthorityTypeAuthorityTypeHeaderGetSortEnum = typeof AuthorityTypeAuthorityTypeHeaderGetSortEnum[keyof typeof AuthorityTypeAuthorityTypeHeaderGetSortEnum];
+export type AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum = typeof AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum[keyof typeof AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortEnum];
 /**
  * @export
  */
-export const AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum = {
+export const AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum = {
     Asc: 'asc',
     Desc: 'desc'
 } as const;
-export type AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum = typeof AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum[keyof typeof AuthorityTypeAuthorityTypeHeaderGetSortOrderEnum];
+export type AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum = typeof AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum[keyof typeof AuthorityTypeEtlToolsAuthorityTypeHeaderGetSortOrderEnum];
 
 
 /**
@@ -6810,6 +7131,39 @@ export const PageApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        pagesAuthorityLevelListGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/pages/authority_level_list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ユーザ権限マスタ画面の初期処理
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         pagesAuthorityTypeListGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/pages/authority_type_list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -7043,10 +7397,11 @@ export const PageApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * メニュー一覧
+         * @param {string} [assignedService] v_zokusei_code.attr3( zokusei &#x3D; \&#39;001\&#39; )に対応する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pagesMenuListGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        pagesMenuListGet: async (assignedService?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/pages/menu_list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7062,6 +7417,10 @@ export const PageApiAxiosParamCreator = function (configuration?: Configuration)
             // authentication CSRFToken required
 
             // authentication cookieAuth required
+
+            if (assignedService !== undefined) {
+                localVarQueryParameter['assigned_service'] = assignedService;
+            }
 
 
     
@@ -7180,39 +7539,6 @@ export const PageApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * ユーザ管理画面の初期処理
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        pagesUsersGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/pages/users`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication CSRFToken required
-
-            // authentication cookieAuth required
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -7236,6 +7562,17 @@ export const PageApiFp = function(configuration?: Configuration) {
         },
         /**
          * 権限タイプマスタ画面の初期処理
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async pagesAuthorityLevelListGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagesAuthorityLevelListGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.pagesAuthorityLevelListGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PageApi.pagesAuthorityLevelListGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * ユーザ権限マスタ画面の初期処理
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7314,11 +7651,12 @@ export const PageApiFp = function(configuration?: Configuration) {
         },
         /**
          * メニュー一覧
+         * @param {string} [assignedService] v_zokusei_code.attr3( zokusei &#x3D; \&#39;001\&#39; )に対応する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async pagesMenuListGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagesMenuListGet200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.pagesMenuListGet(options);
+        async pagesMenuListGet(assignedService?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagesMenuListGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.pagesMenuListGet(assignedService, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['PageApi.pagesMenuListGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7357,17 +7695,6 @@ export const PageApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['PageApi.pagesUserHelpFilesGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * ユーザ管理画面の初期処理
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async pagesUsersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagesUsersGet200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.pagesUsersGet(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['PageApi.pagesUsersGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -7388,6 +7715,14 @@ export const PageApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 権限タイプマスタ画面の初期処理
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pagesAuthorityLevelListGet(options?: RawAxiosRequestConfig): AxiosPromise<PagesAuthorityLevelListGet200Response> {
+            return localVarFp.pagesAuthorityLevelListGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ユーザ権限マスタ画面の初期処理
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7445,11 +7780,12 @@ export const PageApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * メニュー一覧
+         * @param {string} [assignedService] v_zokusei_code.attr3( zokusei &#x3D; \&#39;001\&#39; )に対応する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pagesMenuListGet(options?: RawAxiosRequestConfig): AxiosPromise<PagesMenuListGet200Response> {
-            return localVarFp.pagesMenuListGet(options).then((request) => request(axios, basePath));
+        pagesMenuListGet(assignedService?: string, options?: RawAxiosRequestConfig): AxiosPromise<PagesMenuListGet200Response> {
+            return localVarFp.pagesMenuListGet(assignedService, options).then((request) => request(axios, basePath));
         },
         /**
          * ダッシュボード一覧
@@ -7476,14 +7812,6 @@ export const PageApiFactory = function (configuration?: Configuration, basePath?
         pagesUserHelpFilesGet(menuCd: string, options?: RawAxiosRequestConfig): AxiosPromise<PageUserHelpFile> {
             return localVarFp.pagesUserHelpFilesGet(menuCd, options).then((request) => request(axios, basePath));
         },
-        /**
-         * ユーザ管理画面の初期処理
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        pagesUsersGet(options?: RawAxiosRequestConfig): AxiosPromise<PagesUsersGet200Response> {
-            return localVarFp.pagesUsersGet(options).then((request) => request(axios, basePath));
-        },
     };
 };
 
@@ -7506,6 +7834,16 @@ export class PageApi extends BaseAPI {
 
     /**
      * 権限タイプマスタ画面の初期処理
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PageApi
+     */
+    public pagesAuthorityLevelListGet(options?: RawAxiosRequestConfig) {
+        return PageApiFp(this.configuration).pagesAuthorityLevelListGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ユーザ権限マスタ画面の初期処理
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PageApi
@@ -7577,12 +7915,13 @@ export class PageApi extends BaseAPI {
 
     /**
      * メニュー一覧
+     * @param {string} [assignedService] v_zokusei_code.attr3( zokusei &#x3D; \&#39;001\&#39; )に対応する
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PageApi
      */
-    public pagesMenuListGet(options?: RawAxiosRequestConfig) {
-        return PageApiFp(this.configuration).pagesMenuListGet(options).then((request) => request(this.axios, this.basePath));
+    public pagesMenuListGet(assignedService?: string, options?: RawAxiosRequestConfig) {
+        return PageApiFp(this.configuration).pagesMenuListGet(assignedService, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7615,16 +7954,6 @@ export class PageApi extends BaseAPI {
     public pagesUserHelpFilesGet(menuCd: string, options?: RawAxiosRequestConfig) {
         return PageApiFp(this.configuration).pagesUserHelpFilesGet(menuCd, options).then((request) => request(this.axios, this.basePath));
     }
-
-    /**
-     * ユーザ管理画面の初期処理
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PageApi
-     */
-    public pagesUsersGet(options?: RawAxiosRequestConfig) {
-        return PageApiFp(this.configuration).pagesUsersGet(options).then((request) => request(this.axios, this.basePath));
-    }
 }
 
 
@@ -7636,14 +7965,167 @@ export class PageApi extends BaseAPI {
 export const PersonHourApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @param {ApiModulePersonHourControllerPostPersonHourControllerRequest} apiModulePersonHourControllerPostPersonHourControllerRequest 
+         * 作業情報
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiModulePersonHourControllerPostPersonHourController: async (apiModulePersonHourControllerPostPersonHourControllerRequest: ApiModulePersonHourControllerPostPersonHourControllerRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'apiModulePersonHourControllerPostPersonHourControllerRequest' is not null or undefined
-            assertParamExists('apiModulePersonHourControllerPostPersonHourController', 'apiModulePersonHourControllerPostPersonHourControllerRequest', apiModulePersonHourControllerPostPersonHourControllerRequest)
+        pagesTaskListGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/pages/task_list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * センター情報
+         * @param {string} [centerId] センターコード
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourCentersGet: async (centerId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/person_hour/centers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+            if (centerId !== undefined) {
+                localVarQueryParameter['center_id'] = centerId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 日毎作業工数取得
+         * @param {string} [workerId] スタッフID
+         * @param {string} [workDate] 作業日
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourDetailGet: async (workerId?: string, workDate?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/person_hour/detail`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+            if (workerId !== undefined) {
+                localVarQueryParameter['worker_id'] = workerId;
+            }
+
+            if (workDate !== undefined) {
+                localVarQueryParameter['work_date'] = workDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {PersonHourDetailPostRequest} personHourDetailPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourDetailPost: async (personHourDetailPostRequest: PersonHourDetailPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'personHourDetailPostRequest' is not null or undefined
+            assertParamExists('personHourDetailPost', 'personHourDetailPostRequest', personHourDetailPostRequest)
+            const localVarPath = `/person_hour/detail`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(personHourDetailPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {PersonHourPostRequest} personHourPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourPost: async (personHourPostRequest: PersonHourPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'personHourPostRequest' is not null or undefined
+            assertParamExists('personHourPost', 'personHourPostRequest', personHourPostRequest)
             const localVarPath = `/person_hour`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7667,7 +8149,40 @@ export const PersonHourApiAxiosParamCreator = function (configuration?: Configur
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(apiModulePersonHourControllerPostPersonHourControllerRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(personHourPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 作業スタッフ情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourWorkersGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/person_hour/workers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7685,15 +8200,74 @@ export const PersonHourApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = PersonHourApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
-         * @param {ApiModulePersonHourControllerPostPersonHourControllerRequest} apiModulePersonHourControllerPostPersonHourControllerRequest 
+         * 作業情報
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiModulePersonHourControllerPostPersonHourController(apiModulePersonHourControllerPostPersonHourControllerRequest: ApiModulePersonHourControllerPostPersonHourControllerRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiModulePersonHourControllerPostPersonHourController(apiModulePersonHourControllerPostPersonHourControllerRequest, options);
+        async pagesTaskListGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagesTaskListGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.pagesTaskListGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['PersonHourApi.apiModulePersonHourControllerPostPersonHourController']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['PersonHourApi.pagesTaskListGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * センター情報
+         * @param {string} [centerId] センターコード
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async personHourCentersGet(centerId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PersonHourCentersGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.personHourCentersGet(centerId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PersonHourApi.personHourCentersGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 日毎作業工数取得
+         * @param {string} [workerId] スタッフID
+         * @param {string} [workDate] 作業日
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async personHourDetailGet(workerId?: string, workDate?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PersonHourDetailGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.personHourDetailGet(workerId, workDate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PersonHourApi.personHourDetailGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {PersonHourDetailPostRequest} personHourDetailPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async personHourDetailPost(personHourDetailPostRequest: PersonHourDetailPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.personHourDetailPost(personHourDetailPostRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PersonHourApi.personHourDetailPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {PersonHourPostRequest} personHourPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async personHourPost(personHourPostRequest: PersonHourPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PersonHour>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.personHourPost(personHourPostRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PersonHourApi.personHourPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 作業スタッフ情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async personHourWorkersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PersonHourWorkersGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.personHourWorkersGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PersonHourApi.personHourWorkersGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -7707,13 +8281,57 @@ export const PersonHourApiFactory = function (configuration?: Configuration, bas
     const localVarFp = PersonHourApiFp(configuration)
     return {
         /**
-         * 
-         * @param {ApiModulePersonHourControllerPostPersonHourControllerRequest} apiModulePersonHourControllerPostPersonHourControllerRequest 
+         * 作業情報
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiModulePersonHourControllerPostPersonHourController(apiModulePersonHourControllerPostPersonHourControllerRequest: ApiModulePersonHourControllerPostPersonHourControllerRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.apiModulePersonHourControllerPostPersonHourController(apiModulePersonHourControllerPostPersonHourControllerRequest, options).then((request) => request(axios, basePath));
+        pagesTaskListGet(options?: RawAxiosRequestConfig): AxiosPromise<PagesTaskListGet200Response> {
+            return localVarFp.pagesTaskListGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * センター情報
+         * @param {string} [centerId] センターコード
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourCentersGet(centerId?: string, options?: RawAxiosRequestConfig): AxiosPromise<PersonHourCentersGet200Response> {
+            return localVarFp.personHourCentersGet(centerId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 日毎作業工数取得
+         * @param {string} [workerId] スタッフID
+         * @param {string} [workDate] 作業日
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourDetailGet(workerId?: string, workDate?: string, options?: RawAxiosRequestConfig): AxiosPromise<PersonHourDetailGet200Response> {
+            return localVarFp.personHourDetailGet(workerId, workDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {PersonHourDetailPostRequest} personHourDetailPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourDetailPost(personHourDetailPostRequest: PersonHourDetailPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.personHourDetailPost(personHourDetailPostRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {PersonHourPostRequest} personHourPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourPost(personHourPostRequest: PersonHourPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<PersonHour> {
+            return localVarFp.personHourPost(personHourPostRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 作業スタッフ情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        personHourWorkersGet(options?: RawAxiosRequestConfig): AxiosPromise<PersonHourWorkersGet200Response> {
+            return localVarFp.personHourWorkersGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7726,14 +8344,68 @@ export const PersonHourApiFactory = function (configuration?: Configuration, bas
  */
 export class PersonHourApi extends BaseAPI {
     /**
-     * 
-     * @param {ApiModulePersonHourControllerPostPersonHourControllerRequest} apiModulePersonHourControllerPostPersonHourControllerRequest 
+     * 作業情報
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PersonHourApi
      */
-    public apiModulePersonHourControllerPostPersonHourController(apiModulePersonHourControllerPostPersonHourControllerRequest: ApiModulePersonHourControllerPostPersonHourControllerRequest, options?: RawAxiosRequestConfig) {
-        return PersonHourApiFp(this.configuration).apiModulePersonHourControllerPostPersonHourController(apiModulePersonHourControllerPostPersonHourControllerRequest, options).then((request) => request(this.axios, this.basePath));
+    public pagesTaskListGet(options?: RawAxiosRequestConfig) {
+        return PersonHourApiFp(this.configuration).pagesTaskListGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * センター情報
+     * @param {string} [centerId] センターコード
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonHourApi
+     */
+    public personHourCentersGet(centerId?: string, options?: RawAxiosRequestConfig) {
+        return PersonHourApiFp(this.configuration).personHourCentersGet(centerId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 日毎作業工数取得
+     * @param {string} [workerId] スタッフID
+     * @param {string} [workDate] 作業日
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonHourApi
+     */
+    public personHourDetailGet(workerId?: string, workDate?: string, options?: RawAxiosRequestConfig) {
+        return PersonHourApiFp(this.configuration).personHourDetailGet(workerId, workDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {PersonHourDetailPostRequest} personHourDetailPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonHourApi
+     */
+    public personHourDetailPost(personHourDetailPostRequest: PersonHourDetailPostRequest, options?: RawAxiosRequestConfig) {
+        return PersonHourApiFp(this.configuration).personHourDetailPost(personHourDetailPostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {PersonHourPostRequest} personHourPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonHourApi
+     */
+    public personHourPost(personHourPostRequest: PersonHourPostRequest, options?: RawAxiosRequestConfig) {
+        return PersonHourApiFp(this.configuration).personHourPost(personHourPostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 作業スタッフ情報
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonHourApi
+     */
+    public personHourWorkersGet(options?: RawAxiosRequestConfig) {
+        return PersonHourApiFp(this.configuration).personHourWorkersGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8234,7 +8906,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async usersJoinTokenPost(token: string, usersJoinTokenPostRequest: UsersJoinTokenPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+        async usersJoinTokenPost(token: string, usersJoinTokenPostRequest: UsersJoinTokenPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthority>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.usersJoinTokenPost(token, usersJoinTokenPostRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.usersJoinTokenPost']?.[localVarOperationServerIndex]?.url;
@@ -8309,7 +8981,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersJoinTokenPost(token: string, usersJoinTokenPostRequest: UsersJoinTokenPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<User> {
+        usersJoinTokenPost(token: string, usersJoinTokenPostRequest: UsersJoinTokenPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<UserAuthority> {
             return localVarFp.usersJoinTokenPost(token, usersJoinTokenPostRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8409,9 +9081,7 @@ export class UserApi extends BaseAPI {
 export const UsersGetSortEnum = {
     MailAddress: 'mail_address',
     Name: 'name',
-    AuthorityType: 'authority_type',
-    GsAuthorityType: 'gs_authority_type',
-    IsAdministrator: 'is_administrator',
+    IsSuperAdministrator: 'is_super_administrator',
     RegisterDate: 'register_date'
 } as const;
 export type UsersGetSortEnum = typeof UsersGetSortEnum[keyof typeof UsersGetSortEnum];
@@ -8423,6 +9093,310 @@ export const UsersGetSortOrderEnum = {
     Desc: 'desc'
 } as const;
 export type UsersGetSortOrderEnum = typeof UsersGetSortOrderEnum[keyof typeof UsersGetSortOrderEnum];
+
+
+/**
+ * UserAuthorityApi - axios parameter creator
+ * @export
+ */
+export const UserAuthorityApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {Array<string>} userId ユーザーID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userAuthorityEtlToolsUsersDelete: async (userId: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('userAuthorityEtlToolsUsersDelete', 'userId', userId)
+            const localVarPath = `/user_authority/etl-tools/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+            if (userId) {
+                localVarQueryParameter['user_id'] = userId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} [q] 絞り込み条件
+         * @param {UserAuthorityEtlToolsUsersGetSortEnum} [sort] ソートキー
+         * @param {UserAuthorityEtlToolsUsersGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userAuthorityEtlToolsUsersGet: async (q?: string, sort?: UserAuthorityEtlToolsUsersGetSortEnum, sortOrder?: UserAuthorityEtlToolsUsersGetSortOrderEnum, limit?: number, offset?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user_authority/etl-tools/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+            if (q !== undefined) {
+                localVarQueryParameter['q'] = q;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (sortOrder !== undefined) {
+                localVarQueryParameter['sort_order'] = sortOrder;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UserAuthorityEtlToolsUsersPostRequest} userAuthorityEtlToolsUsersPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userAuthorityEtlToolsUsersPost: async (userAuthorityEtlToolsUsersPostRequest: UserAuthorityEtlToolsUsersPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userAuthorityEtlToolsUsersPostRequest' is not null or undefined
+            assertParamExists('userAuthorityEtlToolsUsersPost', 'userAuthorityEtlToolsUsersPostRequest', userAuthorityEtlToolsUsersPostRequest)
+            const localVarPath = `/user_authority/etl-tools/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication CSRFToken required
+
+            // authentication cookieAuth required
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userAuthorityEtlToolsUsersPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserAuthorityApi - functional programming interface
+ * @export
+ */
+export const UserAuthorityApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserAuthorityApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {Array<string>} userId ユーザーID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userAuthorityEtlToolsUsersDelete(userId: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userAuthorityEtlToolsUsersDelete(userId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserAuthorityApi.userAuthorityEtlToolsUsersDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} [q] 絞り込み条件
+         * @param {UserAuthorityEtlToolsUsersGetSortEnum} [sort] ソートキー
+         * @param {UserAuthorityEtlToolsUsersGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userAuthorityEtlToolsUsersGet(q?: string, sort?: UserAuthorityEtlToolsUsersGetSortEnum, sortOrder?: UserAuthorityEtlToolsUsersGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthorityEtlToolsUsersGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userAuthorityEtlToolsUsersGet(q, sort, sortOrder, limit, offset, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserAuthorityApi.userAuthorityEtlToolsUsersGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UserAuthorityEtlToolsUsersPostRequest} userAuthorityEtlToolsUsersPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userAuthorityEtlToolsUsersPost(userAuthorityEtlToolsUsersPostRequest: UserAuthorityEtlToolsUsersPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userAuthorityEtlToolsUsersPost(userAuthorityEtlToolsUsersPostRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserAuthorityApi.userAuthorityEtlToolsUsersPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * UserAuthorityApi - factory interface
+ * @export
+ */
+export const UserAuthorityApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserAuthorityApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {Array<string>} userId ユーザーID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userAuthorityEtlToolsUsersDelete(userId: Array<string>, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.userAuthorityEtlToolsUsersDelete(userId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} [q] 絞り込み条件
+         * @param {UserAuthorityEtlToolsUsersGetSortEnum} [sort] ソートキー
+         * @param {UserAuthorityEtlToolsUsersGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+         * @param {number} [limit] 
+         * @param {number} [offset] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userAuthorityEtlToolsUsersGet(q?: string, sort?: UserAuthorityEtlToolsUsersGetSortEnum, sortOrder?: UserAuthorityEtlToolsUsersGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig): AxiosPromise<UserAuthorityEtlToolsUsersGet200Response> {
+            return localVarFp.userAuthorityEtlToolsUsersGet(q, sort, sortOrder, limit, offset, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UserAuthorityEtlToolsUsersPostRequest} userAuthorityEtlToolsUsersPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userAuthorityEtlToolsUsersPost(userAuthorityEtlToolsUsersPostRequest: UserAuthorityEtlToolsUsersPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.userAuthorityEtlToolsUsersPost(userAuthorityEtlToolsUsersPostRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserAuthorityApi - object-oriented interface
+ * @export
+ * @class UserAuthorityApi
+ * @extends {BaseAPI}
+ */
+export class UserAuthorityApi extends BaseAPI {
+    /**
+     * 
+     * @param {Array<string>} userId ユーザーID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAuthorityApi
+     */
+    public userAuthorityEtlToolsUsersDelete(userId: Array<string>, options?: RawAxiosRequestConfig) {
+        return UserAuthorityApiFp(this.configuration).userAuthorityEtlToolsUsersDelete(userId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} [q] 絞り込み条件
+     * @param {UserAuthorityEtlToolsUsersGetSortEnum} [sort] ソートキー
+     * @param {UserAuthorityEtlToolsUsersGetSortOrderEnum} [sortOrder] asc&#x3D;昇順, desc&#x3D;降順
+     * @param {number} [limit] 
+     * @param {number} [offset] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAuthorityApi
+     */
+    public userAuthorityEtlToolsUsersGet(q?: string, sort?: UserAuthorityEtlToolsUsersGetSortEnum, sortOrder?: UserAuthorityEtlToolsUsersGetSortOrderEnum, limit?: number, offset?: number, options?: RawAxiosRequestConfig) {
+        return UserAuthorityApiFp(this.configuration).userAuthorityEtlToolsUsersGet(q, sort, sortOrder, limit, offset, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UserAuthorityEtlToolsUsersPostRequest} userAuthorityEtlToolsUsersPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAuthorityApi
+     */
+    public userAuthorityEtlToolsUsersPost(userAuthorityEtlToolsUsersPostRequest: UserAuthorityEtlToolsUsersPostRequest, options?: RawAxiosRequestConfig) {
+        return UserAuthorityApiFp(this.configuration).userAuthorityEtlToolsUsersPost(userAuthorityEtlToolsUsersPostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const UserAuthorityEtlToolsUsersGetSortEnum = {
+    MailAddress: 'mail_address',
+    Name: 'name',
+    AuthorityType: 'authority_type',
+    GsAuthorityType: 'gs_authority_type',
+    IsAdministrator: 'is_administrator',
+    RegisterDate: 'register_date'
+} as const;
+export type UserAuthorityEtlToolsUsersGetSortEnum = typeof UserAuthorityEtlToolsUsersGetSortEnum[keyof typeof UserAuthorityEtlToolsUsersGetSortEnum];
+/**
+ * @export
+ */
+export const UserAuthorityEtlToolsUsersGetSortOrderEnum = {
+    Asc: 'asc',
+    Desc: 'desc'
+} as const;
+export type UserAuthorityEtlToolsUsersGetSortOrderEnum = typeof UserAuthorityEtlToolsUsersGetSortOrderEnum[keyof typeof UserAuthorityEtlToolsUsersGetSortOrderEnum];
 
 
 /**

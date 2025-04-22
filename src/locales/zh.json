@@ -5,8 +5,21 @@
     "password": "密码",
     "forgot_password": "如果您忘记了密码，请点击这里"
   },
+  "header": {
+    "home": "Home",
+    "master": "主数据管理",
+    "admin": "管理员",
+    "account_settings": "个人设置",
+    "signout": "退出"
+  },
+  "menu": {
+    "_basic_info": "基本信息",
+    "user_master": "用户主数据",
+    "company_master": "组织主数据"
+  },
   "home": {
     "service_list": "服务列表",
+    "open": "打开",
     "signout": "请示"
   },
   "error": {
@@ -28,6 +41,13 @@
     "email": "请输入有效的电子邮件地址"
   },
   "notify": {
-    "signout": "已退出"
+    "signout": "已退出",
+    "version_check": {
+      "text": "新版本已发布。是否更新？",
+      "button": {
+        "action": "更新",
+        "cancel": "取消"
+      }
+    }
   }
 }
