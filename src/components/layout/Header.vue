@@ -75,10 +75,20 @@ async function signout() {
             <q-item-label header class="text-grey-7">
               {{ group.group }}
             </q-item-label>
+            <!-- TODO: マスタ管理のドロップダウンメニュー項目をクリックした際に遷移するパスを設定する -->
+            <!-- 
             <q-item
               v-for="item in group.items"
               :key="item.name"
               :to="item.path"
+              clickable
+              v-close-popup
+            > 
+            -->
+            <q-item
+              v-for="item in group.items"
+              :key="item.name"
+              href="/etl-tools/users"
               clickable
               v-close-popup
             >
@@ -106,12 +116,13 @@ async function signout() {
           <div class="user-info q-pa-md">
             <div class="text-weight-bold">{{ accountStore.name }}</div>
             <div class="text-caption text-grey">{{ accountStore.mailAddress }}</div>
-            <div v-if="accountStore.isAdministrator" class="text-caption text-primary q-mt-xs">{{ $t("header.admin") }}</div>
+            <div v-if="accountStore.isSuperAdministrator" class="text-caption text-primary q-mt-xs">{{ $t("header.admin") }}</div>
           </div>
 
           <q-separator />
 
-          <q-item clickable :to="{ name: 'Home' }">
+          <!-- <q-item clickable :to="{ name: 'Home' }"> -->
+          <q-item clickable href="/etl-tools/user-personal">
             <q-item-section avatar>
               <Settings :size="20" />
             </q-item-section>

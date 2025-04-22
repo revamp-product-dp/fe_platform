@@ -56,7 +56,6 @@ function getIconName(serviceName: string) {
         stack
         unelevated
       >
-        <div class="service_description">{{ service.description }}</div>
         <q-tooltip>{{ service.label }}{{ $t("home.open") }}</q-tooltip>
       </q-btn>
     </div>

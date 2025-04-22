@@ -6,6 +6,7 @@ interface Account {
   __name: string;
   __mailAddress: string;
   __isAdministrator: boolean;
+  __isSuperAdministrator: boolean;
   __langCd: string;
 }
 
@@ -15,6 +16,7 @@ export const useAccountStore = defineStore("AccountStore", {
     __name: "",
     __mailAddress: "",
     __isAdministrator: false,
+    __isSuperAdministrator: false,
     __langCd: "",
   }),
   getters: {
@@ -29,6 +31,9 @@ export const useAccountStore = defineStore("AccountStore", {
     },
     isAdministrator(state: Account): boolean {
       return state.__isAdministrator;
+    },
+    isSuperAdministrator(state: Account): boolean {
+      return state.__isSuperAdministrator;
     },
     langCd(state: Account): string {
       return state.__langCd;
@@ -45,6 +50,7 @@ export const useAccountStore = defineStore("AccountStore", {
       this.__name = param.name;
       this.__mailAddress = param.mail_address;
       this.__isAdministrator = param.is_administrator;
+      this.__isSuperAdministrator = param.is_super_administrator;
       this.__langCd = param.lang_cd ?? "";
     },
     clear(): void {
@@ -52,6 +58,7 @@ export const useAccountStore = defineStore("AccountStore", {
       this.__name = "";
       this.__mailAddress = "";
       this.__isAdministrator = false;
+      this.__isSuperAdministrator = false;
       this.__langCd = "";
     },
   },
