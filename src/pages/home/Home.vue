@@ -65,7 +65,7 @@ function getIconName(serviceName: string) {
 <style lang="scss" scoped>
 .button_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
+  grid-template-columns: repeat(auto-fill, 200px);
   gap: 16px;
   margin: 0;
   width: 100%;
@@ -77,8 +77,8 @@ function getIconName(serviceName: string) {
 }
 
 .service_button {
-  width: 250px;
-  min-height: 200px;
+  width: 200px;
+  min-height: 150px;
   height: auto;
   border-radius: 16px;
   transition: all 0.3s ease;
@@ -90,7 +90,7 @@ function getIconName(serviceName: string) {
   
   @media (max-width: 599px) {
     width: 100%;
-    max-width: 250px;
+    max-width: 200px;
   }
   
   &::before {
