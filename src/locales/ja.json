@@ -5,9 +5,21 @@
     "password": "パスワード",
     "forgot_password": "パスワードを忘れた場合はこちら"
   },
+  "header": {
+    "home": "Home",
+    "master": "マスタ管理",
+    "admin": "管理者",
+    "account_settings": "個人設定",
+    "signout": "サインアウト"
+  },
+  "menu": {
+    "_basic_info": "基本情報",
+    "user_master": "ユーザマスタ",
+    "company_master": "組織マスタ"
+  },
   "home": {
     "service_list": "サービス一覧",
-    "signout": "サインアウト"
+    "open": "を開く"
   },
   "error": {
     "title": {
@@ -28,6 +40,13 @@
     "email": "メールアドレスの形式で入力してください"
   },
   "notify": {
-    "signout": "サインアウトしました"
+    "signout": "サインアウトしました",
+    "version_check": {
+      "text": "新しいバージョンが公開されました。更新しますか？",
+      "button": {
+        "action": "更新",
+        "cancel": "キャンセル"
+      }
+    }
   }
 }
