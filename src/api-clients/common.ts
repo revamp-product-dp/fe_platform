@@ -21,14 +21,14 @@ export class AccountApi {
   async signIn(uid: string, pass: string): Promise<SigninUser> {
     const api = this.getApi();
     const password = new Password(pass);
-    const res = await api.apiAuthSignin(uid, password.hash(uid));
+    const res = await api.accountSigninGet(uid, password.hash(uid));
 
     return res.data;
   }
 
   async signOut(xCsrfToken: string): Promise<void> {
     const api = this.getApi();
-    await api.apiAuthSignout(xCsrfToken);
+    await api.accountSignoutGet(xCsrfToken);
   }
 }
 

@@ -22,6 +22,8 @@ tags:
     description: ユーザ管理
   - name: Personal
     description: 個人設定
+  - name: UserAuthority
+    description: ユーザ権限
   - name: AuthorityType
     description: 権限タイプ
   - name: Organization
@@ -138,6 +140,7 @@ paths:
                     - menu_cd: "PCSPSC0002"
                       value: "none"
                 is_administrator: false
+                is_super_administrator: false
                 lang_cd: "ja"
           headers:
             Set-Cookie:
@@ -159,7 +162,6 @@ paths:
     get:
       tags:
         - Account
-      operationId: api.auth.signin
       security: []
       parameters:
         - name: x-rvp-dp-uid
@@ -211,7 +213,6 @@ paths:
     get:
       tags:
         - Account
-      operationId: api.auth.signout
       parameters:
         - name: X-CSRF-TOKEN
           in: header
@@ -460,9 +461,7 @@ paths:
             enum:
               - mail_address
               - name
-              - authority_type
-              - gs_authority_type
-              - is_administrator
+              - is_super_administrator
               - register_date
             default: mail_address
           description: ソートキー
@@ -520,24 +519,12 @@ paths:
                   - id: "00000000000000000001"
                     name: "山田 太郎"
                     mail_address: "yamada.taro@example.com"
-                    authority_type:
-                      value: "0000000001"
-                      label: "権限01"
-                    gs_authority_type:
-                      value: "0000000001"
-                      label: "汎用検索権限01"
-                    is_administrator: true
+                    is_super_administrator: true
                     register_date: "20241010"
                   - id: "00000000000000000002"
                     name: "田中 花子"
                     mail_address: "tanaka.hanako@example.com"
-                    authority_type:
-                      value: "0000000002"
-                      label: "権限02"
-                    gs_authority_type:
-                      value: "0000000002"
-                      label: "汎用検索権限02"
-                    is_administrator: false
+                    is_super_administrator: false
                     register_date: "20230919"
                 length: 48
                 is_last: false
@@ -607,23 +594,11 @@ paths:
                     - id: "00000000000000000001"
                       name: "山田 太郎"
                       mail_address: "yamada.taro@example.com"
-                      authority_type:
-                        value: "0000000001"
-                        label: "権限01"
-                      gs_authority_type:
-                        value: "0000000001"
-                        label: "汎用検索権限01"
-                      is_administrator: true
+                      is_super_administrator: true
                     - id: "00000000000000000002"
                       name: "田中 花子"
                       mail_address: "tanaka.hanako@example.com"
-                      authority_type:
-                        value: "0000000002"
-                        label: "権限02"
-                      gs_authority_type:
-                        value: "0000000002"
-                        label: "汎用検索権限02"
-                      is_administrator: false
+                      is_super_administrator: false
       responses:
         200:
           description: 成功
@@ -650,7 +625,6 @@ paths:
               type: object
               required:
                 - callback_url
-                - authority_type
                 - email_list
                 - message
               properties:
@@ -659,8 +633,6 @@ paths:
                   format: uri
                   example: https://dev.example.com/users/init
                   description: ユーザ初期設定画面のURL
-                authority_type:
-                  type: string
                 email_list:
                   type: array
                   items:
@@ -740,7 +712,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/UserAuthority"
               example:
                 id: 1
                 name: foobar
@@ -763,7 +735,203 @@ paths:
         500:
           description: サーバエラー
 
-  /authority_type/authority_type_header:
+  /user_authority/etl-tools/users:
+    get:
+      tags:
+        - UserAuthority
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 絞り込み条件
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - mail_address
+              - name
+              - authority_type
+              - gs_authority_type
+              - is_administrator
+              - register_date
+            default: mail_address
+          description: ソートキー
+        - name: sort_order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: asc=昇順, desc=降順
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+            default: 10
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            default: 0
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - users
+                  - length
+                  - is_last
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserAuthority"
+                  length:
+                    type: integer
+                    format: int32
+                    description: 検索結果の総件数
+                  is_last:
+                    type: boolean
+              example:
+                users:
+                  - id: "00000000000000000001"
+                    name: "山田 太郎"
+                    mail_address: "yamada.taro@example.com"
+                    authority_type:
+                      value: "0000000001"
+                      label: "権限01"
+                    gs_authority_type:
+                      value: "0000000001"
+                      label: "汎用検索権限01"
+                    is_administrator: true
+                    register_date: "20240101"
+                  - id: "00000000000000000002"
+                    name: "田中 花子"
+                    mail_address: "tanaka.hanako@example.com"
+                    authority_type:
+                      value: "0000000002"
+                      label: "権限02"
+                    gs_authority_type:
+                      value: "0000000002"
+                      label: "汎用検索権限02"
+                    is_administrator: false
+                    register_date: "20231011"
+                length: 48
+                is_last: false
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+    delete:
+      tags:
+        - UserAuthority
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+          description: ユーザーID
+      responses:
+        200:
+          description: 成功
+        401:
+          description: 認証エラー
+        402:
+          description: 認可エラー
+        500:
+          description: サーバエラー
+
+    post:
+      tags:
+        - UserAuthority
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - users
+              properties:
+                users:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/UserAuthority"
+                  example:
+                    - id: "00000000000000000001"
+                      name: "山田 太郎"
+                      mail_address: "yamada.taro@example.com"
+                      authority_type:
+                        value: "0000000001"
+                        label: "権限01"
+                      gs_authority_type:
+                        value: "0000000001"
+                        label: "汎用検索権限01"
+                      is_administrator: true
+                    - id: "00000000000000000002"
+                      name: "田中 花子"
+                      mail_address: "tanaka.hanako@example.com"
+                      authority_type:
+                        value: "0000000002"
+                        label: "権限02"
+                      gs_authority_type:
+                        value: "0000000002"
+                        label: "汎用検索権限02"
+                      is_administrator: false
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /authority_type/etl-tools/authority_type_header:
     get:
       tags:
         - AuthorityType
@@ -886,7 +1054,7 @@ paths:
         500:
           description: サーバエラー
 
-  /authority_type/authority_type_detail:
+  /authority_type/etl-tools/authority_type_detail:
     get:
       tags:
         - AuthorityType
@@ -1071,9 +1239,9 @@ paths:
         500:
           description: サーバエラー
 
-  /pages/users:
+  /pages/authority_type_list:
     get:
-      description: ユーザ管理画面の初期処理
+      description: ユーザ権限マスタ画面の初期処理
       tags:
         - Page
       security:
@@ -1226,7 +1394,7 @@ paths:
         500:
           description: サーバエラー
 
-  /pages/authority_type_list:
+  /pages/authority_level_list:
     get:
       description: 権限タイプマスタ画面の初期処理
       tags:
@@ -1242,14 +1410,14 @@ paths:
               schema:
                 type: object
                 required:
-                  - authority_type_list
+                  - authority_level_list
                 properties:
-                  authority_type_list:
+                  authority_level_list:
                     type: array
                     items:
                       $ref: "#/components/schemas/Authority"
                 example:
-                  authority_type_list:
+                  authority_level_list:
                     - value: "none"
                       label: "権限なし"
                     - value: "only-ref"
@@ -1413,6 +1581,13 @@ paths:
       security:
         - cookieAuth: []
           CSRFToken: []
+      parameters:
+        - name: assigned_service
+          in: query
+          description: "v_zokusei_code.attr3( zokusei = '001' )に対応する" 
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: 成功
@@ -4572,7 +4747,6 @@ paths:
       security:
         - cookieAuth: []
           CSRFToken: []
-      operationId: api.module.PersonHour.controller.post_person_hour_controller
       requestBody:
         required: true
         content:
@@ -4580,17 +4754,275 @@ paths:
             schema:
               type: object
               required:
-                - center_id
-                - work_id
+                - task_id
                 - worker_id
-
+                - status
               properties:
-                center_id:
-                  type: string
-                work_id:
+                task_id:
                   type: string
                 worker_id:
                   type: string
+                status:
+                  type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonHour"
+              example:
+                continuous_days: "3"
+        400:
+          description: バリデーションエラー
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /person_hour/centers:
+    get:
+      description: センター情報
+      tags:
+        - PersonHour
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: center_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: センターコード
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - center_list
+                properties:
+                  center_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Center"
+                example:
+                  center_list:
+                    - value: "CNT00001"
+                      label: "センター1"
+                    - value: "CNT0002"
+                      label: "センター2"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /pages/task_list:
+    get:
+      description: 作業情報
+      tags:
+        - PersonHour
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - category_list
+                properties:
+                  task_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TaskCategory"
+                example:
+                  category_list:
+                    - value: "0001"
+                      label: "作業カテゴリ1"
+                      task_list:
+                        - value: "0001"
+                          label: "作業1"
+                        - value: "0002"
+                          label: "作業2"
+                    - value: "0002"
+                      label: "作業カテゴリ2"
+                      task_list:
+                        - value: "0003"
+                          label: "作業3"
+                        - value: "0004"
+                          label: "作業4"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /person_hour/workers:
+    get:
+      description: 作業スタッフ情報
+      tags:
+        - PersonHour
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - worker_list
+                properties:
+                  worker_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Worker"
+                example:
+                  worker_list:
+                    - value: "WRK00001"
+                      label: "作業者1"
+                      default_language: "ja"
+                    - value: "WRK0002"
+                      label: "作業者2"
+                      default_language: "vi"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /person_hour/detail:
+    get:
+      description: 日毎作業工数取得
+      tags:
+        - PersonHour
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      parameters:
+        - name: worker_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: スタッフID
+        - name: work_date
+          in: query
+          required: false
+          schema:
+            type: string
+          description: 作業日
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - worker_id
+                  - work_date
+                  - task_detail_list
+                properties:
+                  worker_id:
+                    type: string
+                  work_date:
+                    type: string
+                  task_detail_list:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PersonHourDetail"
+                example:
+                  worker_id: "0001"
+                  work_date: "20250131"
+                  task_detail_list:
+                    - task_process_id: 1
+                      task_id: "0002"
+                      stamped_at: "2025/01/31 09:22:38"
+                      status: "started"
+                    - task_process_id: 2
+                      task_id: "0002"
+                      stamped_at: "2025/01/31 18:22:38"
+                      status: "finished"
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+                example: access_token_cookie=abc.def.123; Path=/; HttpOnly
+            set-cookie:
+              description: CSRF token
+              schema:
+                type: string
+                example: csrf_access_token=xyz-123; Path=/
+        401:
+          description: 認証エラー
+        500:
+          description: サーバエラー
+    post:
+      tags:
+        - PersonHour
+      security:
+        - cookieAuth: []
+          CSRFToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - worker_id
+                - work_date
+              properties:
+                worker_id:
+                  type: string
+                work_date:
+                  type: string
+                task_detail_list:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/UpdatePersonHourDetail"
       responses:
         200:
           description: 成功
@@ -4623,6 +5055,7 @@ components:
         - mail_address
         - authority_type
         - is_administrator
+        - is_super_administrator
         - lang_cd
       properties:
         id:
@@ -4637,6 +5070,8 @@ components:
         authority_type:
           $ref: "#/components/schemas/AuthorityType"
         is_administrator:
+          type: boolean
+        is_super_administrator:
           type: boolean
         lang_cd:
           type: string
@@ -4653,9 +5088,7 @@ components:
         - id
         - name
         - mail_address
-        - authority_type
-        - gs_authority_type
-        - is_administrator
+        - is_super_administrator
         - register_date
       properties:
         id:
@@ -4667,11 +5100,7 @@ components:
         mail_address:
           type: string
           format: email
-        authority_type:
-          $ref: "#/components/schemas/AuthorityType"
-        gs_authority_type:
-          $ref: "#/components/schemas/UserGsAuthority"
-        is_administrator:
+        is_super_administrator:
           type: boolean
         register_date:
           type: string
@@ -4705,6 +5134,37 @@ components:
         menu_cd:
           type: string
           nullable: true
+
+    UserAuthority:
+      type: object
+      required:
+        - id
+        - name
+        - mail_address
+        - authority_type
+        - gs_authority_type
+        - is_administrator
+        - register_date
+      properties:
+        id:
+          $ref: "#/components/schemas/UserId"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        mail_address:
+          type: string
+          format: email
+        authority_type:
+          $ref: "#/components/schemas/AuthorityType"
+        gs_authority_type:
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/UserGsAuthority"
+        is_administrator:
+          type: boolean
+        register_date:
+          type: string
 
     AuthorityType:
       type: object
@@ -5805,6 +6265,105 @@ components:
           type: array
           items:
             type: string
+
+    PersonHour:
+      type: object
+      required:
+        - continuous_days
+      properties:
+        continuous_days:
+          type: string
+
+    Center:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+          description: v_center.center_id
+        label:
+          type: string
+          description: v_center.center_name
+
+    TaskCategory:
+      type: object
+      required:
+        - value
+        - label
+        - task_list
+      properties:
+        value:
+          type: string
+          description: v_task_category.task_category_id
+        label:
+          type: string
+          description: v_task_category.task_category_name
+        task_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/Task"
+
+    Task:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+          description: v_task.task_id
+        label:
+          type: string
+          description: v_task.task_name
+
+    Worker:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+          description: v_worker.worker_id
+        label:
+          type: string
+          description: v_worker.worker_name
+        default_language:
+          type: string
+          description: v_worker.default_language
+
+    PersonHourDetail:
+      type: object
+      required:
+        - task_process_id
+        - task_id
+        - stamped_at
+        - status
+      properties:
+        task_process_id:
+          type: string
+        task_id:
+          type: string
+        stamped_at:
+          type: string
+        status:
+          type: string
+
+    UpdatePersonHourDetail:
+      type: object
+      required:
+        - task_id
+        - stamped_at
+        - status
+      properties:
+        task_id:
+          type: string
+        stamped_at:
+          type: string
+        status:
+          type: string
 
   securitySchemes:
     cookieAuth:
