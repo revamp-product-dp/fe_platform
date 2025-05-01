@@ -1,19 +1,31 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { email as validEmail } from "@/validations";
+import { required, email as validEmail } from "@/validations";
+import { useDisableStore } from "@/stores/disableStore";
+import { useRouter } from "vue-router";
 
 const { t } = useI18n();
+const router = useRouter();
 const email = ref("");
-const emailValid = [validEmail()];
+const emailValid = [required(), validEmail()];
 const beforeLabelWidth = "120";
+const disableStore = useDisableStore();
+const signinPagePath = "/signin";
+
 const emit = defineEmits<{
   (e: "done", emailValue: string): void;
 }>();
 
 const send = () => {
+  disableStore.setIsDisabled(true);
   emit("done", email.value);
+  disableStore.setIsDisabled(false);
 };
+
+function navigateToSignin() {
+  router.push(signinPagePath);
+}
 </script>
 
 <template>
@@ -29,6 +41,8 @@ const send = () => {
           :before-label="t('signup.email')"
           :beforeLabelWidth="beforeLabelWidth"
           :rules="emailValid"
+          :disable="disableStore.isDisabled"
+          autofocus
         />
         <q-btn
           fill
@@ -37,12 +51,13 @@ const send = () => {
           type="submit"
           size="md"
           :label="t('signup.button.send')"
+          :disable="disableStore.isDisabled"
         />
       </q-form>
     </q-card>
-    <a href="/home/signin" class="text-primary reset_pass">
-      {{ t("signup.back_link") }}
-    </a>
+    <a href="#" @click.prevent="navigateToSignin" class="text-primary link">{{
+      $t("signup.back_link")
+    }}</a>
   </q-page>
 </template>
 
@@ -79,7 +94,7 @@ const send = () => {
   }
 }
 
-.reset_pass {
+.link {
   max-width: 440px;
   margin: 10px auto 0;
   display: flex;

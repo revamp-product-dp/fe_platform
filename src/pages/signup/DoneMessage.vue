@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+
 const { t } = useI18n();
-const signInPath = "/home/signin";
+const router = useRouter();
+const signinPagePath = "/signin";
+
 defineProps<{
   email: string;
 }>();
+
+function navigateToSignin() {
+  router.push(signinPagePath);
+}
 </script>
 
 <template>
@@ -29,10 +37,9 @@ defineProps<{
         </div>
       </div>
     </q-card>
-    
-    <a :href="signInPath" class="text-primary reset_pass">
-      {{ $t("signup.back_link") }}
-    </a>
+    <a href="#" @click.prevent="navigateToSignin" class="text-primary link">{{
+      $t("signup.back_link")
+    }}</a>
   </q-page>
 </template>
 
@@ -43,7 +50,7 @@ defineProps<{
 }
 
 .card {
-  max-width: 440px;
+  max-width: 550px;
   padding: 30px;
   margin: 0 auto;
 }
@@ -90,8 +97,8 @@ defineProps<{
   }
 }
 
-.reset_pass {
-  max-width: 440px;
+.link {
+  max-width: 550px;
   margin: 10px auto 0;
   display: flex;
   justify-content: flex-end;

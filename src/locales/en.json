@@ -7,19 +7,19 @@
     "signup": "New user registration"
   },
   "signup": {
-    "title": "Registration",
-    "text": "Please enter your email address",
-    "email": "Email Address",
+    "title": "Sign Up",
+    "text": "We will send you a URL by email to set your password.",
+    "email": "E-mail",
     "button": {
-      "send": "Submit"
+      "send": "Register"
     },
-    "back_link": "Return to sign in",
+    "back_link": "back to signin",
     "done": {
-      "title": "Temporary Registration Complete",
-      "text_1": "A confirmation email has been sent to",
-      "text_2": "Please click the URL in the email,",
-      "text_3": "and set your password.",
-      "text_4": "※The URL is valid for 24 hours"
+      "title": "Temporary registration completed",
+      "text_1": "An email has been sent.",
+      "text_2": "Please click the link in the email to set your password.",
+      "text_3": "Your account registration will be completed once you set your password.",
+      "text_4": "※If you don't receive the email, please check your spam folder."
     }
   },
   "header": {
