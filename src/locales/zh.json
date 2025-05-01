@@ -3,7 +3,24 @@
     "signin": "登录",
     "id": "ID",
     "password": "密码",
-    "forgot_password": "如果您忘记了密码，请点击这里"
+    "forgot_password": "如果您忘记了密码，请点击这里",
+    "signup": "新用户注册"
+  },
+  "signup": {
+    "title": "注册",
+    "text": "请输入您的电子邮件地址",
+    "email": "电子邮件地址",
+    "button": {
+      "send": "提交"
+    },
+    "back_link": "返回登录页面",
+    "done": {
+      "title": "临时注册完成",
+      "text_1": "确认邮件已发送至",
+      "text_2": "请点击邮件中的链接，",
+      "text_3": "并设置您的密码。",
+      "text_4": "※链接有效期为24小时"
+    }
   },
   "header": {
     "home": "Home",

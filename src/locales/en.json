@@ -3,7 +3,24 @@
     "signin": "Sign In",
     "id": "ID",
     "password": "Password",
-    "forgot_password": "Click here if you forgot your password"
+    "forgot_password": "Click here if you forgot your password",
+    "signup": "New user registration"
+  },
+  "signup": {
+    "title": "Registration",
+    "text": "Please enter your email address",
+    "email": "Email Address",
+    "button": {
+      "send": "Submit"
+    },
+    "back_link": "Return to sign in",
+    "done": {
+      "title": "Temporary Registration Complete",
+      "text_1": "A confirmation email has been sent to",
+      "text_2": "Please click the URL in the email,",
+      "text_3": "and set your password.",
+      "text_4": "※The URL is valid for 24 hours"
+    }
   },
   "header": {
     "home": "Home",

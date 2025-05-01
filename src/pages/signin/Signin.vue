@@ -14,6 +14,7 @@ const validRequired = [required()];
 const validMailAddress = [required(), email()];
 const beforeLabelWidth = "82";
 const resetPassPagePath = "/etl-tools/password-reset";
+const signupPagePath = "/signup";
 
 const mailAddress = ref("");
 const password = ref("");
@@ -25,6 +26,10 @@ async function signIn() {
   // @ts-ignore TODO: 型不整合の修正（そもそもいらないかも？）
   accountStore.set(res);
   router.push("/");
+}
+
+function navigateToSignup() {
+  router.push(signupPagePath);
 }
 </script>
 
@@ -63,9 +68,14 @@ async function signIn() {
         />
       </q-form>
     </q-card>
-    <a :href="resetPassPagePath" class="text-primary reset_pass">{{
-      $t("signin.forgot_password")
-    }}</a>
+    <div class="links-container">
+      <a :href="resetPassPagePath" class="text-primary link">{{
+        $t("signin.forgot_password")
+      }}</a>
+      <a href="#" @click.prevent="navigateToSignup" class="text-primary link">{{
+        $t("signin.signup")
+      }}</a>
+    </div>
   </q-page>
 </template>
 
@@ -88,7 +98,7 @@ async function signIn() {
   :deep(.q-field__control-container) {
     padding: 0 1px;
   }
-  :deep(.q-field__native) {
+  :deep(.q_field__native) {
     padding: 0px 5px 0px 11px;
     border-radius: 3px;
   }
@@ -97,11 +107,20 @@ async function signIn() {
   }
 }
 
-.reset_pass {
+.links-container {
   max-width: 440px;
   margin: 10px auto 0;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.link {
   text-decoration: underline;
+  margin-bottom: 8px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 </style>
