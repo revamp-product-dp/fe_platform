@@ -5,7 +5,7 @@ import { PageApi as BasePageApi } from "./openapi/api-common";
 import type { SigninUser, ActiveService, Account, UsersPreRegistrationPostRequest } from "./openapi/api-common";
 import Password from "@/helpers/password";
 
-export type { SigninUser, ActiveService };
+export type { SigninUser, ActiveService, UsersPreRegistrationPostRequest };
 
 export class AccountApi {
   private getApi() {

@@ -98,7 +98,7 @@ function navigateToSignup() {
   :deep(.q-field__control-container) {
     padding: 0 1px;
   }
-  :deep(.q_field__native) {
+  :deep(.q-field__native) {
     padding: 0px 5px 0px 11px;
     border-radius: 3px;
   }

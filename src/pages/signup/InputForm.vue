@@ -72,9 +72,13 @@ function navigateToSignin() {
         />
       </q-form>
     </q-card>
-    <a href="#" @click.prevent="navigateToSignin" class="text-primary link">{{
-      $t("signup.back_link")
-    }}</a>
+    <a
+      href="#"
+      @click.prevent="disableStore.isDisabled ? null : navigateToSignin()" 
+      class="text-primary link"
+    >
+      {{ $t("signup.back_link") }}
+    </a>
   </q-page>
 </template>
 
