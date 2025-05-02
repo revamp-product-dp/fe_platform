@@ -735,6 +735,40 @@ paths:
         500:
           description: サーバエラー
 
+  /users/pre-registration:
+    post:
+      description: 送信されたメールアドレスに対し、仮登録メールを送付する
+      tags:
+        - User
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - callback_url
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                  description: 仮登録対象のメールアドレス
+                callback_url:
+                  type: string
+                  format: uri
+                  example: https://dev.example.com/users/init
+                  description: ユーザ初期設定画面のURL
+      responses:
+        200:
+          description: 成功
+        400:
+          description: バリデーションエラー
+        500:
+          description: サーバエラー
+
   /user_authority/etl-tools/users:
     get:
       tags:
@@ -2538,6 +2572,24 @@ paths:
                 example: csrf_access_token=xyz-123; Path=/
         401:
           description: 認証エラー
+        500:
+          description: サーバエラー
+
+  /organization/contract_service_list:
+    get:
+      description: 契約サービスリスト
+      tags:
+        - Organization
+      security: []
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContractServiceSetting"
+              example:
+                service_unit_list: ["FAQ", "ETL", "TRANSLATE"]
         500:
           description: サーバエラー
 
@@ -6261,6 +6313,15 @@ components:
       properties:
         init_menu:
           $ref: "#/components/schemas/InitMenu"
+        service_unit_list:
+          type: array
+          items:
+            type: string
+
+    ContractServiceSetting:
+      description: 契約されているサービス
+      type: object
+      properties:
         service_unit_list:
           type: array
           items:

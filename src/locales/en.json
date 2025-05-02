@@ -3,7 +3,24 @@
     "signin": "Sign In",
     "id": "ID",
     "password": "Password",
-    "forgot_password": "Click here if you forgot your password"
+    "forgot_password": "Click here if you forgot your password",
+    "signup": "New user registration"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "text": "We will send you a URL by email to set your password.",
+    "email": "E-mail",
+    "button": {
+      "send": "Register"
+    },
+    "back_link": "back to signin",
+    "done": {
+      "title": "Temporary registration completed",
+      "text_1": "An email has been sent.",
+      "text_2": "Please click the link in the email to set your password.",
+      "text_3": "Your account registration will be completed once you set your password.",
+      "text_4": "※If you don't receive the email, please check your spam folder."
+    }
   },
   "header": {
     "home": "Home",
