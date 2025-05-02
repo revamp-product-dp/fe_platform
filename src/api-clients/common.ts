@@ -1,7 +1,8 @@
 import { generateConfig } from "./config";
 import { AccountApi as BaseAccountApi } from "./openapi/api-common";
+import { UserApi as BaseUsersApi } from "./openapi/api-common";
 import { PageApi as BasePageApi } from "./openapi/api-common";
-import type { SigninUser, ActiveService, Account } from "./openapi/api-common";
+import type { SigninUser, ActiveService, Account, UsersPreRegistrationPostRequest } from "./openapi/api-common";
 import Password from "@/helpers/password";
 
 export type { SigninUser, ActiveService };
@@ -29,6 +30,18 @@ export class AccountApi {
   async signOut(xCsrfToken: string): Promise<void> {
     const api = this.getApi();
     await api.accountSignoutGet(xCsrfToken);
+  }
+}
+
+export class UserApi {
+  private getUserApi() {
+    const config = generateConfig("common");
+    return new BaseUsersApi(config);
+  }
+
+  async sendPreRegistrationMail(param: UsersPreRegistrationPostRequest): Promise<void> {
+    const api = this.getUserApi();
+    await api.usersPreRegistrationPost(param);
   }
 }
 

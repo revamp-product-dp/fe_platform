@@ -4,6 +4,8 @@ import { useI18n } from "vue-i18n";
 import { required, email as validEmail } from "@/validations";
 import { useDisableStore } from "@/stores/disableStore";
 import { useRouter } from "vue-router";
+import { UserApi } from "@/api-clients/common";
+import type { UsersPreRegistrationPostRequest } from "@/api-clients/common";
 
 const { t } = useI18n();
 const router = useRouter();
@@ -12,15 +14,30 @@ const emailValid = [required(), validEmail()];
 const beforeLabelWidth = "120";
 const disableStore = useDisableStore();
 const signinPagePath = "/signin";
+const passwordSettingPagePath = "/etl-tools/password-setting";
 
 const emit = defineEmits<{
   (e: "done", emailValue: string): void;
 }>();
 
-const send = () => {
+const send = async () => {
   disableStore.setIsDisabled(true);
+  const url = window.location.origin + passwordSettingPagePath;
+  await sendMail(email.value, url);
   emit("done", email.value);
   disableStore.setIsDisabled(false);
+};
+
+const sendMail = async (email: string, url: string): Promise<void> => {
+  const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
+  await sleep(1500);
+
+  const api = new UserApi();
+  const param: UsersPreRegistrationPostRequest = {
+    email: email,
+    callback_url: url,
+  };
+  await api.sendPreRegistrationMail(param);
 };
 
 function navigateToSignin() {
