@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { AccountApi } from "@/api-clients/common";
-import { ref } from "vue";
+import { OrganizationApi } from "@/api-clients/common";
+import { ref, onMounted } from "vue";
 import { required, email } from "@/validations/index";
 import { useRouter } from "vue-router";
 import { useAccountStore } from "@/stores/useAccountStore";
 import { useDisableStore } from "@/stores/disableStore";
 
 const accountApi = new AccountApi();
+const organizationApi = new OrganizationApi();
 const router = useRouter();
 const accountStore = useAccountStore();
 const disableStore = useDisableStore();
@@ -16,8 +18,13 @@ const beforeLabelWidth = "82";
 const resetPassPagePath = "/etl-tools/password-reset";
 const signupPagePath = "/signup";
 
+const showSignupLink = ref(false);
 const mailAddress = ref("");
 const password = ref("");
+
+onMounted(() => {
+  checkContractService();
+});
 
 async function signIn() {
   disableStore.setIsDisabled(true);
@@ -26,6 +33,12 @@ async function signIn() {
   // @ts-ignore TODO: 型不整合の修正（そもそもいらないかも？）
   accountStore.set(res);
   router.push("/");
+}
+
+async function checkContractService() {
+  const res = await organizationApi.getOrganizationContractServiceList();
+  const data = res.service_unit_list || []
+  showSignupLink.value = data.includes("TRANSLATE");
 }
 
 function navigateToSignup() {
@@ -72,7 +85,7 @@ function navigateToSignup() {
       <a :href="resetPassPagePath" class="text-primary link">{{
         $t("signin.forgot_password")
       }}</a>
-      <a href="#" @click.prevent="navigateToSignup" class="text-primary link">{{
+      <a v-if="showSignupLink" href="#" @click.prevent="navigateToSignup" class="text-primary link">{{
         $t("signin.signup")
       }}</a>
     </div>
