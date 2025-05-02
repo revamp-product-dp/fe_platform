@@ -711,6 +711,19 @@ export interface ConnectTypeList {
     'db_type_list'?: Array<string> | null;
 }
 /**
+ * 契約されているサービス
+ * @export
+ * @interface ContractServiceSetting
+ */
+export interface ContractServiceSetting {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ContractServiceSetting
+     */
+    'service_unit_list'?: Array<string>;
+}
+/**
  * 
  * @export
  * @interface Dashboard
@@ -2984,6 +2997,25 @@ export interface UsersPostRequest {
      * @memberof UsersPostRequest
      */
     'users': Array<User>;
+}
+/**
+ * 
+ * @export
+ * @interface UsersPreRegistrationPostRequest
+ */
+export interface UsersPreRegistrationPostRequest {
+    /**
+     * 仮登録対象のメールアドレス
+     * @type {string}
+     * @memberof UsersPreRegistrationPostRequest
+     */
+    'email': string;
+    /**
+     * ユーザ初期設定画面のURL
+     * @type {string}
+     * @memberof UsersPreRegistrationPostRequest
+     */
+    'callback_url': string;
 }
 /**
  * 
@@ -6624,6 +6656,35 @@ export const OrganizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * 契約サービスリスト
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        organizationContractServiceListGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/organization/contract_service_list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6862,6 +6923,17 @@ export const OrganizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * 契約サービスリスト
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async organizationContractServiceListGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContractServiceSetting>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.organizationContractServiceListGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationApi.organizationContractServiceListGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6950,6 +7022,14 @@ export const OrganizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.organizationActiveServiceGet(serviceName, options).then((request) => request(axios, basePath));
         },
         /**
+         * 契約サービスリスト
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        organizationContractServiceListGet(options?: RawAxiosRequestConfig): AxiosPromise<ContractServiceSetting> {
+            return localVarFp.organizationContractServiceListGet(options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7019,6 +7099,16 @@ export class OrganizationApi extends BaseAPI {
      */
     public organizationActiveServiceGet(serviceName: string, options?: RawAxiosRequestConfig) {
         return OrganizationApiFp(this.configuration).organizationActiveServiceGet(serviceName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 契約サービスリスト
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationApi
+     */
+    public organizationContractServiceListGet(options?: RawAxiosRequestConfig) {
+        return OrganizationApiFp(this.configuration).organizationContractServiceListGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8837,6 +8927,41 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 送信されたメールアドレスに対し、仮登録メールを送付する
+         * @param {UsersPreRegistrationPostRequest} usersPreRegistrationPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersPreRegistrationPost: async (usersPreRegistrationPostRequest: UsersPreRegistrationPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'usersPreRegistrationPostRequest' is not null or undefined
+            assertParamExists('usersPreRegistrationPost', 'usersPreRegistrationPostRequest', usersPreRegistrationPostRequest)
+            const localVarPath = `/users/pre-registration`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(usersPreRegistrationPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -8924,6 +9049,18 @@ export const UserApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['UserApi.usersPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 送信されたメールアドレスに対し、仮登録メールを送付する
+         * @param {UsersPreRegistrationPostRequest} usersPreRegistrationPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersPreRegistrationPost(usersPreRegistrationPostRequest: UsersPreRegistrationPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersPreRegistrationPost(usersPreRegistrationPostRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserApi.usersPreRegistrationPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -8992,6 +9129,15 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          */
         usersPost(usersPostRequest: UsersPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.usersPost(usersPostRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 送信されたメールアドレスに対し、仮登録メールを送付する
+         * @param {UsersPreRegistrationPostRequest} usersPreRegistrationPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersPreRegistrationPost(usersPreRegistrationPostRequest: UsersPreRegistrationPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.usersPreRegistrationPost(usersPreRegistrationPostRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9072,6 +9218,17 @@ export class UserApi extends BaseAPI {
      */
     public usersPost(usersPostRequest: UsersPostRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).usersPost(usersPostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 送信されたメールアドレスに対し、仮登録メールを送付する
+     * @param {UsersPreRegistrationPostRequest} usersPreRegistrationPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public usersPreRegistrationPost(usersPreRegistrationPostRequest: UsersPreRegistrationPostRequest, options?: RawAxiosRequestConfig) {
+        return UserApiFp(this.configuration).usersPreRegistrationPost(usersPreRegistrationPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
