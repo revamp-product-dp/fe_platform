@@ -1,10 +1,12 @@
 import { generateConfig } from "./config";
 import { AccountApi as BaseAccountApi } from "./openapi/api-common";
+import { UserApi as BaseUserApi } from "./openapi/api-common";
+import { OrganizationApi as BaseOrganizationApi } from "./openapi/api-common";
 import { PageApi as BasePageApi } from "./openapi/api-common";
-import type { SigninUser, ActiveService, Account } from "./openapi/api-common";
+import type { SigninUser, ActiveService, Account, UsersPreRegistrationPostRequest, ContractServiceSetting } from "./openapi/api-common";
 import Password from "@/helpers/password";
 
-export type { SigninUser, ActiveService };
+export type { SigninUser, ActiveService, UsersPreRegistrationPostRequest, ContractServiceSetting };
 
 export class AccountApi {
   private getApi() {
@@ -29,6 +31,32 @@ export class AccountApi {
   async signOut(xCsrfToken: string): Promise<void> {
     const api = this.getApi();
     await api.accountSignoutGet(xCsrfToken);
+  }
+}
+
+export class UserApi {
+  private getUserApi() {
+    const config = generateConfig("common");
+    return new BaseUserApi(config);
+  }
+
+  async sendPreRegistrationMail(param: UsersPreRegistrationPostRequest): Promise<void> {
+    const api = this.getUserApi();
+    await api.usersPreRegistrationPost(param);
+  }
+}
+
+export class OrganizationApi {
+  private getOrganizationApi() {
+    const config = generateConfig("common");
+    return new BaseOrganizationApi(config);
+  }
+
+  async getOrganizationContractServiceList(): Promise<ContractServiceSetting> {
+    const api = this.getOrganizationApi();
+    const res = await api.organizationContractServiceListGet();
+
+    return res.data;
   }
 }
 

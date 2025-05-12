@@ -6,7 +6,7 @@ import zh from "@/locales/zh.json";
 // メッセージの型を定義
 type MessageSchema = typeof ja;
 
-const i18n = createI18n<[MessageSchema], "ja" | "en" | "zh">({
+const i18n = createI18n<[MessageSchema], "ja" | "en" | "zh", false>({
   legacy: false,
   locale: "ja",
   globalInjection: true,
@@ -18,3 +18,9 @@ const i18n = createI18n<[MessageSchema], "ja" | "en" | "zh">({
 });
 
 export default i18n;
+
+export class SettingLocale {
+  changeLocale(selectedLocale: "ja" | "en" | "zh"): void {
+    i18n.global.locale.value = selectedLocale;
+  }
+}
