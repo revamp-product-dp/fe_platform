@@ -4,9 +4,12 @@ import { OrganizationApi } from "@/api-clients/common";
 import { ref, onMounted } from "vue";
 import { required, email } from "@/validations/index";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { useAccountStore } from "@/stores/useAccountStore";
 import { useDisableStore } from "@/stores/disableStore";
+import Notify from "@/helpers/notify";
 
+const { t } = useI18n();
 const accountApi = new AccountApi();
 const organizationApi = new OrganizationApi();
 const router = useRouter();
@@ -27,12 +30,30 @@ onMounted(() => {
 });
 
 async function signIn() {
-  disableStore.setIsDisabled(true);
-  const res = await accountApi.signIn(mailAddress.value, password.value);
-  disableStore.setIsDisabled(false);
-  // @ts-ignore TODO: 型不整合の修正（そもそもいらないかも？）
-  accountStore.set(res);
-  router.push("/");
+  try {
+    disableStore.setIsDisabled(true);
+    const res = await accountApi.signIn(mailAddress.value, password.value);
+    // @ts-ignore TODO: 型不整合の修正（そもそもいらないかも？）
+    accountStore.set(res);
+    router.push("/");
+  } catch (error: unknown) {
+    // エラーハンドリング
+    let errorMessage = "";
+    if (error.response?.status === 401) {
+      // 401エラーの場合
+      errorMessage = t("notify.auth_error");
+    } else if (error.response?.status >= 500) {
+      // サーバーエラーの場合
+      errorMessage = t("notify.server_error");
+    } else {
+      // その他のエラー
+      errorMessage = t("notify.general_error");
+    }
+    // エラー通知を表示
+    Notify.negative(`${errorMessage}`);
+  } finally {
+    disableStore.setIsDisabled(false);
+  }
 }
 
 async function checkContractService() {
