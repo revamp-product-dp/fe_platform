@@ -95,6 +95,21 @@ function formatDate(timestamp: string) {
         <q-tooltip>{{ service.label }}{{ $t("home.open") }}</q-tooltip>
       </q-btn>
     </div>
+    <div class="button_grid">
+      <q-btn
+        v-for="service in activeServiceList"
+        :key="service.value"
+        :label="service.label"
+        :href="getServicePath(service.value)"
+        :icon="getIconName(service.value)"
+        class="service_button"
+        flat
+        stack
+        unelevated
+      >
+        <q-tooltip>{{ service.label }}{{ $t("home.open") }}</q-tooltip>
+      </q-btn>
+    </div>
         <!-- お知らせセクション -->
         <div class="information-section q-mb-xl">
       <div class="section-header q-mb-md">
