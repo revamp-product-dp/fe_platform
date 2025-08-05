@@ -6,9 +6,23 @@ import zh from "@/locales/zh.json";
 // メッセージの型を定義
 type MessageSchema = typeof ja;
 
+
+// ブラウザの言語を検出する関数
+function getBrowserLocale(): string {
+  const browserLocale = navigator.language || navigator.languages[0];
+  
+  // ブラウザのロケールを対応する言語にマッピング
+  if (browserLocale.startsWith('ja')) return 'ja';
+  if (browserLocale.startsWith('en')) return 'en';
+  if (browserLocale.startsWith('zh')) return 'zh';
+  
+  // デフォルトは日本語
+  return 'ja';
+}
+
 const i18n = createI18n<[MessageSchema], "ja" | "en" | "zh", false>({
   legacy: false,
-  locale: "ja",
+  locale: getBrowserLocale(), // ブラウザの言語を自動検出
   globalInjection: true,
   messages: {
     ja,
