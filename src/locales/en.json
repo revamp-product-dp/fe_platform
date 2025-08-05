@@ -65,6 +65,9 @@
         "action": "Update",
         "cancel": "Cancel"
       }
-    }
+    },
+    "auth_error": "E-mail or Password is wrong.",
+    "server_error": "A server error occurred. Please try again later.",
+    "general_error": "An error occurred. Please try again."
   }
 }
