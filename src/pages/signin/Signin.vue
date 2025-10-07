@@ -40,8 +40,14 @@ async function signIn() {
     // エラーハンドリング
     let errorMessage = "";
     if (error.response?.status === 401) {
-      // 401エラーの場合
-      errorMessage = t("notify.auth_error");
+      // 401エラーはログイン失敗（残り試行回数警告含む）
+      const errorMsg = error.response?.data?.msg || error.message || "";
+      // 残り試行回数が含まれている場合はそのメッセージを表示、そうでなければ通常の認証エラー
+      errorMessage = errorMsg.includes(t("notify.attempts_remaining")) ? errorMsg : t("notify.auth_error");
+    } else if (error.response?.status === 403) {
+      // 403エラー時はアカウントロックと判定してパスワードリセット画面へ遷移
+      errorMessage = error.response?.data?.msg || error.message || t("notify.account_locked");
+      window.location.href = resetPassPagePath;
     } else if (error.response?.status >= 500) {
       // サーバーエラーの場合
       errorMessage = t("notify.server_error");
