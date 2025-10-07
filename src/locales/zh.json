@@ -67,6 +67,8 @@
       }
     },
     "auth_error": "电子邮件地址或密码不正确",
+    "account_locked": "账户已被锁定。正在跳转到密码重置页面。",
+    "attempts_remaining": "attempts remaining",
     "server_error": "服务器错误。请稍后重试。",
     "general_error": "发生错误。请重试。"
   }
