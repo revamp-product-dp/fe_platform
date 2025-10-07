@@ -39,7 +39,6 @@ async function signIn() {
   } catch (error: unknown) {
     // エラーハンドリング
     let errorMessage = "";
-    
     if (error.response?.status === 401) {
       // アカウントロックかログイン失敗かをエラーメッセージで判定
       const errorMsg = error.response?.data?.msg || error.message || "";
@@ -65,7 +64,6 @@ async function signIn() {
       // その他のエラー
       errorMessage = t("notify.general_error");
     }
-    
     // エラー通知を表示
     Notify.negative(`${errorMessage}`);
   } finally {
