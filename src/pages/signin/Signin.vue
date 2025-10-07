@@ -39,37 +39,35 @@ async function signIn() {
   } catch (error: unknown) {
     // エラーハンドリング
     let errorMessage = "";
+    
     if (error.response?.status === 401) {
       // アカウントロックかログイン失敗かをエラーメッセージで判定
       const errorMsg = error.response?.data?.msg || error.message || "";
       if (errorMsg.includes("Account is locked") || errorMsg.includes("locked due to too many") || errorMsg.includes("minutes")) {
         // アカウントロック時はパスワードリセット画面へ自動遷移
         errorMessage = t("notify.account_locked");
-        Notify.negative(`${errorMessage}`);
         window.location.href = resetPassPagePath;
       } else if (errorMsg.includes("attempts remaining")) {
         // 残り試行回数警告
         errorMessage = errorMsg;
-        Notify.negative(`${errorMessage}`);
       } else {
         // 通常の401エラーの場合
         errorMessage = t("notify.auth_error");
-        Notify.negative(`${errorMessage}`);
       }
     } else if (error.response?.status === 403) {
       // 403エラー時はアカウントロックと判定してパスワードリセット画面へ遷移
       errorMessage = error.response?.data?.msg || error.message || t("notify.account_locked");
-      Notify.negative(`${errorMessage}`);
       window.location.href = resetPassPagePath;
     } else if (error.response?.status >= 500) {
       // サーバーエラーの場合
       errorMessage = t("notify.server_error");
-      Notify.negative(`${errorMessage}`);
     } else {
       // その他のエラー
       errorMessage = t("notify.general_error");
-      Notify.negative(`${errorMessage}`);
     }
+    
+    // エラー通知を表示
+    Notify.negative(`${errorMessage}`);
   } finally {
     disableStore.setIsDisabled(false);
   }
