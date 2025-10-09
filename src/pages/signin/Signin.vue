@@ -41,12 +41,24 @@ async function signIn() {
     let errorMessage = "";
     if (error.response?.status === 401) {
       // 401エラーはログイン失敗（残り試行回数警告含む）
-      const errorMsg = error.response?.data?.msg || error.message || "";
-      // バックエンドから多言語メッセージが返されるので、そのまま表示
-      errorMessage = errorMsg || t("notify.auth_error");
+      const errorMsg = error.response?.data?.detail || error.response?.data?.msg || error.message || "";
+      
+      // バックエンドからのメッセージに基づいてフロントエンドで多言語対応
+      if (errorMsg.includes("attempts remaining")) {
+        // 残り試行回数警告メッセージ
+        const remainingAttempts = errorMsg.match(/(\d+)\s+attempts remaining/)?.[1] || "5";
+        errorMessage = t("notify.attempts_remaining_message", { count: remainingAttempts });
+      } else if (errorMsg.includes("Invalid password")) {
+        // 通常のログイン失敗メッセージ
+        errorMessage = t("notify.auth_error");
+      } else {
+        // フォールバック
+        errorMessage = errorMsg || t("notify.auth_error");
+      }
     } else if (error.response?.status === 403) {
       // 403エラー時はアカウントロックと判定してパスワードリセット画面へ遷移
-      errorMessage = error.response?.data?.msg || error.message || t("notify.account_locked");
+      // エラーメッセージは通常のログイン失敗と同じ
+      errorMessage = t("notify.auth_error");
       window.location.href = resetPassPagePath;
     } else if (error.response?.status >= 500) {
       // サーバーエラーの場合

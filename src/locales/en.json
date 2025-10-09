@@ -67,8 +67,7 @@
       }
     },
     "auth_error": "E-mail or Password is wrong.",
-    "account_locked": "Account has been locked. Redirecting to password reset screen.",
-    "attempts_remaining": "attempts remaining",
+    "attempts_remaining_message": "E-mail or Password is wrong. {count} attempts remaining.",
     "server_error": "A server error occurred. Please try again later.",
     "general_error": "An error occurred. Please try again."
   }
