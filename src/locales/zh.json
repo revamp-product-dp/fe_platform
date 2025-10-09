@@ -68,6 +68,7 @@
     },
     "auth_error": "电子邮件地址或密码不正确",
     "attempts_remaining_message": "电子邮件地址或密码不正确。还有{count}次尝试机会。",
+    "account_locked_error": "电子邮件地址或密码不正确。\n请从「如果您忘记了密码，请点击这里」重置密码。",
     "server_error": "服务器错误。请稍后重试。",
     "general_error": "发生错误。请重试。"
   }
