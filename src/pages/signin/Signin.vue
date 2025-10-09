@@ -57,9 +57,8 @@ async function signIn() {
       }
     } else if (error.response?.status === 403) {
       // 403エラー時はアカウントロックと判定してパスワードリセット画面へ遷移
-      // エラーメッセージは通常のログイン失敗と同じ
-      errorMessage = t("notify.auth_error");
-      window.location.href = resetPassPagePath;
+      // エラーメッセージはパスワードリセット案内を含む
+      errorMessage = t("notify.account_locked_error");
     } else if (error.response?.status >= 500) {
       // サーバーエラーの場合
       errorMessage = t("notify.server_error");
