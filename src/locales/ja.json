@@ -66,8 +66,7 @@
       }
     },
     "auth_error": "メールアドレスまたはパスワードが間違っています",
-    "account_locked": "アカウントがロックされました。パスワードリセット画面に遷移します。",
-    "attempts_remaining": "attempts remaining",
+    "attempts_remaining_message": "メールアドレスまたはパスワードが間違っています。あと{count}回試行できます。",
     "server_error": "サーバーエラーが発生しました。しばらく時間をおいて再度お試しください。",
     "general_error": "エラーが発生しました。再度お試しください。"
   }
