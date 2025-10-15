@@ -40,8 +40,25 @@ async function signIn() {
     // エラーハンドリング
     let errorMessage = "";
     if (error.response?.status === 401) {
-      // 401エラーの場合
-      errorMessage = t("notify.auth_error");
+      // 401エラーはログイン失敗（残り試行回数警告含む）
+      const errorMsg = error.response?.data?.detail || error.response?.data?.msg || error.message || "";
+      
+      // バックエンドからのメッセージに基づいてフロントエンドで多言語対応
+      if (errorMsg.includes("attempts remaining")) {
+        // 残り試行回数警告メッセージ
+        const remainingAttempts = errorMsg.match(/(\d+)\s+attempts remaining/)?.[1] || "5";
+        errorMessage = t("notify.attempts_remaining_message", { count: remainingAttempts });
+      } else if (errorMsg.includes("Invalid password")) {
+        // 通常のログイン失敗メッセージ
+        errorMessage = t("notify.auth_error");
+      } else {
+        // フォールバック
+        errorMessage = errorMsg || t("notify.auth_error");
+      }
+    } else if (error.response?.status === 403) {
+      // 403エラー時はアカウントロックと判定してパスワードリセット画面へ遷移
+      // エラーメッセージはパスワードリセット案内を含む
+      errorMessage = t("notify.account_locked_error");
     } else if (error.response?.status >= 500) {
       // サーバーエラーの場合
       errorMessage = t("notify.server_error");
